@@ -60,6 +60,8 @@ Route::group(['middleware' => 'web'], function () {
     });
     route::post('register', 'User\UserController@insert');
     Route::get('social/profile','User\UserController@index');
+
+//    Route::post('social/new','User\UserController@update');
     Route::post('social/update','User\UserController@update');
     Route::post('social/newpost','social\SocialController@uploadPost');
 

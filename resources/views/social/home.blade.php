@@ -33,12 +33,12 @@
                                 {{--{{ dd($status->id) }}--}}
 
                                 <div class="panel panel-info">
-                                    <div class="panel-heading">{{ $user->name }}</div>
+                                    <div class="panel-heading">{{ $user->name }} {{ $status->created_at }}</div>
 
                                     <div class="panel-body">
                                         <div class="row">
                                             <div class="col-md-1">
-                                                <img src="/profile/{{ $user->image }}" class="img-responsive">
+                                                <img src="/uploads/{{ $user->image }}" class="img-responsive">
                                             </div>
 
                                             <div class="col-md-11">
@@ -69,8 +69,14 @@
                                                 @endif
                                             </div>
 
+
+
+
                                             <div class="col-md-12">
-                                            <hr>
+
+                                                <hr>
+
+
                                             <ul class="list-unstyled list-inline">
                                                 <li>
                                                     <button class="btn btn-xs btn-info" type="button" data-toggle="modal" data-target="#view-comments-{{ $status->id }}" aria-expanded="false" aria-controls="view-comments-{{ $status->id }}"><i class="fa fa-comments-o"></i>View & Comment</button>
@@ -87,7 +93,16 @@
                                                                              @if($user->id == $comment->user_id)
                                                                                 <div class="row">
                                                                                     <div class="col-md-1">
-                                                                                        <img src="/profile/{{ $user->image }}" class="img-responsive">
+                                                                                        <img src="/uploads/{{ $user->image }}" class="img-responsive">
+                                                                                    </div>
+                                                                                    <div class="col-md-11">
+                                                                                        <p> {{ $comment->comment_text }}</p>
+                                                                                    </div>
+                                                                                </div>
+                                                                             @else
+                                                                                <div class="row">
+                                                                                    <div class="col-md-1">
+                                                                                        <img src="/uploads/{{ Auth::user()->image}}" class="img-responsive">
                                                                                     </div>
                                                                                     <div class="col-md-11">
                                                                                         <p> {{ $comment->comment_text }}</p>
@@ -115,7 +130,32 @@
                                                     {!! Form::close() !!}
                                                 </li>
                                             </ul>
+                                                @foreach($comments as $comment)
+                                                    @if($comment->statusid == $status->id )
+                                                        @if($user->id == $comment->user_id)
+                                                            <div class="row">
+                                                                <div class="col-md-1">
+                                                                    <img src="/uploads/{{ $user->image }}" class="img-responsive">
+                                                                </div>
+                                                                <div class="col-md-11">
+                                                                    <p> {{ $comment->comment_text }}</p>
+                                                                </div>
+                                                            </div>
+                                                        @else
+                                                            <div class="row">
+                                                                <div class="col-md-1">
+                                                                    <img src="/uploads/{{ Auth::user()->image}}" class="img-responsive">
+                                                                </div>
+                                                                <div class="col-md-11">
+                                                                    <p> {{ $comment->comment_text }}</p>
+                                                                </div>
+                                                            </div>
+                                                        @endif
+                                                    @endif
+                                                @endforeach
+
                                             </div>
+
                                         </div>
                                     </div>
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\users;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -17,17 +18,18 @@ class UserProfileController extends Controller
 
     public function profilepicture(Request $request){
         $image =$request->file('image');
+        $imageName = $image->getClientOriginalName();
+        $destination = 'uploads';
+        $image->move($destination, $imageName);
+        $pic =users::create([ 'image' => $imageName]);
+        return Redirect::to('commom.profile')->with('pic',$pic);
 
-            $imageName = $image->getClientOriginalName();
-            $destination = 'uploads';
-            $image->move($destination, $imageName);
-            $pic= DB::table('users')
-                ->insert([ 'image' => $imageName]);
-            return Redirect::to('commom.profile')->with('pic',$pic);
+    }
 
+    public function updateprofile(){
 
+    }
 
-        }
 }
 
 

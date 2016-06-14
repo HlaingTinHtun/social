@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Requests;
+use Illuminate\Http\Request;
 
-use App\Http\Requests\Request;
+
 
 class UserRequest extends Request
 {
@@ -26,9 +27,9 @@ class UserRequest extends Request
         return [
 
 
-            'name' => 'required|string',
+            'name' => 'required',
             'image'=>'required',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:users',
             'password' => 'required|'
 
 

@@ -8,18 +8,23 @@
                 <div class="row">
                     {!! Form::open(array('url' => 'social/update','method' => 'post', 'files' =>'true')) !!}
                         <div class="col-md-4">
-                            <img src="/profile/{{ Auth::user()->image}}" style="width:150px; height:150px;">
+                            <img src="/uploads/{{ Auth::user()->image}}" style="width:150px; height:150px;">
                             <input type="file" id="image" name="image">
                         </div>
 
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+
+
                         <div class="col-md-8">
+
+                            <input type="hidden" class="form-control"  name='id' value="{{ Auth::user()->id }}">
 
                             <div class="form-group">
                                 <label  class="col-sm-2 control-label ">Name</label>
                                 <div class="col-sm-10">
-                                    <input type="hidden" class="form-control"  name='id'>
-
-                                    <input type="text" class="form-control" id="title" name='title' placeholder="Title" value="{{Auth::user()->name}}" required>
+                                    <input type="text" class="form-control" id="title" name='name' placeholder="Title" value="{{Auth::user()->name}}" required>
                                     <p class="text-danger">{{$errors->first('title')}}</p>
                                 </div>
                             </div>
@@ -28,7 +33,7 @@
                             <div class="form-group">
                                 <label for="inputEmail3" class="col-sm-2 control-label ">Email</label>
                                 <div class="col-sm-10">
-                                    <input type='text' class="form-control" name="email" value="{{ Auth::user()->email }}">
+                                    <input type='text' class="form-control" name="email" value="{{ Auth::user()->email }}" readonly="true">
                                     <p class="text-danger">{{$errors->first('status')}}</p>
                                 </div>
                             </div>

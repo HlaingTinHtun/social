@@ -24,8 +24,6 @@ class UserController extends Controller
 
     public function index(){
         $articlelist =$this->articleRepository->getallArticle();
-        //dd($articlelist);
-        //return view('home', compact('articlelist'));
         return view('home')->with('articlelist',$articlelist);
     }
 

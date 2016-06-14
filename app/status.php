@@ -9,6 +9,8 @@ class status extends Model
     public $timestamps =true;
     protected $table='users_status';
     protected $guarded =['id'];
+    protected $dates = ['created_at'];
+
 
 
 

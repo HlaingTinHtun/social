@@ -9,25 +9,37 @@
 namespace App\Repository;
 
 
-use Illuminate\Support\Facades\DB;
+use App\users;
+
 
 class UserRepository implements UserRepositoryInterface{
 
 
+
+    public function __construct(Users $users)
+
+    {
+
+        $this->users =$users;
+
+
+
+    }
     public function insert($name,$imageName,$email,$password){
-        DB::table('users')
-            ->insert(['name'=>$name,'image'=>$imageName,'email'=>$email,'password'=>$password]);
+       $this->users->create(['name'=>$name,'image'=>$imageName,'email'=>$email,'password'=>$password]);
 //
 
     }
-    public function allupdate($id,$name,$imageName,$email){
-        DB::table('users')->where('id','=',$id)
-            ->update(['name'=>$name,'image'=>$imageName,'email'=>$email]);
+    public function allupdate($id,$name,$imageName){
+
+        $this->users->where('id','=',$id)
+            ->update(['name'=>$name,'image'=>$imageName]);
     }
 
-    public function update($name,$email){
-        DB::table('users')
-            ->update(['name'=>$name,'email'=>$email]);
+    public function update($id,$name){
+
+
+      $this->users->where('id','=',$id)->update(['name'=>$name]);
     }
 
 }

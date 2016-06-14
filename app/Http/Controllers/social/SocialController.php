@@ -49,8 +49,7 @@ class SocialController extends Controller
                 $imageName = $image->getClientOriginalName();
                 $destination = 'uploads';
                 $image->move($destination, $imageName);
-                DB::table('users_status')
-                    ->insert(['status_text' => $text, 'image' => $imageName, 'users_id' => $users_id]);
+               status::create(['status_text' => $text, 'image' => $imageName, 'users_id' => $users_id]);
 
             } else {
                 status::create(['status_text' => $text, 'users_id' => $users_id]);
@@ -93,8 +92,7 @@ class SocialController extends Controller
         $user_id = Auth::user()->id;
         $status_id = Input::get('status_id');
 
-        DB::table('users_status_comment')
-            ->insert(['comment_text' => $status, 'status-id' => $status_id, 'user_id' => $user_id,]);
+        statuscomment::create(['comment_text' => $status, 'status-id' => $status_id, 'user_id' => $user_id,]);
 
         $status = status::all();
 
@@ -124,8 +122,7 @@ class SocialController extends Controller
         $user_id = Auth::user()->id;
         $status_id = Input::get('status_id');
 
-        DB::table('users_status_comment')
-            ->insert(['comment_text' => $status, 'status-id' => $status_id, 'user_id' => $user_id,]);
+        statuscomment::create(['comment_text' => $status, 'status-id' => $status_id, 'user_id' => $user_id,]);
 
         $status = status::all();
 
@@ -137,7 +134,10 @@ class SocialController extends Controller
 
                 $comment = statuscomment::select('id', 'comment_text', 'status-id as statusid', 'user_id', 'created_at', 'updated_at')->get();
 
-                return Redirect::to('home')->with('posts', $post)->with('comments', $comment);
+                $last =statuscomment::orderBy('id', 'desc')->first();
+
+
+            return Redirect::to('home')->with('posts', $post)->with('comments', $comment)->with('last',$last);
 //            }
         }
 

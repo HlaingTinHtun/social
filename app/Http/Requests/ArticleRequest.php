@@ -35,7 +35,7 @@ class ArticleRequest extends Request
     {
         return [
             'title.required' => 'Title is required!',
-            'image.required' => 'Please upload photoor music or video!',
+            'image.required' => 'Please upload photo or music or video!',
             'status.required' => 'Please fill out status!',
 
 

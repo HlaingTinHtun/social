@@ -36,7 +36,7 @@
                         <div class="panel-body">
                             <div cladd="row">
                                 <div class="col-md-1">
-                                    <img src="/profile/{{ Auth::user()->image }}" class="img-responsive">
+                                    <img src="/uploads/{{ Auth::user()->image }}" class="img-responsive">
                                 </div>
                                 <div class="col-md-11">
                                     <p>{{ $status->status_text }}</p>
@@ -93,7 +93,7 @@
                                                                 @if($comment->statusid == $status->id )
                                                                     <div class="row">
                                                                         <div class="col-md-1">
-                                                                            <img src="/profile/{{ Auth::user()->image }}" class="img-responsive">
+                                                                            <img src="/uploads/{{ Auth::user()->image }}" class="img-responsive">
                                                                         </div>
                                                                         <div class="col-md-11">
                                                                             <p> {{ $comment->comment_text }}</p>
