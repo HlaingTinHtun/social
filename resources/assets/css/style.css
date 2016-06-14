@@ -1,0 +1,26 @@
+.bcolor{
+    background-color: #a6e1ec;
+}
+/* For Accordion */
+.multiselect {
+    /*margin-top: px;*/
+    margin-left: 59px;
+    width:20em;
+    height:10em;
+    border:solid 1px #c0c0c0;
+    overflow:auto;
+}
+
+.multiselect label {
+    display:block;
+}
+
+.list-style{
+    list-style: none;
+}
+#accordion{
+    cursor: pointer;
+}
+.accordion-content{
+    display: none;
+}
