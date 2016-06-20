@@ -82,8 +82,8 @@
       <file leaf-file-name="home.blade.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/social/home.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="2.5033112" vertical-offset="0" max-vertical-offset="3330">
-              <caret line="105" column="90" selection-start-line="105" selection-start-column="90" selection-end-line="105" selection-end-column="90" />
+            <state vertical-scroll-proportion="0.30993378" vertical-offset="2106" max-vertical-offset="3330">
+              <caret line="130" column="0" selection-start-line="130" selection-start-column="0" selection-end-line="130" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -152,9 +152,9 @@
         <option value="$PROJECT_DIR$/app/Http/Controllers/User/UserController.php" />
         <option value="$PROJECT_DIR$/app/Http/routes.php" />
         <option value="$PROJECT_DIR$/app/Http/Controllers/social/SocialController.php" />
-        <option value="$PROJECT_DIR$/resources/views/social/home.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/auth/register.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/social/social.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/social/home.blade.php" />
       </list>
     </option>
   </component>
@@ -810,8 +810,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/views/social/home.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.5033112" vertical-offset="0" max-vertical-offset="3330">
-          <caret line="105" column="90" selection-start-line="105" selection-start-column="90" selection-end-line="105" selection-end-column="90" />
+        <state vertical-scroll-proportion="0.30993378" vertical-offset="2106" max-vertical-offset="3330">
+          <caret line="130" column="0" selection-start-line="130" selection-start-column="0" selection-end-line="130" selection-end-column="0" />
           <folding />
         </state>
       </provider>
