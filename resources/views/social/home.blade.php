@@ -126,28 +126,44 @@
                                                     {!! Form::close() !!}
                                                 </li>
                                             </ul>
-                                                @foreach($comments as $comment)
-                                                    @if($comment->status_id == $status->id )
 
 
+                                                <?php
+                                                $arr = [];
+                                                $key = 0;
 
+                                                foreach($comments as $comment){
+                                                    if($comment->status_id == $status->id){
+                                                        $arr[$key] = [
+                                                                'uid' => $comment->user_id,
+                                                                'cmt' => $comment->comment_text
+                                                        ];
+                                                        //echo "<pre>";print_r($arr); echo "</pre>";
+                                                        $key++;
 
-                                                        <div class="row">
-                                                            <div class="col-md-1">
-                                                                <img src="/uploads/{{ App\User::find($comment->user_id)->image }}" class="img-responsive">
-                                                            </div>
-                                                            <div class="col-md-11">
-                                                                <ul class="list-inline list-unstyled">
-                                                                    <li><a href="social">{{ App\User::find($comment->user_id)->name }}</a></li>
-                                                                    <li>{{ $comment->comment_text }}</li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-
-
-                                                    @else
-                                                    @endif
-                                                @endforeach
+                                                    }
+                                                }
+                                                $array = end($arr);
+                                                $user_id =  $array['uid'];
+                                                ?>
+                                                <div class="row">
+                                                    <div class="col-md-1">
+                                                        <?php if(!empty(App\User::find($user_id))){
+                                                            $image = App\User::find($user_id)->image;
+                                                            $name = App\User::find($user_id)->name;
+                                                        }else{
+                                                            $image = '';$name = '';}?>
+                                                        @if(!empty($image))
+                                                                <img src="/uploads/{{ $image }}" class="img-responsive">@else
+                                                            @endif
+                                                     </div>
+                                                    <div class="col-md-11">
+                                                        <ul class="list-inline list-unstyled">
+                                                            <li><a href="social">{{ $name }}</a></li>
+                                                            <li>{{ $array['cmt'] }}</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
 
 
                                             </div>

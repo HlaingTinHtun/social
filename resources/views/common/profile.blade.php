@@ -1,5 +1,11 @@
 @extends('layout.app')
 @section('content')
+    <script>
+        function download($name){
+//            window.alert ("aye");
+            window.location.href='/social/profile/download/'+name;
+        }
+    </script>
 
 
     <div class="container">
@@ -42,7 +48,8 @@
                                 <div class="col-sm-offset-2 col-sm-10">
                                     <input type="submit" name='submit'  value='Update' class="btn btn-success">
                                     <input type="reset" name='reset' value='Cancel' class="btn btn-default">
-
+                                    {{--<button name='download' onclick="download({{Auth::user()->name}});"  class="btn btn-success">Download</button>--}}
+                                    <a href="/social/profile/download">download</a>
                                 </div>
 
                             </div>

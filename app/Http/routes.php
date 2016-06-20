@@ -11,6 +11,8 @@
 |
 */
 
+use Illuminate\Http\Response;
+
 Route::get('/', function () {
     return view('auth.login');
 });
@@ -45,6 +47,7 @@ Route::get('/', function () {
 //   return view('admin.list');
 //});
 Route::group(['middleware' => 'web'], function () {
+
 
 
     Route::auth();
@@ -86,6 +89,15 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::post('/like','social\SocialController@like');
 
+
+    Route::get('/social/profile/download',function(){
+
+      $file= public_path(). "/profile/";
+    $headers = array(
+        'Content-Type'=>'profile/pdf',
+    );
+    return Response::download($file,'profile', $headers);
+    });
 
 
 
