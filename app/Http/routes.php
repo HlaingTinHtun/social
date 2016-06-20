@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 //Route::get('index',function(){
 //    return view('index');
@@ -83,6 +83,8 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::post('comment',['as'=>'social','uses'=>'social\SocialController@postComment']);
     Route::post('homecomment',['as'=>'social','uses'=>'social\SocialController@homepostComment']);
+
+    Route::post('/like','social\SocialController@like');
 
 
 

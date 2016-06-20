@@ -22,4 +22,8 @@ class status extends Model
     public function users(){
         return $this->belongsTo('app/users');
     }
+
+    public function statuslike(){
+        return $this->hasMany(statuslike::class);
+    }
 }

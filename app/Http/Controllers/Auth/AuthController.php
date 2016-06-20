@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
-use Validator;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
@@ -60,7 +60,7 @@ class AuthController extends Controller
      *
      * @param  array  $data
      * @return User
-     */
+//     */
     protected function create(array $data)
     {
         return User::create([
@@ -68,5 +68,13 @@ class AuthController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+    }
+
+    public function messages()
+    {
+        return [
+            'email.required' => 'Er, you forgot your email address!',
+            'password.required' => 'Email already taken m8',
+        ];
     }
 }

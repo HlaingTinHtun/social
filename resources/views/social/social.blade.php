@@ -65,18 +65,9 @@
                                         {{ $status->image}}
                                     @endif
 
-
-
-
-
                                 </div>
                                 <div class="col-md-12">
                                     <hr>
-
-
-
-
-
                                     <ul class="list-unstyled list-inline">
 
                                         <li>
@@ -88,20 +79,21 @@
                                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                             <h4 class="modal-title " id="myModalLabel" >Comments</h4>
                                                         </div>
-                                                        <div class="modal-body">
-                                                            @foreach($comments as $comment)
-                                                                @if($comment->statusid == $status->id )
-                                                                    <div class="row">
-                                                                        <div class="col-md-1">
-                                                                            <img src="/uploads/{{ Auth::user()->image }}" class="img-responsive">
-                                                                        </div>
-                                                                        <div class="col-md-11">
-                                                                            <p> {{ $comment->comment_text }}</p>
-                                                                        </div>
+                                                        @foreach($comments as $comment)
+                                                            @if($comment->status_id == $status->id )
+                                                                <div class="row">
+                                                                    <div class="col-md-1">
+                                                                        <img src="/uploads/{{ App\User::find($comment->user_id)->image }}" class="img-responsive">
                                                                     </div>
-                                                                @endif
-                                                            @endforeach
-                                                        </div>
+                                                                    <div class="col-md-11">
+                                                                        <ul class="list-inline list-unstyled">
+                                                                            <li><a href="social">{{ App\User::find($comment->user_id)->name }}</a></li>
+                                                                            <li>{{ $comment->comment_text }}</li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            @endif
+                                                        @endforeach
 
                                                         <div class="modal-footer">
                                                             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Requests;
-use Illuminate\Http\Request;
+use App\Http\Requests;
+
+
 
 
 
@@ -27,25 +29,25 @@ class UserRequest extends Request
         return [
 
 
-            'name' => 'required',
-            'image'=>'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|'
+            "name" => 'required',
+            "image"=>'required',
+            "email" => 'required',
+            "password" => 'required'
 
-
-            //
-        ];
-    }
-        public function messages()
-    {
-        return [
-            'name.required' => 'Name is required!',
-            'image.required'=>'Image is required',
-            'email.required' => 'Email is required',
-            'password.required' => 'Password is required',
 
 
         ];
     }
+//        public function messages()
+//    {
+//        return [
+//            "name.required" => 'Name is required!',
+//            "image.required"=>'Image is required',
+//            "email.required" => 'Email is required',
+//            "password.required" => 'Password is required'
+//
+//
+//        ];
+//    }
 
 }

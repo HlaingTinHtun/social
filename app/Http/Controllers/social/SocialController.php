@@ -5,6 +5,7 @@ namespace App\Http\Controllers\social;
 use App\Http\Requests\uploadPostRequest;
 use App\status;
 use App\statuscomment;
+use App\statuslike;
 use App\users;
 use Illuminate\Http\Request;
 
@@ -26,12 +27,12 @@ class SocialController extends Controller
 
 
         $post = status::get()->sortByDesc('id');
+        $postforlast = status::all();
         $user =users::all();
 
-        $comment = statuscomment::select('id', 'comment_text', 'status-id as statusid', 'user_id', 'created_at', 'updated_at')->get();
+        $comment = statuscomment::get();
 
-
-        return view('social.home')->with('posts', $post)->with('comments', $comment)->with('users',$user);
+        return view('social.home')->with('posts', $post)->with('comments', $comment)->with('users',$user)->with('postforlast',$postforlast);
 
     }
 
@@ -74,9 +75,12 @@ class SocialController extends Controller
 
                 $post = status::get()->where('users_id', $status->users_id)->sortByDesc('id');
 
-                $comment = statuscomment::select('id', 'comment_text', 'status-id as statusid', 'user_id', 'created_at', 'updated_at')->get();
+                $comment = statuscomment::all();
+                $postforlast = status::all();
 
-                return view('social.social')->with('posts', $post)->with('comments', $comment);
+
+
+                return view('social.social')->with('posts', $post)->with('comments', $comment)->with('postforlast',$postforlast);
             }
 
         }
@@ -92,9 +96,12 @@ class SocialController extends Controller
         $user_id = Auth::user()->id;
         $status_id = Input::get('status_id');
 
-        statuscomment::create(['comment_text' => $status, 'status-id' => $status_id, 'user_id' => $user_id,]);
+        statuscomment::create(['comment_text' => $status, 'status_id' => $status_id, 'user_id' => $user_id,]);
 
         $status = status::all();
+        $postforlast = status::all();
+
+
 
         foreach ($status as $status) {
 
@@ -102,9 +109,10 @@ class SocialController extends Controller
 
                 $post = status::get()->where('users_id', $status->users_id)->sortByDesc('id');
 
-                $comment = statuscomment::select('id', 'comment_text', 'status-id as statusid', 'user_id', 'created_at', 'updated_at')->get();
+                $comment = statuscomment::get();
 
-                return Redirect::to('social')->with('posts', $post)->with('comments', $comment);
+
+                return Redirect::to('social')->with('posts', $post)->with('comments', $comment)->with('postforlast',$postforlast);
             }
         }
 
@@ -122,28 +130,38 @@ class SocialController extends Controller
         $user_id = Auth::user()->id;
         $status_id = Input::get('status_id');
 
-        statuscomment::create(['comment_text' => $status, 'status-id' => $status_id, 'user_id' => $user_id,]);
+        statuscomment::create(['comment_text' => $status, 'status_id' => $status_id, 'user_id' => $user_id,]);
 
         $status = status::all();
 
+        $postforlast = status::all();
+
+
+
+
+
         foreach ($status as $status) {
 
-//            while ($status->users_id == Auth::user()->id) {
 
-                $post = status::get()->where('users_id', $status->users_id)->sortByDesc('id');
+            $post = status::get()->where('users_id', $status->users_id)->sortByDesc('id');
 
-                $comment = statuscomment::select('id', 'comment_text', 'status-id as statusid', 'user_id', 'created_at', 'updated_at')->get();
-
-                $last =statuscomment::orderBy('id', 'desc')->first();
+            $comment = statuscomment::get();
 
 
-            return Redirect::to('home')->with('posts', $post)->with('comments', $comment)->with('last',$last);
-//            }
+            return Redirect::to('home')->with('posts', $post)->with('comments', $comment)->with('postforlast',$postforlast);
         }
 
-//        $post = "";
-//
-//        return view('social.home')->with('posts', $post);
+    }
+
+
+    public function like(){
+
+        $status_id=Input::get('status_id');
+        $likes = statuslike::create(['user_id'=>Auth::user()->id,'status_id'=>$status_id]);
+
+        dd($likes);
+//        return Redirect::to('home')->with('likes',$likes);
+
     }
 }
 
