@@ -20,7 +20,7 @@
                             <label class="col-md-4 control-label">Name</label>
                             <div class="col-md-6">
                                 <input type="text" class="form-control" name="name" >
-                                <p class="text-danger">{{ $errors->first('name') }}</p>
+                                @if ($errors->has('name'))<p style="color:red;">{{$errors->first('name')}}</p>@endif
                             </div>
                         </div>
                         <div class="form-group">
@@ -36,6 +36,7 @@
                             <label class="col-md-4 control-label">E-Mail Address</label>
                             <div class="col-md-6">
                                 <input type="email" class="form-control" name="email">
+                                @if ($errors->has('email'))<p style="color:red;">{{$errors->first('email')}}</p>@endif
                             </div>
                         </div>
 
@@ -48,6 +49,7 @@
 
                             <div class="col-md-6">
                                 <input type="password" class="form-control" name="password">
+                                @if ($errors->has('password'))<p style="color:red;">{{$errors->first('password')}}</p>@endif
 
                             </div>
                         </div>
