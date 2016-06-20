@@ -1,6 +1,11 @@
 @extends('layout.app')
 
 @section('content')
+
+
+
+
+
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -10,13 +15,12 @@
                     {!! Form::open(array('url' => '/register','method' => 'post', 'class'=> 'form-horizontal', 'files' =>'true')) !!}
                         {{ csrf_field() }}
 
+
                         <div class="form-group">
                             <label class="col-md-4 control-label">Name</label>
-
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="name" value="{{ old('name') }}">
-
-                                <p class="text-danger">{{$errors->first('name')}}</p>
+                                <input type="text" class="form-control" name="name" >
+                                <p class="text-danger">{{ $errors->first('name') }}</p>
                             </div>
                         </div>
                         <div class="form-group">
@@ -24,19 +28,20 @@
 
                             <div class="col-md-6">
                                 <input type="file" class="form-control" name="image">
-
-                                <p class="text-danger">{{$errors->first('image')}}</p>
+                                @if ($errors->has('image'))<p style="color:red;">{{$errors->first('image')}}</p>@endif
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="col-md-4 control-label">E-Mail Address</label>
-
                             <div class="col-md-6">
-                                <input type="email" class="form-control" name="email" value="{{ old('email') }}">
-                                <p class="text-danger">{{$errors->first('email')}}</p>
+                                <input type="email" class="form-control" name="email">
                             </div>
                         </div>
+
+
+
+
 
                         <div class="form-group">
                             <label class="col-md-4 control-label">Password</label>
@@ -44,7 +49,6 @@
                             <div class="col-md-6">
                                 <input type="password" class="form-control" name="password">
 
-                                <p class="text-danger">{{$errors->first('password')}}</p>
                             </div>
                         </div>
 

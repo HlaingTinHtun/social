@@ -5,6 +5,10 @@
         function comment(){
             window.location.href='homecomment';
         }
+        function like(){
+//            window.location.href='/like';
+            alert('success');
+        }
     </script>
 
 
@@ -30,7 +34,7 @@
                     @foreach($posts as $status)
                         @foreach($users as $user)
                             @if($user->id == $status->users_id)
-                                {{--{{ dd($status->id) }}--}}
+
 
                                 <div class="panel panel-info">
                                     <div class="panel-heading">{{ $user->name }} {{ $status->created_at }}</div>
@@ -89,26 +93,18 @@
                                                                 </div>
                                                                 <div class="modal-body">
                                                                     @foreach($comments as $comment)
-                                                                        @if($comment->statusid == $status->id )
-                                                                             @if($user->id == $comment->user_id)
-                                                                                <div class="row">
+                                                                        @if($comment->status_id == $status->id )
+                                                                            <div class="row">
                                                                                     <div class="col-md-1">
-                                                                                        <img src="/uploads/{{ $user->image }}" class="img-responsive">
+                                                                                        <img src="/uploads/{{ App\User::find($comment->user_id)->image }}" class="img-responsive">
                                                                                     </div>
                                                                                     <div class="col-md-11">
-                                                                                        <p> {{ $comment->comment_text }}</p>
+                                                                                        <ul class="list-inline list-unstyled">
+                                                                                            <li><a href="social">{{ App\User::find($comment->user_id)->name }}</a></li>
+                                                                                            <li>{{ $comment->comment_text }}</li>
+                                                                                        </ul>
                                                                                     </div>
-                                                                                </div>
-                                                                             @else
-                                                                                <div class="row">
-                                                                                    <div class="col-md-1">
-                                                                                        <img src="/uploads/{{ Auth::user()->image}}" class="img-responsive">
-                                                                                    </div>
-                                                                                    <div class="col-md-11">
-                                                                                        <p> {{ $comment->comment_text }}</p>
-                                                                                    </div>
-                                                                                </div>
-                                                                             @endif
+                                                                            </div>
                                                                         @endif
                                                                     @endforeach
                                                                 </div>
@@ -125,34 +121,34 @@
                                                     {!! Form::open() !!}
                                                     <input type="hidden" name='status_id' value={{ $status->id }}>
 
-                                                    <button class="btn btn-info btn-xs " type="button"  ><i class="fa fa-thumbs-up"></i>Like</button>
+                                                    <button class="btn btn-info btn-xs " type="submit" name="like" onclick="like();"><i class="fa fa-thumbs-up"></i>Like</button>
 
                                                     {!! Form::close() !!}
                                                 </li>
                                             </ul>
                                                 @foreach($comments as $comment)
-                                                    @if($comment->statusid == $status->id )
-                                                        @if($user->id == $comment->user_id)
-                                                            <div class="row">
-                                                                <div class="col-md-1">
-                                                                    <img src="/uploads/{{ $user->image }}" class="img-responsive">
-                                                                </div>
-                                                                <div class="col-md-11">
-                                                                    <p> {{ $comment->comment_text }}</p>
-                                                                </div>
+                                                    @if($comment->status_id == $status->id )
+
+
+
+
+                                                        <div class="row">
+                                                            <div class="col-md-1">
+                                                                <img src="/uploads/{{ App\User::find($comment->user_id)->image }}" class="img-responsive">
                                                             </div>
-                                                        @else
-                                                            <div class="row">
-                                                                <div class="col-md-1">
-                                                                    <img src="/uploads/{{ Auth::user()->image}}" class="img-responsive">
-                                                                </div>
-                                                                <div class="col-md-11">
-                                                                    <p> {{ $comment->comment_text }}</p>
-                                                                </div>
+                                                            <div class="col-md-11">
+                                                                <ul class="list-inline list-unstyled">
+                                                                    <li><a href="social">{{ App\User::find($comment->user_id)->name }}</a></li>
+                                                                    <li>{{ $comment->comment_text }}</li>
+                                                                </ul>
                                                             </div>
-                                                        @endif
+                                                        </div>
+
+
+                                                    @else
                                                     @endif
                                                 @endforeach
+
 
                                             </div>
 

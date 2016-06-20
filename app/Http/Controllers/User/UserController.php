@@ -5,14 +5,13 @@ namespace App\Http\Controllers\User;
 use App\checkemail;
 
 use App\Http\Requests\UpdateUserRequest;
-
+use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\UserRequest;
 use App\Repository\UserRepositoryInterface;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
-
+use App\Http\Requests;
 class UserController extends Controller
 {
     private $userRepository;
@@ -34,26 +33,43 @@ class UserController extends Controller
 
 
 
-    public function insert(Request $request)
+    public function insert(UserRequest $request)
 
 
     {
+        $request->validate();
 
-        $name = $request->get('name');
-        $email = $request->get('email');
+//        $validator = Validator::make($request->all(), [
+//            'name' => 'required',
+//            'image'=>'required',
+//            'email' => 'required|email|unique:users',
+//            'password' => 'required|'
+//        ]);
+//        if ($validator->fails()) {
+////            echo "error";
+//            return redirect('register')
+//                ->withErrors($validator)
+//                ->withInput();
+//        }else {
+
+//            $name = $request->input('name');
+        $name =Input::get('name');
+//            dd($name);
+            $email = $request->input('email');
 //        dd($email);
-        $password = bcrypt($request->get('password'));
-        $image = $request->file('image');
+            $password = bcrypt($request->input('password'));
+            $image = $request->file('image');
 //        dd($image);
 
-        $imageName = $image->getClientOriginalName();
-        $destination = 'uploads';
-        $image->move($destination, $imageName);
-        $this->userRepository->insert($name, $imageName, $email, $password);
-        return view('auth/login');
+            $imageName = $image->getClientOriginalName();
+            $destination = 'uploads';
+            $image->move($destination, $imageName);
+            $this->userRepository->insert($name, $imageName, $email, $password);
+            return view('auth/login');
+        }
 //        $this->user->authenticate($email, $password);
 
-    }
+
 
     /**
      * @param UpdateUserRequest $request
