@@ -40,7 +40,7 @@
                                 </div>
                                 <div class="col-md-11">
                                     <p>{{ $status->status_text }}</p>
-                                    <?  $type =array('jpg','tif','png','gif');
+                                    <?  $type =array('jpg','tif','png','gif','jpeg');
                                     $imageFileType = pathinfo($status->image,PATHINFO_EXTENSION);?>
 
                                     @if(in_array($imageFileType,$type))

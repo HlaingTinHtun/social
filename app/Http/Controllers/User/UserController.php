@@ -5,6 +5,8 @@ namespace App\Http\Controllers\User;
 use App\checkemail;
 
 use App\Http\Requests\UpdateUserRequest;
+use App\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\UserRequest;
 use App\Repository\UserRepositoryInterface;
@@ -28,7 +30,15 @@ class UserController extends Controller
     }
 
     public function index(){
-        return view('common/profile');
+//        if(Auth::user()->id == $id) {
+
+            return view('common/profile');
+//        }else {
+//            $guest  = user::find($id);
+//            dd($guest);
+//
+//            return view('common/guest')->with('guest',$guest);
+//        }
     }
 
 
@@ -38,28 +48,11 @@ class UserController extends Controller
 
     {
         $request->validate();
-
-//        $validator = Validator::make($request->all(), [
-//            'name' => 'required',
-//            'image'=>'required',
-//            'email' => 'required|email|unique:users',
-//            'password' => 'required|'
-//        ]);
-//        if ($validator->fails()) {
-////            echo "error";
-//            return redirect('register')
-//                ->withErrors($validator)
-//                ->withInput();
-//        }else {
-
-//            $name = $request->input('name');
         $name =Input::get('name');
-//            dd($name);
-            $email = $request->input('email');
-//        dd($email);
-            $password = bcrypt($request->input('password'));
-            $image = $request->file('image');
-//        dd($image);
+        $email = $request->input('email');
+        $password = bcrypt($request->input('password'));
+        $image = $request->file('image');
+
 
             $imageName = $image->getClientOriginalName();
             $destination = 'uploads';
@@ -67,7 +60,7 @@ class UserController extends Controller
             $this->userRepository->insert($name, $imageName, $email, $password);
             return view('auth/login');
         }
-//        $this->user->authenticate($email, $password);
+
 
 
 
@@ -77,25 +70,10 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request){
 
-
-//        dd('hello');
-
         $id =Input::get('id');
         $name =Input::get('name');
-        $email=Input::get('email');
         $image =Input::file('image');
-
-
-
-
-
-
-
-        $check= $this->check->checkemail($id,$email);
-
-
-
-            if(!empty($image)) {
+        if(!empty($image)) {
                 $imageName = $image->getClientOriginalName();
                 $destination = 'uploads';
                 $image->move($destination, $imageName);
@@ -107,10 +85,10 @@ class UserController extends Controller
                 $pic = $this->userRepository->update($id,$name);
                 return Redirect::to('social/profile')->with('pic', $pic);
             }
-
-
-
     }
+
+
+
 
 
 

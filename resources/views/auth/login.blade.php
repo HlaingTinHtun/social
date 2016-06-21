@@ -15,8 +15,8 @@
                             <label class="col-md-4 control-label">E-Mail Address</label>
 
                             <div class="col-md-6">
-                                <input type="email" class="form-control" name="email" value="{{ old('email') }}">
-                                @if ($errors->has('image'))<p style="color:red;">{{$errors->first('email')}}</p>@endif
+                                <input type="email" class="form-control" name="email"  value="{{ Request::old('email') }}">
+                                @if ($errors->has('email'))<p style="color:red;">{{$errors->first('email')}}</p>@endif
 
 
                             </div>
@@ -27,7 +27,7 @@
 
                             <div class="col-md-6">
                                 <input type="password" class="form-control" name="password">
-                                @if ($errors->has('image'))<p style="color:red;">{{$errors->first('password')}}</p>@endif
+                                @if ($errors->has('password'))<p style="color:red;">{{$errors->first('password')}}</p>@endif
 
                             </div>
                         </div>

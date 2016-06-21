@@ -38,16 +38,16 @@ class UserRequest extends Request
 
         ];
     }
-//        public function messages()
-//    {
-//        return [
-//            "name.required" => 'Name is required!',
-//            "image.required"=>'Image is required',
-//            "email.required" => 'Email is required',
-//            "password.required" => 'Password is required'
-//
-//
-//        ];
-//    }
+        public function messages()
+    {
+        return [
+            "name.required" => 'Name is required!',
+            "image.required"=>'Image is required',
+            "email.required" => 'Email is required',
+            "password.required" => 'Password is required'
+
+
+        ];
+    }
 
 }

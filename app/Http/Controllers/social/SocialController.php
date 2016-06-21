@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\social;
 
+use App\Http\Requests\EditPostRequest;
 use App\Http\Requests\uploadPostRequest;
 use App\status;
 use App\statuscomment;
@@ -54,13 +55,52 @@ class SocialController extends Controller
 
             } else {
                 status::create(['status_text' => $text, 'users_id' => $users_id]);
-//                DB::table('users_status')
-                   //  ->insert(['status_text' => $text, 'users_id' => $users_id]);
             }
 
         }
 
         return redirect(route('home'));
+
+    }
+
+
+    public function editPost($id){
+
+
+
+       $status  = status::find($id);
+
+        return view('post/edit')->with('status',$status);
+
+    }
+
+    public function updatePost(EditPostRequest $request){
+
+        $text = input::get('status_text');
+        $status_id =input::get('id');
+        $image = $request->file('image');
+
+        if (!empty($image)) {
+            $imageName = $image->getClientOriginalName();
+            $destination = 'uploads';
+            $image->move($destination, $imageName);
+            status::where('id',$status_id)->update(['status_text'=>$text,'image'=>$imageName]);
+
+            return redirect()->action('social\SocialController@home');
+
+        }else {
+            status::where('id','=',$status_id)->update(['status_text'=>$text]);
+            return redirect()->action('social\SocialController@home');
+        }
+    }
+
+    public function deletePost($id){
+
+        status::where('id','=',$id)->delete();
+        return redirect()->action('social\SocialController@home');
+
+
+
 
     }
 
@@ -77,9 +117,6 @@ class SocialController extends Controller
 
                 $comment = statuscomment::all();
                 $postforlast = status::all();
-
-
-
                 return view('social.social')->with('posts', $post)->with('comments', $comment)->with('postforlast',$postforlast);
             }
 
@@ -135,10 +172,6 @@ class SocialController extends Controller
         $status = status::all();
 
         $postforlast = status::all();
-
-
-
-
 
         foreach ($status as $status) {
 

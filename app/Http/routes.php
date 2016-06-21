@@ -63,8 +63,8 @@ Route::group(['middleware' => 'web'], function () {
     });
     route::post('register', 'User\UserController@insert');
     Route::get('social/profile','User\UserController@index');
+    Route::get('/social/guestuser/{id}','User\UserController@index');
 
-//    Route::post('social/new','User\UserController@update');
     Route::post('social/update','User\UserController@update');
     Route::post('social/newpost','social\SocialController@uploadPost');
 
@@ -99,8 +99,9 @@ Route::group(['middleware' => 'web'], function () {
     return Response::download($file,'profile', $headers);
     });
 
-
-
+    Route::get('/social/edit/{id}','social\SocialController@editPost');
+    Route::post('/social/update','social\SocialController@updatePost');
+    Route::get('/social/delete/{id}','social\SocialController@deletePost');
 
 
     Route::get('password/email', 'Auth\PasswordController@getEmail');

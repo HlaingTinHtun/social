@@ -19,7 +19,7 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label">Name</label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="name" >
+                                <input type="text" class="form-control" name="name"  value="{{ Request::old('name') }}">
                                 @if ($errors->has('name'))<p style="color:red;">{{$errors->first('name')}}</p>@endif
                             </div>
                         </div>
@@ -27,7 +27,7 @@
                             <label class="col-md-4 control-label">Profile Picture</label>
 
                             <div class="col-md-6">
-                                <input type="file" class="form-control" name="image">
+                                <input type="file" class="form-control" name="image" value="{{ Request::old('image') }}">
                                 @if ($errors->has('image'))<p style="color:red;">{{$errors->first('image')}}</p>@endif
                             </div>
                         </div>
@@ -35,7 +35,7 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label">E-Mail Address</label>
                             <div class="col-md-6">
-                                <input type="email" class="form-control" name="email">
+                                <input type="email" class="form-control" name="email" value="{{ Request::old('email') }}">
                                 @if ($errors->has('email'))<p style="color:red;">{{$errors->first('email')}}</p>@endif
                             </div>
                         </div>
