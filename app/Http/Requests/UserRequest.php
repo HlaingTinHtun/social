@@ -31,7 +31,7 @@ class UserRequest extends Request
 
             "name" => 'required',
             "image"=>'required',
-            "email" => 'required',
+            "email" => 'required|unique:users',
             "password" => 'required'
 
 
