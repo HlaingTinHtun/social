@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\checkemail;
 
+use App\Http\Requests\Request;
 use App\Http\Requests\UpdateUserRequest;
 use App\User;
 use Illuminate\Support\Facades\Auth;
@@ -22,24 +23,24 @@ class UserController extends Controller
     public function __construct(UserRepositoryInterface $userRepository,checkemail $check)
 
     {
-
         $this->check =$check;
         $this->userRepository = $userRepository;
-
-
     }
 
-    public function index(){
-//        if(Auth::user()->id == $id) {
-
+    public function guestprofile($id){
+        if(Auth::user()->id == $id) {
             return view('common/profile');
-//        }else {
-//            $guest  = user::find($id);
-//            dd($guest);
-//
-//            return view('common/guest')->with('guest',$guest);
-//        }
+        }else {
+            $guest  = user::find($id);
+            return view('common/guest')->with('guest',$guest);
+        }
     }
+
+
+        public function index(){
+            return view('common/profile');
+
+        }
 
 
 
@@ -62,13 +63,12 @@ class UserController extends Controller
         }
 
 
-
-
     /**
      * @param UpdateUserRequest $request
      * @return string
      */
     public function update(UpdateUserRequest $request){
+
 
         $id =Input::get('id');
         $name =Input::get('name');
@@ -77,13 +77,14 @@ class UserController extends Controller
                 $imageName = $image->getClientOriginalName();
                 $destination = 'uploads';
                 $image->move($destination, $imageName);
-                $pic = $this->userRepository->allupdate($id,$name, $imageName);
+                 $this->userRepository->allupdate($id,$name, $imageName);
 
-                return Redirect::to('social/profile')->with('pic', $pic);
+                return Redirect::to('social/profile');
             }
             else{
-                $pic = $this->userRepository->update($id,$name);
-                return Redirect::to('social/profile')->with('pic', $pic);
+                $this->userRepository->update($id,$name);
+                return Redirect::to('social/profile');
+
             }
     }
 

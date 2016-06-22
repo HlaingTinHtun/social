@@ -26,7 +26,7 @@ class UpdateUserRequest extends Request
         return [
 
             'name' => 'required',
-            'email' => 'required|email',
+//            'email' => 'required|email',
 
 
 
@@ -37,7 +37,7 @@ class UpdateUserRequest extends Request
     {
         return [
             'name.required' => 'Name is required!',
-            'email.required' => 'Email is required',
+//            'email.required' => 'Email is required',
 
 
 

@@ -52,72 +52,59 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::auth();
 
-    Route::get('home','social\SocialController@home');
+//  Login/Logout/register
 
     route::get('login', function () {
         return view('auth.login');
     });
     route::post('login', 'Auth\AuthController@postLogin');
+    Route::get('logout', 'Auth\AuthController@logout');
     route::get('register', function () {
         return view('auth.register');
     });
     route::post('register', 'User\UserController@insert');
-    Route::get('social/profile','User\UserController@index');
-    Route::get('/social/guestuser/{id}','User\UserController@index');
-
-    Route::post('social/update','User\UserController@update');
-    Route::post('social/newpost','social\SocialController@uploadPost');
 
 
 
-    Route::get('logout', 'Auth\AuthController@logout');
-    Route::get('social',function(){
-       return view('social');
-    });
 
+    //Profile
+    Route::get('/social/profile','User\UserController@index');
+    Route::get('/social/guestuser/{id}','User\UserController@guestprofile');
+    Route::post('/social/newprofile','User\UserController@update');
+    Route::post('/social/{id}',['as'=> 'timeline','uses'=> 'social\SocialController@index']);
 
+    Route::get('/social/{id}','social\SocialController@index');
+    Route::get('/timeline','social\SocialController@timeline');
+
+//    Route::get('social/aa',function(){
+//    });
+
+    //Post
     route::resource('social','social\SocialController');
-
-   Route::post('social',['as'=> 'home','uses'=> 'social\SocialController@uploadPost']);
-    Route::post('home',['as'=> 'home','uses'=> 'social\SocialController@uploadPost']);
-    Route::get('social','social\SocialController@index');
-
-
-
-    Route::post('comment',['as'=>'social','uses'=>'social\SocialController@postComment']);
-    Route::post('homecomment',['as'=>'social','uses'=>'social\SocialController@homepostComment']);
-
-    Route::post('/like','social\SocialController@like');
-
-
-    Route::get('/social/profile/download',function(){
-
-      $file= public_path(). "/profile/";
-    $headers = array(
-        'Content-Type'=>'profile/pdf',
-    );
-    return Response::download($file,'profile', $headers);
-    });
-
     Route::get('/social/edit/{id}','social\SocialController@editPost');
     Route::post('/social/update','social\SocialController@updatePost');
     Route::get('/social/delete/{id}','social\SocialController@deletePost');
+    Route::post('/timeline',['as'=> 'timeline','uses'=> 'social\SocialController@uploadPost']);
+    Route::post('home',['as'=> 'home','uses'=> 'social\SocialController@uploadPosthome']);
+    Route::get('home','social\SocialController@home');
 
 
-    Route::get('password/email', 'Auth\PasswordController@getEmail');
-    Route::post('password/email', 'Auth\PasswordController@postEmail');
 
 
-// Password reset routes...
+    //Comment
+    Route::post('comment',['as'=>'social','uses'=>'social\SocialController@postComment']);
+
+    Route::post('homecomment',['as'=>'social','uses'=>'social\SocialController@homepostComment']);
+
+   // Password reset routes...
     Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
     Route::post('password/reset', 'Auth\PasswordController@postReset');
     Route::get('password/reset', function () {
         return view('auth.passwords.email');
 
     });
-
-
-
+    Route::get('password/email', 'Auth\PasswordController@getEmail');
+    Route::post('password/email', 'Auth\PasswordController@postEmail');
 
 });
 

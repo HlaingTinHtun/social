@@ -28,7 +28,7 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/social';
+    protected $redirectTo = '/timeline';
 
     /**
      * Create a new authentication controller instance.

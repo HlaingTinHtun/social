@@ -7,6 +7,7 @@ use App\Http\Requests\uploadPostRequest;
 use App\status;
 use App\statuscomment;
 use App\statuslike;
+use App\User;
 use App\users;
 use Illuminate\Http\Request;
 
@@ -24,6 +25,72 @@ class SocialController extends Controller
     {
         $this->middleware('auth');
     }
+
+
+    public function timeline()
+    {
+
+
+            $status = status::all();
+
+            foreach ($status as $status) {
+
+                while ($status->users_id == Auth::user()->id) {
+
+                    $post = status::get()->where('users_id', $status->users_id)->sortByDesc('id');
+
+                    $comment = statuscomment::all();
+                    return view('social.social')->with('posts', $post)->with('comments', $comment);
+                }
+
+            }
+            $post = "";
+            return view('social.social')->with('posts', $post);
+        }
+
+
+    public function index($id)
+    {
+        if(Auth::user()->id == $id) {
+
+            $status = status::all();
+
+            foreach ($status as $status) {
+
+                while ($status->users_id == Auth::user()->id) {
+
+                    $post = status::get()->where('users_id', $status->users_id)->sortByDesc('id');
+
+                    $comment = statuscomment::all();
+                    return view('social.social')->with('posts', $post)->with('comments', $comment);
+                }
+
+            }
+            $post = "";
+            return view('social.social')->with('posts', $post);
+        }
+        else {
+            $status = status::all();
+
+            foreach ($status as $status) {
+
+                while ($status->users_id == $id) {
+
+                    $post = status::get()->where('users_id', $status->users_id)->sortByDesc('id');
+                    $comment = statuscomment::all();
+                    $postforlast = status::all();
+                    $guestuser =User::find($id);
+
+                    return view('guest.guest')->with('posts', $post)->with('comments', $comment)->with('postforlast', $postforlast)->with('guestuser',$guestuser);
+                }
+
+            }
+
+
+        }
+
+    }
+
     public function home(){
 
 
@@ -59,9 +126,35 @@ class SocialController extends Controller
 
         }
 
-        return redirect(route('home'));
+        return Redirect::to('timeline');
 
     }
+    public function uploadPosthome(uploadPostRequest $request)
+    {
+
+        if (Input::has('status-text')) {
+
+            $text = input::get('status-text');
+            $users_id = Auth::user()->id;
+            $image = $request->file('image');
+
+
+            if (!empty($image)) {
+                $imageName = $image->getClientOriginalName();
+                $destination = 'uploads';
+                $image->move($destination, $imageName);
+                status::create(['status_text' => $text, 'image' => $imageName, 'users_id' => $users_id]);
+
+            } else {
+                status::create(['status_text' => $text, 'users_id' => $users_id]);
+            }
+
+        }
+
+        return Redirect::to('home');
+
+    }
+
 
 
     public function editPost($id){
@@ -94,50 +187,27 @@ class SocialController extends Controller
         }
     }
 
+
+
+
     public function deletePost($id){
 
         status::where('id','=',$id)->delete();
         return redirect()->action('social\SocialController@home');
 
-
-
-
     }
-
-
-    public function index()
-    {
-        $status = status::all();
-
-        foreach ($status as $status) {
-
-            while ($status->users_id == Auth::user()->id) {
-
-                $post = status::get()->where('users_id', $status->users_id)->sortByDesc('id');
-
-                $comment = statuscomment::all();
-                $postforlast = status::all();
-                return view('social.social')->with('posts', $post)->with('comments', $comment)->with('postforlast',$postforlast);
-            }
-
-        }
-        $post = "";
-        return view('social.social')->with('posts', $post);
-    }
-
 
     public function postComment()
     {
 
         $status = Input::get('comment-text');
         $user_id = Auth::user()->id;
+
         $status_id = Input::get('status_id');
 
         statuscomment::create(['comment_text' => $status, 'status_id' => $status_id, 'user_id' => $user_id,]);
 
         $status = status::all();
-        $postforlast = status::all();
-
 
 
         foreach ($status as $status) {
@@ -148,14 +218,13 @@ class SocialController extends Controller
 
                 $comment = statuscomment::get();
 
-
-                return Redirect::to('social')->with('posts', $post)->with('comments', $comment)->with('postforlast',$postforlast);
+                return Redirect::to('timeline')->with('posts', $post)->with('comments', $comment);
             }
         }
 
         $post = "";
 
-        return view('social.social')->with('posts', $post);
+        return Redirect::to('timeline')->with('posts', $post);
     }
 
 
@@ -171,7 +240,6 @@ class SocialController extends Controller
 
         $status = status::all();
 
-        $postforlast = status::all();
 
         foreach ($status as $status) {
 
@@ -180,22 +248,13 @@ class SocialController extends Controller
 
             $comment = statuscomment::get();
 
-
-            return Redirect::to('home')->with('posts', $post)->with('comments', $comment)->with('postforlast',$postforlast);
+            return Redirect::to('home')->with('posts', $post)->with('comments', $comment);
         }
 
     }
 
 
-    public function like(){
 
-        $status_id=Input::get('status_id');
-        $likes = statuslike::create(['user_id'=>Auth::user()->id,'status_id'=>$status_id]);
-
-        dd($likes);
-//        return Redirect::to('home')->with('likes',$likes);
-
-    }
 }
 
 

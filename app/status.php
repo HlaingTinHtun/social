@@ -11,9 +11,6 @@ class status extends Model
     protected $guarded =['id'];
     protected $dates = ['created_at'];
 
-
-
-
     public function comments(){
         return $this->hasMany(statuscomment::class);
 

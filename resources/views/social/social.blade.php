@@ -1,18 +1,14 @@
 @extends('layout.app')
 @section('content')
 
-    <script>
-        function comment(){
-            window.location.href='comment';
-        }
-    </script>
+
 
 
  <body class="bgcolor">
     <div class="container ">
         <div class="row">
             <div class="col-md-10 col-sm-offset-1">
-                {!! Form::open(array( 'files' =>'true')) !!}
+                {!! Form::open(array('files' =>'true')) !!}
                <div class="panel panel-info">
                    <div class="panel-heading">Add a new status</div>
                    <div class="'panel-body">
@@ -31,10 +27,30 @@
                 @if(!empty($posts))
                     @foreach($posts as $status)
                     <div class="panel panel-info">
-                        <div class="panel-heading">{{ Auth::user()->name }}</div>
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-md-6 ">{{ Auth::user()->name }} {{ $status->created_at }}</div>
+                                <div class="col-md-1 col-md-offset-5">
+                                    <li class="dropdown">
+                                        <a href="#" class="glyphicon glyphicon-list" data-toggle="dropdown"></a>
+                                        @if(Auth::user()->id == $status->users_id)
+
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li><a href="/social/edit/{{$status->id}}" ><i class="glyphicon glyphicon-pencil"></i>Edit</a></li>
+                                                <li><a href="/social/delete/{{$status->id }}" ><i class="glyphicon glyphicon-trash"></i>Delete</a></li>
+                                            </ul>
+                                        @else
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li><a href="/social/guestuser/{{$status->users_id}}" ><i class="fa fa-btn fa-user"></i>Profile</a></li>
+                                            </ul>
+                                        @endif
+                                    </li>
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="panel-body">
-                            <div cladd="row">
+                            <div class="row">
                                 <div class="col-md-1">
                                     <img src="/uploads/{{ Auth::user()->image }}" class="img-responsive">
                                 </div>
@@ -87,7 +103,7 @@
                                                                     </div>
                                                                     <div class="col-md-11">
                                                                         <ul class="list-inline list-unstyled">
-                                                                            <li><a href="social">{{ App\User::find($comment->user_id)->name }}</a></li>
+                                                                            <li><a href="/social/{{$comment->user_id}}">{{ App\User::find($comment->user_id)->name }}</a></li>
                                                                             <li>{{ $comment->comment_text }}</li>
                                                                         </ul>
                                                                     </div>
@@ -144,7 +160,7 @@
                                         </div>
                                         <div class="col-md-11">
                                             <ul class="list-inline list-unstyled">
-                                                <li><a href="social">{{ $name }}</a></li>
+                                                <li><a href="/social/{{$user_id}}">{{ $name }}</a></li>
                                                 <li>{{ $array['cmt'] }}</li>
                                             </ul>
                                         </div>
@@ -156,15 +172,15 @@
                         <div class="panel-footer clearfix">
 
                             {!! Form::open(array('url' => 'comment','method' => 'post')) !!}
-                            {{--{!! Form::open(array('action' =>['social\SocialController@postComment'],'method'=>'POST','files'=>true)) !!}--}}
 
                             <input type="hidden" name='status_id' value={{ $status->id }}>
+                            <input type="hidden" name='commentuserid' value="{{App\User::find($status->id)}}">
 
                                 <div class="form-group">
                                     <div class="input-group">
                                         <input type="text" class="form-control" name="comment-text" id="comment_text" placeholder="Post a comment...">
                                         <span class="input-group-btn">
-                                            <button class="btn btn-default" type="submit" onclick="comment();" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-send"></i></button>
+                                            <button class="btn btn-default" type="submit" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-send"></i></button>
                                         </span>
                                     </div>
                                 </div>
