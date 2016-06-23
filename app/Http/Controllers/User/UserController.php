@@ -27,6 +27,11 @@ class UserController extends Controller
         $this->userRepository = $userRepository;
     }
 
+    public function index(){
+        return view('common/profile');
+
+    }
+
     public function guestprofile($id){
         if(Auth::user()->id == $id) {
             return view('common/profile');
@@ -35,14 +40,6 @@ class UserController extends Controller
             return view('common/guest')->with('guest',$guest);
         }
     }
-
-
-        public function index(){
-            return view('common/profile');
-
-        }
-
-
 
     public function insert(UserRequest $request)
 
@@ -88,11 +85,6 @@ class UserController extends Controller
 
             }
     }
-
-
-
-
-
 
 }
 

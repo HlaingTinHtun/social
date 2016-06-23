@@ -28,7 +28,7 @@
                     <div class="panel panel-info">
                         <div class="panel-heading">
                             <div class="row">
-                                <div class="col-md-6 ">{{ Auth::user()->name }} {{ $status->created_at }}</div>
+                                <div class="col-md-6 "><B><a class="namecolor" href="social/{{Auth::user()->id}}">{{ Auth::user()->name }}</a></B><i> {{ $status->created_at }}</i></div>
                                 <div class="col-md-1 col-md-offset-5">
                                     <li class="dropdown">
                                         <a href="#" class="glyphicon glyphicon-list" data-toggle="dropdown"></a>
@@ -102,7 +102,7 @@
                                                                     </div>
                                                                     <div class="col-md-11">
                                                                         <ul class="list-inline list-unstyled">
-                                                                            <li><a href="/social/{{$comment->user_id}}">{{ App\User::find($comment->user_id)->name }}</a></li>
+                                                                            <li><b><a  class='namecolor' href="/social/{{$comment->user_id}}">{{ App\User::find($comment->user_id)->name }}</a></b></li>
                                                                             <li>{{ $comment->comment_text }}</li>
                                                                         </ul>
                                                                     </div>
@@ -158,10 +158,12 @@
                                             @endif
                                         </div>
                                         <div class="col-md-11">
+
                                             <ul class="list-inline list-unstyled">
-                                                <li><a href="/social/{{$user_id}}">{{ $name }}</a></li>
+                                                <li><b><a class="namecolor" href="/social/{{$user_id}}">{{ $name }}</a></b></li>
                                                 <li>{{ $array['cmt'] }}</li>
                                             </ul>
+
                                         </div>
                                     </div>
                                 </div>
@@ -173,7 +175,7 @@
                             {!! Form::open(array('url' => 'comment','method' => 'post')) !!}
 
                             <input type="hidden" name='status_id' value={{ $status->id }}>
-                            <input type="hidden" name='commentuserid' value="{{App\User::find($status->id)}}">
+                            <input type="hidden" name='commentuserid' value="{{ App\User::find($status->id) }}">
 
                                 <div class="form-group">
                                     <div class="input-group">

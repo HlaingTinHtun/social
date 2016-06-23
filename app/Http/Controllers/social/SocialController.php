@@ -26,29 +26,6 @@ class SocialController extends Controller
         $this->middleware('auth');
     }
 
-
-    public function timeline()
-    {
-
-
-            $status = status::all();
-
-            foreach ($status as $status) {
-
-                while ($status->users_id == Auth::user()->id) {
-
-                    $post = status::get()->where('users_id', $status->users_id)->sortByDesc('id');
-
-                    $comment = statuscomment::all();
-                    return view('social.social')->with('posts', $post)->with('comments', $comment);
-                }
-
-            }
-            $post = "";
-            return view('social.social')->with('posts', $post);
-        }
-
-
     public function index($id)
     {
         if(Auth::user()->id == $id) {
@@ -91,8 +68,26 @@ class SocialController extends Controller
 
     }
 
-    public function home(){
+    public function timeline()
+    {
+        $status = status::all();
 
+        foreach ($status as $status) {
+
+            while ($status->users_id == Auth::user()->id) {
+
+                $post = status::get()->where('users_id', $status->users_id)->sortByDesc('id');
+
+                $comment = statuscomment::all();
+                return view('social.social')->with('posts', $post)->with('comments', $comment);
+            }
+
+        }
+        $post = "";
+        return view('social.social')->with('posts', $post);
+    }
+
+    public function home(){
 
         $post = status::get()->sortByDesc('id');
         $postforlast = status::all();
@@ -155,8 +150,6 @@ class SocialController extends Controller
 
     }
 
-
-
     public function editPost($id){
 
         $status  = status::find($id);
@@ -184,77 +177,13 @@ class SocialController extends Controller
         }
     }
 
-
-
-
     public function deletePost($id){
 
-
-            status::where('id','=',$id)->delete();
-            return redirect()->back();
-
-
-    }
-
-    public function postComment()
-    {
-
-        $status = Input::get('comment-text');
-        $user_id = Auth::user()->id;
-
-        $status_id = Input::get('status_id');
-
-        statuscomment::create(['comment_text' => $status, 'status_id' => $status_id, 'user_id' => $user_id,]);
-
-        $status = status::all();
-
-
-        foreach ($status as $status) {
-
-            while ($status->users_id == Auth::user()->id) {
-
-                $post = status::get()->where('users_id', $status->users_id)->sortByDesc('id');
-
-                $comment = statuscomment::get();
-
-                //return Redirect::to('timeline')->with('posts', $post)->with('comments', $comment);
-                return redirect()->back();
-            }
-        }
-
-        $post = "";
-
-//        return Redirect::to('timeline')->with('posts', $post);
+        status::where('id','=',$id)->delete();
         return redirect()->back();
-    }
 
-
-
-    public function homepostComment()
-    {
-
-        $status = Input::get('comment-text');
-        $user_id = Auth::user()->id;
-        $status_id = Input::get('status_id');
-
-        statuscomment::create(['comment_text' => $status, 'status_id' => $status_id, 'user_id' => $user_id,]);
-
-        $status = status::all();
-
-
-        foreach ($status as $status) {
-
-
-            $post = status::get()->where('users_id', $status->users_id)->sortByDesc('id');
-
-            $comment = statuscomment::get();
-
-            return Redirect::to('home')->with('posts', $post)->with('comments', $comment);
-        }
 
     }
-
-
 
 }
 

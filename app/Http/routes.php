@@ -16,41 +16,11 @@ use Illuminate\Http\Response;
 Route::get('/', function () {
     return view('auth.login');
 });
-//Route::get('index',function(){
-//    return view('index');
-//});
 
 
-
-
-//Route::get('entry',function(){
-//   return view('admin.entry');
-//});
-//Route::post('admin/entry','Admin\ArticleController@AddArticle');
-//
-//Route::get('about',function(){
-//   return view('common.about');
-//});
-//
-//route::get('/edit/{id}','Admin\ArticleController@EditArticle');
-//
-//
-//route::post('update','Admin\ArticleController@UpdateArticle');
-//route::get('/delete/{id}','Admin\ArticleController@DeleteArticle');
-//
-//route::resource('list','Admin\ArticleController');
-//route::get('profile',function(){
-//    return view('commom/profile');
-//});
-//
-//route::get('show',function(){
-//   return view('admin.list');
-//});
 Route::group(['middleware' => 'web'], function () {
 
-
-
-    Route::auth();
+//    Route::auth();
 
 //  Login/Logout/register
 
@@ -64,9 +34,6 @@ Route::group(['middleware' => 'web'], function () {
     });
     route::post('register', 'User\UserController@insert');
 
-
-
-
     //Profile
     Route::get('/social/profile','User\UserController@index');
     Route::get('/social/guestuser/{id}','User\UserController@guestprofile');
@@ -76,31 +43,21 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/social/{id}','social\SocialController@index');
     Route::get('/timeline','social\SocialController@timeline');
 
-//    Route::get('social/aa',function(){
-//    });
+
 
     //Post
     route::resource('social','social\SocialController');
     Route::get('/social/edit/{id}','social\SocialController@editPost');
-  Route::post('/updatepost','social\SocialController@updatePost');
+    Route::post('/updatepost','social\SocialController@updatePost');
     Route::get('/social/delete/{id}','social\SocialController@deletePost');
     Route::post('/timeline',['as'=> 'timeline','uses'=> 'social\SocialController@uploadPost']);
     Route::post('home',['as'=> 'home','uses'=> 'social\SocialController@uploadPosthome']);
     Route::get('home','social\SocialController@home');
 
-//    Route::post('social/updatepost',function(){
-//       dd('aa');
-//    });
-
-
-
-
-
-
     //Comment
-    Route::post('comment',['as'=>'social','uses'=>'social\SocialController@postComment']);
+    Route::post('comment',['as'=>'social','uses'=>'social\CommentController@postComment']);
 
-    Route::post('homecomment',['as'=>'social','uses'=>'social\SocialController@homepostComment']);
+    Route::post('homecomment',['as'=>'social','uses'=>'social\CommentController@homepostComment']);
 
    // Password reset routes...
     Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
