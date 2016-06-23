@@ -82,11 +82,17 @@ Route::group(['middleware' => 'web'], function () {
     //Post
     route::resource('social','social\SocialController');
     Route::get('/social/edit/{id}','social\SocialController@editPost');
-    Route::post('/social/update','social\SocialController@updatePost');
+  Route::post('/updatepost','social\SocialController@updatePost');
     Route::get('/social/delete/{id}','social\SocialController@deletePost');
     Route::post('/timeline',['as'=> 'timeline','uses'=> 'social\SocialController@uploadPost']);
     Route::post('home',['as'=> 'home','uses'=> 'social\SocialController@uploadPosthome']);
     Route::get('home','social\SocialController@home');
+
+//    Route::post('social/updatepost',function(){
+//       dd('aa');
+//    });
+
+
 
 
 

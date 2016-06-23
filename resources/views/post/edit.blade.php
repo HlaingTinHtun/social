@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="row">
-                    {!! Form::open(array('url' => '/social/update','method' => 'post', 'files' =>'true')) !!}
+                    {!! Form::open(array('url' => '/updatepost','method' => 'post', 'files' =>'true')) !!}
 
 
                             <div class="form-group">

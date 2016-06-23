@@ -159,10 +159,7 @@ class SocialController extends Controller
 
     public function editPost($id){
 
-
-
-       $status  = status::find($id);
-
+        $status  = status::find($id);
         return view('post/edit')->with('status',$status);
 
     }
@@ -179,11 +176,11 @@ class SocialController extends Controller
             $image->move($destination, $imageName);
             status::where('id',$status_id)->update(['status_text'=>$text,'image'=>$imageName]);
 
-            return redirect()->action('social\SocialController@home');
+            return redirect()->action('social\SocialController@timeline');
 
         }else {
             status::where('id','=',$status_id)->update(['status_text'=>$text]);
-            return redirect()->action('social\SocialController@home');
+            return redirect()->action('social\SocialController@timeline');
         }
     }
 
@@ -192,8 +189,10 @@ class SocialController extends Controller
 
     public function deletePost($id){
 
-        status::where('id','=',$id)->delete();
-        return redirect()->action('social\SocialController@home');
+
+            status::where('id','=',$id)->delete();
+            return redirect()->back();
+
 
     }
 
@@ -218,13 +217,15 @@ class SocialController extends Controller
 
                 $comment = statuscomment::get();
 
-                return Redirect::to('timeline')->with('posts', $post)->with('comments', $comment);
+                //return Redirect::to('timeline')->with('posts', $post)->with('comments', $comment);
+                return redirect()->back();
             }
         }
 
         $post = "";
 
-        return Redirect::to('timeline')->with('posts', $post);
+//        return Redirect::to('timeline')->with('posts', $post);
+        return redirect()->back();
     }
 
 

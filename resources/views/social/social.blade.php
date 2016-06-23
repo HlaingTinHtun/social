@@ -2,13 +2,12 @@
 @section('content')
 
 
-
-
- <body class="bgcolor">
     <div class="container ">
         <div class="row">
             <div class="col-md-10 col-sm-offset-1">
                 {!! Form::open(array('files' =>'true')) !!}
+
+                {{--<img src ='uploads/HD-Wallpapers1.jpeg' width="100%" height="400px">--}}
                <div class="panel panel-info">
                    <div class="panel-heading">Add a new status</div>
                    <div class="'panel-body">
@@ -192,6 +191,6 @@
             </div>
         </div>
     </div>
- </body>
+
 @endif
 @endsection

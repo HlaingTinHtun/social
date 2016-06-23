@@ -79,11 +79,12 @@ class UserController extends Controller
                 $image->move($destination, $imageName);
                  $this->userRepository->allupdate($id,$name, $imageName);
 
-                return Redirect::to('social/profile');
+            return redirect()->back();
             }
             else{
                 $this->userRepository->update($id,$name);
-                return Redirect::to('social/profile');
+                return redirect()->back();
+
 
             }
     }

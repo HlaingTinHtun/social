@@ -4,15 +4,15 @@
 
 
 
-    <body class="bgcolor">
+  <body bgcolor="aqua">
     <div class="container ">
         <div class="row">
             <div class="col-md-10 col-sm-offset-1">
                 @foreach($posts as $status)
-                        <div class="panel panel-success">
+                        <div class="panel panel-danger">
                             <div class="panel-heading">
                                 <div class="row">
-                                    <div class="col-md-6 ">{{ $guestuser->name }} {{ $status->created_at }}</div>
+                                    <div class="col-md-6 ">{{ $guestuser->name }}{{ $status->created_at }}</div>
                                     <div class="col-md-1 col-md-offset-5">
                                         <li class="dropdown">
                                             <a href="#" class="glyphicon glyphicon-list" data-toggle="dropdown"></a>
