@@ -39,7 +39,7 @@
                                 <div class="panel panel-info">
                                     <div class="panel-heading">
                                         <div class="row">
-                                            <div class="col-md-6 "><B><a class="namecolor" href="social/{{$user->id}}">{{ $user->name }}</a></B>    <i>{{ $status->created_at }}</i></div>
+                                            <div class="col-md-6 "><B><a class="namecolor" href="/social/{{$user->id}}">{{ $user->name }}</a></B>    <i>{{ $status->created_at }}</i></div>
                                             <div class="col-md-1 col-md-offset-5">
                                                 <li class="dropdown">
                                                     <a href="#" class="glyphicon glyphicon-list" data-toggle="dropdown"></a>
@@ -120,7 +120,7 @@
                                                                                     </div>
                                                                                     <div class="col-md-11">
                                                                                         <ul class="list-inline list-unstyled">
-                                                                                            <li><B><a class="namecolor" href="social/{{$comment->user_id}}">{{ App\User::find($comment->user_id)->name }}</a></B></li>
+                                                                                            <li><B><a class="namecolor" href="/social/{{$comment->user_id}}">{{ App\User::find($comment->user_id)->name }}</a></B></li>
                                                                                             <li>{{ $comment->comment_text }}</li>
                                                                                         </ul>
                                                                                     </div>
