@@ -12,7 +12,9 @@ namespace App\Repository;
 interface UserRepositoryInterface {
 
     public function insert($name,$imageName,$email,$password);
-    public function allupdate($id,$name,$imageName);
+    public function allupdate($id,$name,$imageName,$coverName);
     public function update($id,$names);
+    public function noCoverUpdate($id,$name,$imageName);
+    public function noImageUpdate($id,$name,$coverName);
 
 }

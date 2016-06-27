@@ -1,14 +1,32 @@
 @extends('layout.app')
 @section('content')
+    <script>
+        function like(){
+            window.location='/timelinelike';
+        }
+    </script>
+    <style>
+
+        body {
+            background-color:#1b6d85;
+        }
+    </style>
 
 
     <div class="container ">
         <div class="row">
             <div class="col-md-10 col-sm-offset-1">
                 {!! Form::open(array('files' =>'true')) !!}
+                @if(!empty( Auth::user()->cover_photo))
+                    <img src ='/uploads/{{ Auth::user()->cover_photo }}' width="100%" height="400px">
 
-                {{--<img src ='uploads/HD-Wallpapers1.jpeg' width="100%" height="400px">--}}
-               <div class="panel panel-info">
+                @elseif (!empty($guestuser->cover_photo))
+                 <img src ='uploads/{{ $guestuser->cover_photo }}' width="100%" height="400px">
+                @else
+                   <img src ='/uploads/no-photo.png' width="100%" height="400px">
+                @endif
+
+                <div class="panel panel-info">
                    <div class="panel-heading">Add a new status</div>
                    <div class="'panel-body">
                        <div class="form-group">
@@ -87,6 +105,8 @@
 
                                         <li>
                                             <button class="btn btn-xs btn-info" type="button" data-toggle="modal" data-target="#view-comments-{{ $status->id }}" aria-expanded="false" aria-controls="view-comments-{{ $status->id }}"><i class="fa fa-comments-o"></i>View & Comment</button>
+
+
                                             <div class="modal fade" id="view-comments-{{ $status->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                                 <div class="modal-dialog" role="document">
                                                     <div class="modal-content">
@@ -94,6 +114,8 @@
                                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                             <h4 class="modal-title " id="myModalLabel" >Comments</h4>
                                                         </div>
+
+
                                                         @foreach($comments as $comment)
                                                             @if($comment->status_id == $status->id )
                                                                 <div class="row">
@@ -119,13 +141,42 @@
                                         </li>
 
                                         <li>
-                                            {!! Form::open() !!}
-                                            <input type="hidden" name='status_id' value={{ $status->id }}>
 
-                                                <button class="btn btn-info btn-xs " type="button"  ><i class="fa fa-thumbs-up"></i>Like</button>
+                                            @if(App\statuslike::where(['status_id'=>$status->id,'user_id'=>Auth::user()->id])->first())
+                                                {!! Form::open(array('url' => 'timelineUnlike','method' => 'get')) !!}
+                                                <input type="hidden" name='status_id' value={{ $status->id }}>
 
-                                            {!! Form::close() !!}
+                                                <input class="btn btn-info btn-xs " type="submit" value="UnLike">
+
+                                                {!! Form::close() !!}
+
+                                            @else
+                                                {!! Form::open(array('url' => 'timelinelike','method' => 'get')) !!}
+                                                <input type="hidden" name='status_id' value={{ $status->id }}>
+
+                                                <input class="btn btn-info btn-xs " type="submit" value="Like">
+
+                                                {!! Form::close() !!}
+                                            @endif
+
                                         </li>
+                                        <? $count = 0;?>
+                                        @foreach($comments as $comment)
+                                            @if($comment->status_id == $status->id )
+                                                <?  $count += 1;?>
+                                            @endif
+                                        @endforeach
+                                        <? echo $count." "."Comments"?>
+
+                                        <? $count = 0;?>
+                                        @foreach($statuslike as $like)
+                                            @if($like->status_id == $status->id )
+                                                <?  $count += 1;?>
+                                            @endif
+                                        @endforeach
+                                        <? echo $count." "."likes"?>
+
+
                                     </ul>
                                     <?php
                                     $arr = [];
@@ -193,6 +244,5 @@
             </div>
         </div>
     </div>
-
-@endif
-@endsection
+    @endif
+    @endsection

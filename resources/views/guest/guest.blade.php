@@ -1,16 +1,31 @@
 @extends('layout.app')
 @section('content')
+    <style>
 
+        body {
+            /*background-color:#a94442;*/
+            background-color:#ce8483;
 
+        }
+    </style>
 
-
-  <body bgcolor="aqua">
+    <body>
     <div class="container ">
         <div class="row">
+
             <div class="col-md-10 col-sm-offset-1">
-                @foreach($posts as $status)
+                @if(!empty($guestuser->cover_photo))
+                   <img src ='/uploads/{{ $guestuser->cover_photo }}' width="100%" height="400px">
+                @else
+                    <img src ='/uploads/no-photo.png' width="100%" height="400px">
+
+                @endif
+
+                    @foreach($posts as $status)
                         <div class="panel panel-danger">
                             <div class="panel-heading">
+
+
                                 <div class="row">
                                     <div class="col-md-6 ">{{ $guestuser->name }}{{ $status->created_at }}</div>
                                     <div class="col-md-1 col-md-offset-5">
@@ -26,7 +41,7 @@
                             </div>
 
                             <div class="panel-body">
-                                <div cladd="row">
+                                <div class="row">
                                     <div class="col-md-1">
                                         <img src="/uploads/{{ Auth::user()->image }}" class="img-responsive">
                                     </div>
@@ -96,13 +111,39 @@
                                             </li>
 
                                             <li>
-                                                {!! Form::open() !!}
-                                                <input type="hidden" name='status_id' value={{ $status->id }}>
+                                                @if(App\statuslike::where(['status_id'=>$status->id,'user_id'=>Auth::user()->id])->first())
+                                                    {!! Form::open(array('url' => 'homeUnlike','method' => 'get')) !!}
+                                                    <input type="hidden" name='status_id' value={{ $status->id }}>
 
-                                                <button class="btn btn-info btn-xs " type="button"  ><i class="fa fa-thumbs-up"></i>Like</button>
+                                                    <input class="btn btn-info btn-xs " type="submit" value="UnLike">
 
-                                                {!! Form::close() !!}
+                                                    {!! Form::close() !!}
+
+                                                @else
+                                                    {!! Form::open(array('url' => 'homelike','method' => 'get')) !!}
+                                                    <input type="hidden" name='status_id' value={{ $status->id }}>
+
+                                                    <input class="btn btn-info btn-xs " type="submit" value="Like">
+
+                                                    {!! Form::close() !!}
+                                                @endif
                                             </li>
+
+                                            <? $count = 0;?>
+                                            @foreach($comments as $comment)
+                                                @if($comment->status_id == $status->id )
+                                                    <?  $count += 1;?>
+                                                @endif
+                                            @endforeach
+                                            <? echo $count." "."Comments"?>
+
+                                            <? $count = 0;?>
+                                            @foreach($statuslike as $like)
+                                                @if($like->status_id == $status->id )
+                                                    <?  $count += 1;?>
+                                                @endif
+                                            @endforeach
+                                            <? echo $count." "."likes"?>
                                         </ul>
                                         <?php
                                         $arr = [];

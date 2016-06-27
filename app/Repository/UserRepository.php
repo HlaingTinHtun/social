@@ -30,10 +30,10 @@ class UserRepository implements UserRepositoryInterface{
 //
 
     }
-    public function allupdate($id,$name,$imageName){
+    public function allupdate($id,$name,$imageName,$coverName){
 
         $this->users->where('id','=',$id)
-            ->update(['name'=>$name,'image'=>$imageName]);
+            ->update(['name'=>$name,'image'=>$imageName,'cover_photo'=>$coverName]);
     }
 
     public function update($id,$name){
@@ -41,5 +41,17 @@ class UserRepository implements UserRepositoryInterface{
 
       $this->users->where('id','=',$id)->update(['name'=>$name]);
     }
+    public function noCoverUpdate($id,$name,$imageName){
+        $this->users->where('id','=',$id)
+            ->update(['name'=>$name,'image'=>$imageName]);
+
+    }
+    public function noImageUpdate($id,$name,$coverName){
+        $this->users->where('id','=',$id)
+            ->update(['name'=>$name,'cover_photo'=>$coverName]);
+
+    }
+
+
 
 }

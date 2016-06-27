@@ -37,9 +37,10 @@ class SocialController extends Controller
                 while ($status->users_id == Auth::user()->id) {
 
                     $post = status::get()->where('users_id', $status->users_id)->sortByDesc('id');
+                    $statuslike =statuslike::all();
 
                     $comment = statuscomment::all();
-                    return view('social.social')->with('posts', $post)->with('comments', $comment);
+                    return view('social.social')->with('posts', $post)->with('comments', $comment)->with('statuslike',$statuslike);
                 }
 
             }
@@ -57,8 +58,10 @@ class SocialController extends Controller
                     $comment = statuscomment::all();
                     $postforlast = status::all();
                     $guestuser =User::find($id);
+                    $statuslike =statuslike::all();
 
-                    return view('guest.guest')->with('posts', $post)->with('comments', $comment)->with('postforlast', $postforlast)->with('guestuser',$guestuser);
+
+                    return view('guest.guest')->with('posts', $post)->with('comments', $comment)->with('postforlast', $postforlast)->with('guestuser',$guestuser)->with('statuslike',$statuslike);
                 }
 
             }
@@ -79,7 +82,9 @@ class SocialController extends Controller
                 $post = status::get()->where('users_id', $status->users_id)->sortByDesc('id');
 
                 $comment = statuscomment::all();
-                return view('social.social')->with('posts', $post)->with('comments', $comment);
+                $statuslike =statuslike::all();
+
+                return view('social.social')->with('posts', $post)->with('comments', $comment)->with('statuslike',$statuslike);
             }
 
         }
@@ -94,8 +99,10 @@ class SocialController extends Controller
         $user =users::all();
 
         $comment = statuscomment::get();
+        $statuslike =statuslike::all();
 
-        return view('social.home')->with('posts', $post)->with('comments', $comment)->with('users',$user)->with('postforlast',$postforlast);
+
+        return view('social.home')->with('posts', $post)->with('comments', $comment)->with('users',$user)->with('postforlast',$postforlast)->with('statuslike',$statuslike);
 
     }
 
@@ -118,10 +125,13 @@ class SocialController extends Controller
             } else {
                 status::create(['status_text' => $text, 'users_id' => $users_id]);
             }
+            return Redirect::to('timeline');
 
         }
 
-        return Redirect::to('timeline');
+
+
+
 
     }
     public function uploadPosthome(uploadPostRequest $request)

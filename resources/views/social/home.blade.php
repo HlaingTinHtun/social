@@ -3,19 +3,16 @@
 
 
         <style>
-
             .namecolor{
                 color:#1b6d85;
             }
-
-
+            body {
+                background-color:#1b6d85;
+            }
         </style>
+        <body>
 
-
-
-
-    <body class="bgcolor">
-        <div class="container ">
+        <div class="container">
             <div class="row">
                 <div class="col-md-10 col-sm-offset-1">
                     {!! Form::open(array( 'files' =>'true')) !!}
@@ -104,6 +101,7 @@
                                             <ul class="list-unstyled list-inline">
                                                 <li>
                                                     <button class="btn btn-xs btn-info" type="button" data-toggle="modal" data-target="#view-comments-{{ $status->id }}" aria-expanded="false" aria-controls="view-comments-{{ $status->id }}"><i class="fa fa-comments-o"></i>View & Comment</button>
+
                                                     <div class="modal fade" id="view-comments-{{ $status->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                                         <div class="modal-dialog" role="document">
                                                             <div class="modal-content">
@@ -138,13 +136,40 @@
                                                 </li>
 
                                                 <li>
-                                                    {!! Form::open() !!}
-                                                    <input type="hidden" name='status_id' value={{ $status->id }}>
+                                                    @if(App\statuslike::where(['status_id'=>$status->id,'user_id'=>Auth::user()->id])->first())
+                                                        {!! Form::open(array('url' => 'homeUnlike','method' => 'get')) !!}
+                                                        <input type="hidden" name='status_id' value={{ $status->id }}>
 
-                                                    <button class="btn btn-info btn-xs " type="submit" name="like"  value={{ $status->id }}><i class="fa fa-thumbs-up"></i>Like</button>
+                                                        <input class="btn btn-info btn-xs " type="submit" value="UnLike">
 
-                                                    {!! Form::close() !!}
+                                                        {!! Form::close() !!}
+
+                                                    @else
+                                                        {!! Form::open(array('url' => 'homelike','method' => 'get')) !!}
+                                                        <input type="hidden" name='status_id' value={{ $status->id }}>
+
+                                                        <input class="btn btn-info btn-xs " type="submit" value="Like">
+
+                                                        {!! Form::close() !!}
+                                                    @endif
                                                 </li>
+
+                                                <? $count = 0;?>
+                                                @foreach($comments as $comment)
+                                                    @if($comment->status_id == $status->id )
+                                                        <?  $count += 1;?>
+                                                    @endif
+                                                @endforeach
+                                                <? echo $count." "."Comments"?>
+
+                                                <? $count = 0;?>
+                                                @foreach($statuslike as $like)
+                                                    @if($like->status_id == $status->id )
+                                                        <?  $count += 1;?>
+                                                    @endif
+                                                @endforeach
+                                                <? echo $count." "."likes"?>
+
                                             </ul>
 
 

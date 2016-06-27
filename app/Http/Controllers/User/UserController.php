@@ -70,21 +70,58 @@ class UserController extends Controller
         $id =Input::get('id');
         $name =Input::get('name');
         $image =Input::file('image');
-        if(!empty($image)) {
+        $cover_photo=Input::file('cover_photo');
+
+
+        if(!empty($image) && (!empty($cover_photo))) {
+
+                $coverName = $cover_photo->getClientOriginalName();
+                $destination = 'uploads';
+                $cover_photo->move($destination, $coverName);
                 $imageName = $image->getClientOriginalName();
                 $destination = 'uploads';
                 $image->move($destination, $imageName);
-                 $this->userRepository->allupdate($id,$name, $imageName);
-
+                $this->userRepository->allupdate($id,$name, $imageName,$coverName);
             return redirect()->back();
             }
+
+        elseif(!empty($image) && (empty($cover_photo))){
+
+
+            $imageName = $image->getClientOriginalName();
+            $destination = 'uploads';
+            $image->move($destination, $imageName);
+            $this->userRepository->noCoverUpdate($id,$name, $imageName);
+            return redirect()->back();
+
+
+        }
+
+        elseif (empty($image) && (!empty($cover_photo))){
+
+            $coverName = $cover_photo->getClientOriginalName();
+            $destination = 'uploads';
+            $cover_photo->move($destination, $coverName);
+            $this->userRepository->noImageUpdate($id,$name,$coverName);
+            return redirect()->back();
+
+
+        }
             else{
                 $this->userRepository->update($id,$name);
                 return redirect()->back();
-
-
             }
     }
+
+//    public function coverphoto(Request $request){
+//        $cover_photo=Input::file('cover_photo');
+//        $imageName = $cover_photo->getClientOriginalName();
+//        $destination = 'uploads';
+//        $cover_photo->move($destination, $imageName);
+//        $this->userRepository->coverphoto($imageName);
+//
+//    }
+
 
 }
 

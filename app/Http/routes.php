@@ -54,12 +54,17 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('home',['as'=> 'home','uses'=> 'social\SocialController@uploadPosthome']);
     Route::get('home','social\SocialController@home');
 
-    //Comment
+    //Comment and Like
     Route::post('comment',['as'=>'social','uses'=>'social\CommentController@postComment']);
-
     Route::post('homecomment',['as'=>'social','uses'=>'social\CommentController@homepostComment']);
+    Route::get('timelinelike','social\LikeController@postLike');
+    Route::get('timelineUnlike','social\LikeController@postUnLike');
+    Route::get('homelike','social\LikeController@homepostLike');
+    Route::get('homeUnlike','social\LikeController@postUnLike');
 
-   // Password reset routes...
+
+
+    // Password reset routes...
     Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
     Route::post('password/reset', 'Auth\PasswordController@postReset');
     Route::get('password/reset', function () {

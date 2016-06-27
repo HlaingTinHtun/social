@@ -21,40 +21,32 @@ class CommentController extends Controller
     }
     public function postComment()
     {
+        if (Input::has('comment-text')) {
+            $status = Input::get('comment-text');
+            $user_id = Auth::user()->id;
+            $status_id = Input::get('status_id');
 
-        $status = Input::get('comment-text');
-        $user_id = Auth::user()->id;
+            statuscomment::create(['comment_text' => $status, 'status_id' => $status_id, 'user_id' => $user_id,]);
+            return redirect()->back();
+        } else {
+            return redirect()->back();
 
-        $status_id = Input::get('status_id');
-
-        statuscomment::create(['comment_text' => $status, 'status_id' => $status_id, 'user_id' => $user_id,]);
-
-        $status = status::all();
-
-
-        foreach ($status as $status) {
-
-            while ($status->users_id == Auth::user()->id) {
-
-                return redirect()->back();
-            }
         }
-
-        return redirect()->back();
     }
-
-
 
     public function homepostComment()
     {
+        if (Input::has('comment-text')) {
+            $status = Input::get('comment-text');
+            $user_id = Auth::user()->id;
+            $status_id = Input::get('status_id');
+            statuscomment::create(['comment_text' => $status, 'status_id' => $status_id, 'user_id' => $user_id,]);
+            return redirect()->back();
+        }else {
+            return redirect()->back();
 
-        $status = Input::get('comment-text');
-        $user_id = Auth::user()->id;
-        $status_id = Input::get('status_id');
 
-        statuscomment::create(['comment_text' => $status, 'status_id' => $status_id, 'user_id' => $user_id,]);
-
-        return redirect()->back();
+        }
 
 
 
