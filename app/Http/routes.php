@@ -11,10 +11,13 @@
 |
 */
 
+use App\statuslike;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Redirect;
 
 Route::get('/', function () {
-    return view('auth.login');
+    return view('welcome');
 });
 
 
@@ -27,11 +30,11 @@ Route::group(['middleware' => 'web'], function () {
     route::get('login', function () {
         return view('auth.login');
     });
+//    route::get('login','Auth\AuthController@login');
     route::post('login', 'Auth\AuthController@postLogin');
     Route::get('logout', 'Auth\AuthController@logout');
-    route::get('register', function () {
-        return view('auth.register');
-    });
+    route::get('register','User\UserController@register');
+
     route::post('register', 'User\UserController@insert');
 
     //Profile
@@ -42,8 +45,6 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::get('/social/{id}','social\SocialController@index');
     Route::get('/timeline','social\SocialController@timeline');
-
-
 
     //Post
     route::resource('social','social\SocialController');
@@ -57,12 +58,12 @@ Route::group(['middleware' => 'web'], function () {
     //Comment and Like
     Route::post('comment',['as'=>'social','uses'=>'social\CommentController@postComment']);
     Route::post('homecomment',['as'=>'social','uses'=>'social\CommentController@homepostComment']);
-    Route::get('timelinelike','social\LikeController@postLike');
-    Route::get('timelineUnlike','social\LikeController@postUnLike');
-    Route::get('homelike','social\LikeController@homepostLike');
-    Route::get('homeUnlike','social\LikeController@postUnLike');
-
-
+    Route::get('timelinelike/{status_id}','social\LikeController@postLike');
+    Route::get('timelineUnlike/{status_id}','social\LikeController@postUnLike');
+    Route::get('homelike/{status_id}','social\LikeController@postLike');
+    Route::get('homeUnlike/{status_id}','social\LikeController@postUnLike');
+    Route::get('guestlike/{status_id}','social\LikeController@postLike');
+    Route::get('guestUnlike/{status_id}','social\LikeController@postUnLike');
 
     // Password reset routes...
     Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
@@ -73,6 +74,13 @@ Route::group(['middleware' => 'web'], function () {
     });
     Route::get('password/email', 'Auth\PasswordController@getEmail');
     Route::post('password/email', 'Auth\PasswordController@postEmail');
+
+
+
+
+
+
+
 
 });
 

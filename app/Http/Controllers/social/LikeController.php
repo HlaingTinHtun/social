@@ -14,25 +14,28 @@ use Illuminate\Support\Facades\Input;
 
 class LikeController extends Controller
 {
-    public function postLike(Request $request)
+
+
+    public function postLike($datastring)
     {
-        $status_id = Input::get('status_id');
+
+        $data=explode(',',$datastring);
+        $key = $data[0];
+        $status_id = $data[1];
         statuslike::create(['user_id' => Auth::user()->id, 'status_id' => $status_id]);
-        return redirect()->back();
+        return view('social.ajaxSocial',compact('key', 'status_id'));
 
     }
 
-    public function homepostLike(Request $request)
-    {
-        $status_id = Input::get('status_id');
-        statuslike::create(['user_id' => Auth::user()->id, 'status_id' => $status_id]);
-        return redirect()->back();
-    }
+    public function postUnlike($datastring){
 
-    public function postUnlike(){
-        $status_id = Input::get('status_id');
+        $data=explode(',',$datastring);
+        $key = $data[0];
+        $status_id = $data[1];
+
         statuslike::where('status_id',$status_id)->Where('user_id',Auth::user()->id)->delete();
-        return redirect()->back();
+
+        return view('social.ajaxSocial',compact('key','status_id'));
 
     }
 

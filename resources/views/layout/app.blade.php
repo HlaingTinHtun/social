@@ -42,11 +42,18 @@
                 </a>
             </div>
 
+
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
 
                     <ul class="nav navbar-nav">
                         <li><a href="{{ url('/home') }}">Home</a></li>
+
+
                     </ul>
+
+
+
+
 
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
@@ -77,6 +84,11 @@
     </nav>
 
     @yield('content')
+
+
+    {{--<script src="/assets/js/jquery-2.1.3.min.js"></script>--}}
+    {{--<script src="/assets/js/jquery-1.10.2.js"></script>--}}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>

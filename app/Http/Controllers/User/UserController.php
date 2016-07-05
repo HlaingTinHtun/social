@@ -41,6 +41,10 @@ class UserController extends Controller
         }
     }
 
+    public function register(){
+        return view('auth.register');
+    }
+
     public function insert(UserRequest $request)
 
 

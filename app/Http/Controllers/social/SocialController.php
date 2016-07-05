@@ -190,10 +190,23 @@ class SocialController extends Controller
     public function deletePost($id){
 
         status::where('id','=',$id)->delete();
-        return redirect()->back();
+
+
 
 
     }
+
+    public function search($data){
+
+
+        $user_id =users::where('name','=',$data)->get('id');
+        foreach($user_id as $id){
+            status::where('users_id','=',$id)->get();
+            return redirect()->back();
+            }
+        }
+
+
 
 }
 

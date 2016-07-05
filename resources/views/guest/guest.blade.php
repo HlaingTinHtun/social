@@ -1,13 +1,40 @@
 @extends('layout.app')
 @section('content')
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+
     <style>
 
         body {
-            /*background-color:#a94442;*/
             background-color:#ce8483;
-
         }
     </style>
+
+
+
+    <script>
+    function voteAction(counter, status_id, action) {
+
+    var datastring = counter + ',' + status_id + ',' + action;
+
+
+    if(action == 'unlike') {
+
+    var path = '/guestUnlike/'
+
+
+    } else if ( action == 'like') {
+    path = '/guestlike/';
+
+
+    }
+
+    $.get(path + datastring, function (response) {
+    console.log(response);
+    $('#likes'+counter).html(response);
+
+    });
+    }
+    </script>
 
     <body>
     <div class="container ">
@@ -21,7 +48,7 @@
 
                 @endif
 
-                    @foreach($posts as $status)
+                    @foreach($posts as $key=>$status)
                         <div class="panel panel-danger">
                             <div class="panel-heading">
 
@@ -110,23 +137,25 @@
                                                 </div>
                                             </li>
 
-                                            <li>
+                                            <li id="likes<?=$key;?>">
+
                                                 @if(App\statuslike::where(['status_id'=>$status->id,'user_id'=>Auth::user()->id])->first())
-                                                    {!! Form::open(array('url' => 'homeUnlike','method' => 'get')) !!}
-                                                    <input type="hidden" name='status_id' value={{ $status->id }}>
 
-                                                    <input class="btn btn-info btn-xs " type="submit" value="UnLike">
+                                                    <input type="hidden" name='status_id' id="status_id" value={{ $status->id }}>
 
-                                                    {!! Form::close() !!}
+
+                                                    <input type="hidden" name="counter" id="counter" value="{{ $key }}">
+                                                    <button class="unlike btn btn-info btn-xs " type="submit" onclick="voteAction('<?= $key;?>','<?= $status->id;?>','unlike')">UnLike</button>
 
                                                 @else
-                                                    {!! Form::open(array('url' => 'homelike','method' => 'get')) !!}
-                                                    <input type="hidden" name='status_id' value={{ $status->id }}>
 
-                                                    <input class="btn btn-info btn-xs " type="submit" value="Like">
+                                                    <input type="hidden" name='status_id' id="like_status_id" value={{ $status->id }}>
+                                                    <input type="hidden" name="counter" id="counter" value="{{ $key }}">
 
-                                                    {!! Form::close() !!}
+                                                    <button class="like btn btn-info btn-xs "   type="submit" onclick="voteAction('<?= $key;?>','<?= $status->id;?>','like')">Like</button>
+
                                                 @endif
+
                                             </li>
 
                                             <? $count = 0;?>
@@ -137,13 +166,7 @@
                                             @endforeach
                                             <? echo $count." "."Comments"?>
 
-                                            <? $count = 0;?>
-                                            @foreach($statuslike as $like)
-                                                @if($like->status_id == $status->id )
-                                                    <?  $count += 1;?>
-                                                @endif
-                                            @endforeach
-                                            <? echo $count." "."likes"?>
+
                                         </ul>
                                         <?php
                                         $arr = [];
