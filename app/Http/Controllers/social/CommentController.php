@@ -19,36 +19,29 @@ class CommentController extends Controller
     {
         $this->middleware('auth');
     }
-    public function postComment()
+    public function postComment($datastring)
+
     {
-        if (Input::has('comment-text')) {
-            $status = Input::get('comment-text');
-            $user_id = Auth::user()->id;
-            $status_id = Input::get('status_id');
 
-            statuscomment::create(['comment_text' => $status, 'status_id' => $status_id, 'user_id' => $user_id,]);
-            return redirect()->back();
-        } else {
-            return redirect()->back();
+        $data=explode(',',$datastring);
+        $key = $data[0];
+        $status_id = $data[1];
+        $comment_text = $data[2];
+        $user_id = Auth::user()->id;
+        statuscomment::create(['comment_text' => $comment_text, 'status_id' => $status_id, 'user_id' => $user_id,]);
+        return view('social.ajaxCommentSocial',compact('key','status_id'));
 
-        }
     }
 
-    public function homepostComment()
-    {
-        if (Input::has('comment-text')) {
-            $status = Input::get('comment-text');
-            $user_id = Auth::user()->id;
-            $status_id = Input::get('status_id');
-            statuscomment::create(['comment_text' => $status, 'status_id' => $status_id, 'user_id' => $user_id,]);
-            return redirect()->back();
-        }else {
-            return redirect()->back();
 
+    public function edit($id){
+        $comment = statuscomment::find($id);
+        return view('social.editcomment',compact('comment'));
+    }
 
-        }
-
-
+    public function delete($id){
+        statuscomment::where('id','=',$id)->delete();
+        return redirect()->back();
 
     }
 

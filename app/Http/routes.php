@@ -55,15 +55,25 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('home',['as'=> 'home','uses'=> 'social\SocialController@uploadPosthome']);
     Route::get('home','social\SocialController@home');
 
-    //Comment and Like
-    Route::post('comment',['as'=>'social','uses'=>'social\CommentController@postComment']);
-    Route::post('homecomment',['as'=>'social','uses'=>'social\CommentController@homepostComment']);
-    Route::get('timelinelike/{status_id}','social\LikeController@postLike');
-    Route::get('timelineUnlike/{status_id}','social\LikeController@postUnLike');
-    Route::get('homelike/{status_id}','social\LikeController@postLike');
-    Route::get('homeUnlike/{status_id}','social\LikeController@postUnLike');
-    Route::get('guestlike/{status_id}','social\LikeController@postLike');
-    Route::get('guestUnlike/{status_id}','social\LikeController@postUnLike');
+    //Comment
+//    Route::post('comment',['as'=>'social','uses'=>'social\CommentController@postComment']);
+    Route::get('comment/{datastring}','social\CommentController@postComment');
+    Route::get('homecomment/{datastring}','social\CommentController@postComment');
+
+//    Route::post('homecomment',['as'=>'social','uses'=>'social\CommentController@homepostComment']);
+    Route::get('/comment/edit/{id}','social\CommentController@edit');
+    Route::get('/comment/delete/{id}','social\CommentController@delete');
+
+
+
+
+    //Like
+    Route::get('timelinelike/{datastring}','social\LikeController@postLike');
+    Route::get('timelineUnlike/{datastring}','social\LikeController@postUnLike');
+    Route::get('homelike/{datastring}','social\LikeController@postLike');
+    Route::get('homeUnlike/{datastring}','social\LikeController@postUnLike');
+    Route::get('guestlike/{datastring}','social\LikeController@postLike');
+    Route::get('guestUnlike/{datastring}','social\LikeController@postUnLike');
 
     // Password reset routes...
     Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');

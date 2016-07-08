@@ -30,6 +30,64 @@
         }
 
 
+        function homecommentAction(counter, status_id) {
+
+            var comment_text = $('input[name="comment-text' + counter + '"]').val();
+
+            if (comment_text == "") {
+
+                alert('Please Fill The Comment!');
+
+            } else {
+
+
+                var datastring = counter + ',' + status_id + ',' + comment_text;
+
+                $('input[name="comment-text' + counter + '"]').val('');
+
+
+                var path = '/homecomment/';
+                $.get(path + datastring, function (response) {
+                    console.log(response);
+                    $('#comments' + counter).html(response);
+                });
+
+            }
+        }
+
+        function homecommentEnter(event,counter, status_id){
+
+            var keycode = (event.keyCode ? event.keyCode : event.which);
+            if(keycode == '13') {
+
+
+                var comment_text = $('input[name="comment-text' + counter + '"]').val();
+
+                if (comment_text == "") {
+                    alert('Please Fill The Comment!');
+                } else {
+
+
+                    var datastring = counter + ',' + status_id + ',' + comment_text;
+
+                    var path = '/homecomment/';
+
+                    $('input[name="comment-text' + counter + '"]').val('');
+
+
+                    $.get(path + datastring, function (response) {
+                        console.log(response);
+                        $('#comments' + counter).html(response);
+
+
+                    });
+                }
+            }
+
+
+        }
+
+
     </script>
 
 
@@ -39,7 +97,8 @@
                 color:#1b6d85;
             }
             body {
-                background-color:#1b6d85;
+                /*background-color:#1b6d85;*/
+                background-color:#C9DAE1;
             }
         </style>
         <script>
@@ -63,10 +122,7 @@
 
         <div class="container">
             <div class="row">
-                <div class="col-md-4 col-md-offset-1">
-                    <input type="text" name="keyword"  class="form-control" placeholder="Search by Name">
-                </div>
-                    <button type="button"  class="btn btn-success">Search</button>
+
 
                 <div class="col-md-10 col-sm-offset-1">
 
@@ -170,26 +226,46 @@
                                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                                     <h4 class="modal-title " id="myModalLabel">Comments</h4>
                                                                 </div>
-                                                                <div class="modal-body">
+                                                                <div id="comments<?=$key;?>">
                                                                     @foreach($comments as $comment)
                                                                         @if($comment->status_id == $status->id )
                                                                             <div class="row">
-                                                                                    <div class="col-md-1">
-                                                                                        <img src="/uploads/{{ App\User::find($comment->user_id)->image }}" class="img-responsive">
-                                                                                    </div>
-                                                                                    <div class="col-md-11">
-                                                                                        <ul class="list-inline list-unstyled">
-                                                                                            <li><B><a class="namecolor" href="/social/{{$comment->user_id}}">{{ App\User::find($comment->user_id)->name }}</a></B></li>
-                                                                                            <li>{{ $comment->comment_text }}</li>
-                                                                                        </ul>
-                                                                                    </div>
+                                                                                <div class="col-md-1">
+                                                                                    <img src="/uploads/{{ App\User::find($comment->user_id)->image }}"
+                                                                                         class="img-responsive">
+                                                                                </div>
+                                                                                <div class="col-md-11">
+                                                                                    <ul class="list-inline list-unstyled">
+                                                                                        <b><h5><a class='namecolor'
+                                                                                                  href="/social/{{$comment->user_id}}">{{ App\User::find($comment->user_id)->name }}</a></h5></b>
+                                                                                        {{ $comment->comment_text }}
+                                                                                        <div>
+                                                                                            @if($comment->user_id == Auth::user()->id )
+                                                                                                <b><a style="color:red;" href="/comment/edit/{{$comment->id}}">edit</a>|
+                                                                                                    <a style="color:red;" href="/comment/delete/{{$comment->id}}" onclick="return confirm('Are u Sure?')">delete</a></b>
+                                                                                            @else
+                                                                                            @endif
+                                                                                        </div>
+                                                                                        <hr>
+
+                                                                                    </ul>
+                                                                                </div>
                                                                             </div>
                                                                         @endif
                                                                     @endforeach
                                                                 </div>
+                                                                <input type="hidden" name='status_id' value={{ $status->id }}>
+                                                                <input type="hidden" name='commentuserid' value="{{ App\User::find($status->id) }}">
 
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                                <div class="form-group">
+                                                                    <div class="input-group">
+                                                                        <input type="text" class="form-control" name="comment-text<?=$key;?>" onkeypress="homecommentEnter(event,'<?= $key;?>','<?= $status->id;?>')" id="comment_text"
+                                                                               placeholder="Post a comment...">
+                                                                            <span class="input-group-btn">
+                                                                                <button class="btn btn-default" type="submit" id="hide" onclick="homecommentAction('<?= $key;?>','<?= $status->id;?>')"  data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-send"></i></button>
+                                                                            </span>
+                                                                    </div>
+
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -201,8 +277,6 @@
                                                     @if(App\statuslike::where(['status_id'=>$status->id,'user_id'=>Auth::user()->id])->first())
 
                                                         <input type="hidden" name='status_id' id="status_id" value={{ $status->id }}>
-
-
                                                         <input type="hidden" name="counter" id="counter" value="{{ $key }}">
                                                         <button class="unlike btn btn-info btn-xs " type="submit" onclick="voteAction('<?= $key;?>','<?= $status->id;?>','unlike')">UnLike</button>
 
@@ -210,8 +284,7 @@
 
                                                         <input type="hidden" name='status_id' id="like_status_id" value={{ $status->id }}>
                                                         <input type="hidden" name="counter" id="counter" value="{{ $key }}">
-
-                                                        <button class="like btn btn-info btn-xs "   type="submit" onclick="voteAction('<?= $key;?>','<?= $status->id;?>','like')">Like</button>
+                                                        <button class="like btn btn-info btn-xs "  type="submit" onclick="voteAction('<?= $key;?>','<?= $status->id;?>','like')">Like</button>
 
                                                     @endif
 
@@ -266,26 +339,8 @@
                                                         </ul>
                                                     </div>
                                                 </div>
-
-
-                                            </div>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="panel-footer clearfix">
-                                        {!! Form::open(array('url' => 'homecomment','method' => 'post')) !!}
-
-                                        <input type="hidden" name='status_id' value={{ $status->id }}>
-                                        <div class="form-group">
-                                            <div class="input-group">
-                                                <input type="text" class="form-control" name="comment-text" id="comment_text" placeholder="Post a comment...">
-                                                <span class="input-group-btn">
-                                                    <button class="btn btn-default" type="submit" onclick="comment();" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-send"></i></button>
-                                                </span>
                                             </div>
                                         </div>
-                                        {!! Form::close() !!}
                                     </div>
                                 </div>
                             @endif

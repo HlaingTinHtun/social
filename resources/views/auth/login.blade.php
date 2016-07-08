@@ -1,7 +1,12 @@
 @extends('layout.app')
 
 @section('content')
-
+    <style>
+        body {
+            background-color:#C9DAE1;
+        }
+    </style>
+    <body>
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
@@ -47,5 +52,6 @@
         </div>
     </div>
 </div>
+    </body>
 @endsection
 

@@ -128,11 +128,6 @@ class SocialController extends Controller
             return Redirect::to('timeline');
 
         }
-
-
-
-
-
     }
     public function uploadPosthome(uploadPostRequest $request)
     {
@@ -142,7 +137,6 @@ class SocialController extends Controller
             $text = input::get('status-text');
             $users_id = Auth::user()->id;
             $image = $request->file('image');
-
 
             if (!empty($image)) {
                 $imageName = $image->getClientOriginalName();
@@ -190,14 +184,11 @@ class SocialController extends Controller
     public function deletePost($id){
 
         status::where('id','=',$id)->delete();
-
-
-
+        return redirect()->back();
 
     }
 
     public function search($data){
-
 
         $user_id =users::where('name','=',$data)->get('id');
         foreach($user_id as $id){

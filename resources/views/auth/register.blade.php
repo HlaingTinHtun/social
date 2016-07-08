@@ -1,6 +1,13 @@
 @extends('layout.app')
 
 @section('content')
+    <style>
+        body {
+            background-color:#C9DAE1;
+        }
+    </style>
+
+    <body>
 
 
 
@@ -74,4 +81,5 @@
         </div>
     </div>
 </div>
+    </body>
 @endsection
