@@ -49,19 +49,20 @@ Route::group(['middleware' => 'web'], function () {
     //Post
     route::resource('social','social\SocialController');
     Route::get('/social/edit/{id}','social\SocialController@editPost');
-    Route::post('/updatepost','social\SocialController@updatePost');
+    Route::get('/updatepost/{data}','social\SocialController@updatePost');
     Route::get('/social/delete/{id}','social\SocialController@deletePost');
     Route::post('/timeline',['as'=> 'timeline','uses'=> 'social\SocialController@uploadPost']);
-    Route::post('home',['as'=> 'home','uses'=> 'social\SocialController@uploadPosthome']);
-    Route::get('home','social\SocialController@home');
+    Route::post('/home',['as'=> 'home','uses'=> 'social\SocialController@uploadPosthome']);
+    Route::get('/home','social\SocialController@home');
+//    Route::post('/home','social\SocialController@home');
+
 
     //Comment
 //    Route::post('comment',['as'=>'social','uses'=>'social\CommentController@postComment']);
     Route::get('comment/{datastring}','social\CommentController@postComment');
     Route::get('homecomment/{datastring}','social\CommentController@postComment');
 
-//    Route::post('homecomment',['as'=>'social','uses'=>'social\CommentController@homepostComment']);
-    Route::get('/comment/edit/{id}','social\CommentController@edit');
+    Route::get('/comment/edit/{data}','social\CommentController@update');
     Route::get('/comment/delete/{id}','social\CommentController@delete');
 
 

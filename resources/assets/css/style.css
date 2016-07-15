@@ -1,26 +1,9 @@
-.bcolor{
-    background-color: #a6e1ec;
+.namecolor{
+    color:#1b6d85;
 }
-/* For Accordion */
-.multiselect {
-    /*margin-top: px;*/
-    margin-left: 59px;
-    width:20em;
-    height:10em;
-    border:solid 1px #c0c0c0;
-    overflow:auto;
-}
-
-.multiselect label {
-    display:block;
-}
-
-.list-style{
-    list-style: none;
-}
-#accordion{
-    cursor: pointer;
-}
-.accordion-content{
-    display: none;
+body#home {
+    background-image: url('/uploads/rain.jpg');
+    background-size: 100%;
+    background-repeat:no-repeat;
+    background-attachment:fixed;
 }

@@ -1,0 +1,164 @@
+
+
+.fa-btn {
+    margin-right: 6px;
+}
+
+.namecolor{
+    color:white;
+}
+body#home {
+    /*background-image: url('/uploads/rain.jpg');*/
+    background-color:#D0EAFF	;
+
+    background-size: 100%;
+    background-repeat:no-repeat;
+    background-attachment:fixed;
+}
+body#social{
+    /*background-image: url('../../../uploads/rain.jpg');*/
+    /*background-color:#EBF0D2;*/
+    background-color:#D0EAFF	;
+
+    background-size: 100%;
+    background-repeat:no-repeat;
+    background-attachment:fixed;
+
+}
+body#postedit{
+    background-image: url('../../../uploads/rain.jpg');
+    background-size: 100%;
+    background-repeat:no-repeat;
+    background-attachment:fixed;
+
+}
+
+.editspace{
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
+
+.coverphoto{
+    padding-bottom: 15px;
+}
+/*body#guesttimeline {*/
+    /*background-image: url('../../uploads/rain.jpg');*/
+    /*background-color: #BC4676;*/
+
+/*}*/
+.profilespace{
+    padding-left: 3px;
+    padding-right: 3px;
+
+}
+/*.font_color{*/
+    /*color:#606060;*/
+/*}*/
+body#guestprofile {
+    /*background-image: url('../../../uploads/bg.jpeg');*/
+    background-color: #D0EAFF;
+    background-size: 100%;
+    background-repeat:no-repeat;
+
+
+}
+.guestspace{
+    padding-left: 3px;
+    padding-right: 3px;
+}
+.guest_font_color{
+    color:#f9f9f9;
+}
+body#guesttimeline {
+    /*background-image: url('../../../uploads/bg.jpeg');*/
+    background-color:#D0EAFF;
+
+    background-size: 100%;
+    background-attachment:fixed;
+}
+
+.gear { position: relative; display: block; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 1px solid #d9d9d9; }
+
+.gear a.editlink { position: absolute; right: 0; top: 13px; }
+
+.datainfo { margin-left: 10px; font-size: 11px; color: #333; }
+
+
+/** @group form inputs **/
+.hlite { background: #e2e8f6; border: 1px solid #bdc7d8; width: 250px; margin-left: -7px; padding: 4px 7px; color: #565656; font-size: 12px; }
+
+/** @group buttons **/
+.savebtn { position: absolute; right: 0; top: 13px; padding: 4px 9px; background: #5972a8; font-size: 1.2em; cursor: pointer; border: 1px solid #1a356e; color: #fff; -webkit-box-shadow: inset 0 1px 0 #8a9cc2; -moz-box-shadow: inset 0 1px 0 #8a9cc2; box-shadow: inset 0 1px 0 #8a9cc2; margin-bottom: 5px; margin-top: -5px; display: none;
+}
+.savebtn:hover { color: #fff; background: #607db7; text-decoration: none; }
+.savebtn:active { background: #556790; }
+
+#panel_body{
+    /*background-color: #447584;*/
+    /*background-color: #598A8F;*/
+    background-color:#A5D1F3;
+}
+#panel_heading{
+    background-color:#003366;
+
+}
+#panel_footer{
+    background-color:#003366;
+
+}
+#comment_btn{
+    background-color:#003366;
+
+}
+.fadding-photo:hover { opacity:0.6;}
+
+.menu_bar{
+    background-color:#003264;
+}
+.guest_footer{
+    background-color:#cd0a0a;
+
+}
+.guest_heading{
+    background-color:#cd0a0a;
+
+}
+.guest_body{
+    background-color:#A5D1F3 ;
+
+}
+body#index{
+
+    background-size: 100%;
+    background-repeat:no-repeat;
+
+    background-image: url('/uploads/rain.jpg');
+
+
+
+
+}
+.up{
+    margin-top: 35%;
+}
+h3{
+    color: #0760B3;
+    padding-left: 40%;
+}
+h4{
+    color:#f9f9f9;
+    padding-left: 40%;
+}
+
+.div-bg{
+    /*background-color: #C9DAE1;*/
+    height:10%;
+    margin-left: 40%;
+
+}
+.box{
+
+    opacity: 0.6;
+
+}

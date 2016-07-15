@@ -1,63 +1,73 @@
 @extends('layout.app')
 @section('content')
-    <style>
-
-        body {
-            /*background-color:#a94442;*/
-            background-color:#ce8483;
-
-        }
-    </style>
 
 
-<body>
-    <div class="container">
+    <body  id="guestprofile">
+    <div class="container" >
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="row">
-                    {!! Form::open(array('method' => 'post', 'files' =>'true','class'=>'form-horizontal')) !!}
-                    <div class="col-md-4">
-                        <img src="/uploads/{{ $guest->image }}" style="width:150px; height:150px;">
-                        <input type="file" id="image" name="image" readonly="true">
-                    </div>
+                    {!! Form::open(array('method' => 'post','url'=> '/home','files' =>'true','class'=>'form-horizontal')) !!}
 
-                    <div class="col-md-8">
+                    <div class="form-group">
+                        <label  class="col-sm-2  control-label font_color ">Profile Picture</label>
+                        <div class=" col-sm-9    well well-lg container">
+                            <div class="col-sm-4">
+                                <img src="/uploads/{{ $guest->image}}" style="width:150px; height:150px; cursor:no-drop">
+                            </div>
+                            <div class="col-sm-5">
+                                <input type="file" id="image" name="image"style="padding-top:80px; cursor:no-drop" >
+                            </div>
+                        </div>
 
+                        <input type="hidden" class="form-control"  name='id' value="{{ $guest->id }}">
 
                         <div class="form-group">
-                            <label  class="col-sm-3 control-label ">Cover Photo</label>
-                            <div class="col-sm-9">
-                                @if(!empty( $guest->cover_photo))
-                                    <img src="/uploads/{{ $guest->cover_photo }}" style="width:500px; height:400px;">
-                                    <input type="file" id="cover_photo" name="cover_photo" readonly="true">
+                            <label  class="col-sm-2  control-label font_color">Cover Photo</label>
+                            <div class="col-sm-9 col-offset-1 well well-lg container">
 
+                                @if(!empty( $guest->cover_photo))
+                                    <div class="col-sm-7">
+                                        <img src="/uploads/{{ $guest->cover_photo }}" style="width:380px;">
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <input type="file" id="cover_photo" name="cover_photo" style="padding-top:80px; cursor:no-drop;" readonly="true" >
+                                    </div>
                                 @else
-                                    <img src="/uploads/no-photo.png" style="width:500px; height:400px;">
-                                    <input type="file" id="cover_photo" name="cover_photo" readonly="true">
+                                    <div class="col-sm-7">
+                                        <img src="/uploads/no-photo.png" style="width:380px;">
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <input type="file" id="cover_photo" name="cover_photo" style="padding-top:80px; cursor:no-drop;" readonly="true">
+                                    </div>
 
                                 @endif
                             </div>
                         </div>
 
-
-
                         <div class="form-group">
-                            <label  class="col-sm-3 control-label ">Name</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control"  name='name' value="{{ $guest->name }}"  readonly="true">
-
+                            <label  class="col-sm-2 control-label font_color">Name</label>
+                            <div class="col-sm-9 guestspace">
+                                <input type="text" class="form-control" id="title" name='name' placeholder="Title" value="{{$guest->name}}" readonly="true" style="cursor:no-drop">
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="inputEmail3" class="col-sm-3 control-label ">Email</label>
-                            <div class="col-sm-9">
-                                <input type='text' class="form-control" name="email" value="{{ $guest->email}}"readonly="true">
 
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 control-label font_color">Email</label>
+                            <div class="col-sm-9 guestspace">
+                                <input type='text' class="form-control" name="email" value="{{ $guest->email }}" readonly="true" style="cursor:no-drop">
                             </div>
                         </div>
+
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-9 guestspace">
+                                <input type="submit" name='reset' value='Cancel' class="btn btn-info">
+                            </div>
+                        </div>
+
                     </div>
-
                     {!! form::close() !!}
                 </div>
             </div>

@@ -2,12 +2,17 @@
 
 @section('content')
     <style>
-        body {
-            background-color:#C9DAE1;
+        body#login {
+            background-size: 100%;
+            background-repeat:no-repeat;
+            background-image: url('/uploads/rain.jpg');
+        }
+        .login_space{
+            padding-top: 12%;
         }
     </style>
-    <body>
-<div class="container">
+    <body id='login' >
+<div class="container login_space">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">

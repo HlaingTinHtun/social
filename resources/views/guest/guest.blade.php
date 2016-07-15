@@ -1,116 +1,46 @@
 @extends('layout.app')
 @section('content')
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 
-    <style>
-
-        body {
-            background-color:#ce8483;
-        }
-    </style>
-
-
-
-    <script>
-    function voteAction(counter, status_id, action) {
-
-    var datastring = counter + ',' + status_id + ',' + action;
-
-
-    if(action == 'unlike') {
-
-    var path = '/guestUnlike/'
-
-
-    } else if ( action == 'like') {
-    path = '/guestlike/';
-
-
-    }
-
-    $.get(path + datastring, function (response) {
-    console.log(response);
-    $('#likes'+counter).html(response);
-
-    });
-    }
-
-
-    function guestcommentAction(counter, status_id) {
-
-        var comment_text = $('input[name="comment-text' + counter + '"]').val();
-
-        if (comment_text == "") {
-
-            alert('Please Fill The Comment!');
-
-        } else {
-
-
-            var datastring = counter + ',' + status_id + ',' + comment_text;
-
-            $('input[name="comment-text' + counter + '"]').val('');
-
-
-            var path = '/comment/';
-            $.get(path + datastring, function (response) {
-                console.log(response);
-                $('#comments' + counter).html(response);
-            });
-
-        }
-    }
-
-    function guestcommentEnter(event,counter, status_id){
-
-        var keycode = (event.keyCode ? event.keyCode : event.which);
-        if(keycode == '13') {
-
-
-            var comment_text = $('input[name="comment-text' + counter + '"]').val();
-
-            if (comment_text == "") {
-                alert('Please Fill The Comment!');
-            } else {
-
-
-                var datastring = counter + ',' + status_id + ',' + comment_text;
-
-                var path = '/comment/';
-
-                $('input[name="comment-text' + counter + '"]').val('');
-
-
-                $.get(path + datastring, function (response) {
-                    console.log(response);
-                    $('#comments' + counter).html(response);
-
-
-                });
-            }
-        }
-
-
-    }
-    </script>
-
-    <body>
+    <body id="guesttimeline">
     <div class="container ">
         <div class="row">
 
             <div class="col-md-10 col-sm-offset-1">
-                @if(!empty($guestuser->cover_photo))
-                   <img src ='/uploads/{{ $guestuser->cover_photo }}' width="100%" height="400px">
-                @else
-                    <img src ='/uploads/no-photo.png' width="100%" height="400px">
+                <div class="coverphoto">
+                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
 
-                @endif
+                        <ol class="carousel-indicators">
+                            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                        </ol>
+                        @if(!empty($guestuser->cover_photo))
+                            <div class="carousel-inner" role="listbox">
+                                <div class="item active">
+                                    <img src='/uploads/{{ $guestuser->cover_photo }}' width="100%" >
+                                </div>
+                                <div class="item">
+                                    <img  class="fadding-photo" src='/uploads/{{ $guestuser->cover_photo }}'width="100%">
+                                </div>
+                        @else
+                            <img src ='/uploads/no-photo.png' width="100%" height="400px">
+                        @endif
+
+                                <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </div>
+
+                    </div>
+                </div>
 
                     @foreach($posts as $key=>$status)
-                        <div class="panel panel-danger">
-                            <div class="panel-heading">
-
-
+                        <div class="panel panel-default ">
+                            <div class="panel-heading guest_heading">
                                 <div class="row">
                                     <div class="col-md-6 ">{{ $guestuser->name }}{{ $status->created_at }}</div>
                                     <div class="col-md-1 col-md-offset-5">
@@ -125,7 +55,7 @@
                                 </div>
                             </div>
 
-                            <div class="panel-body">
+                            <div class="panel-body guest_body">
                                 <div class="row">
                                     <div class="col-md-1">
                                         <img src="/uploads/{{ Auth::user()->image }}" class="img-responsive">
@@ -138,9 +68,7 @@
                                         @if(in_array($imageFileType,$type))
 
                                             <img src="/uploads/{{$status->image}}" width="150">
-                                            <div>
-                                                <a href="https://www.google.com/search?q={{$status->image}}&oq={{$status->image}}hrase&gws_rd=ssl">View Related Source</a></Strong>
-                                            </div>
+
                                         @elseif($imageFileType =='mp3')
                                             <audio controls>
                                                 <source src="/uploads/{{$status->image}}" type="audio/ogg">
@@ -163,7 +91,7 @@
                                         <ul class="list-unstyled list-inline">
 
                                             <li>
-                                                <button class="btn btn-xs btn-info" type="button" data-toggle="modal" data-target="#view-comments-{{ $status->id }}" aria-expanded="false" aria-controls="view-comments-{{ $status->id }}"><i class="fa fa-comments-o"></i>View & Comment</button>
+                                                <button class="btn btn-xs btn-info" id="comment_btn" type="button" data-toggle="modal" data-target="#view-comments-{{ $status->id }}" aria-expanded="false" aria-controls="view-comments-{{ $status->id }}"><i class="fa fa-comments-o"></i>View & Comment</button>
                                                 <div class="modal fade" id="view-comments-{{ $status->id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
@@ -181,16 +109,15 @@
                                                                             </div>
                                                                             <div class="col-md-11">
                                                                                 <ul class="list-inline list-unstyled">
-                                                                                    <b><h5><a class='namecolor'
-                                                                                              href="/social/{{$comment->user_id}}">{{ App\User::find($comment->user_id)->name }}</a></h5></b>
+                                                                                    <b><h5><a href="/social/{{$comment->user_id}}">{{ App\User::find($comment->user_id)->name }}</a></h5></b>
                                                                                     {{ $comment->comment_text }}
                                                                                     <div>
                                                                                         @if($comment->user_id == Auth::user()->id )
-                                                                                            <b><a style="color:red;" href="/comment/like/{{$comment->id}}">like</a>|
+                                                                                            <b>
                                                                                                 <a style="color:red;" href="/comment/edit/{{$comment->id}}">edit</a>|
-                                                                                                <a style="color:red;" href="/comment/delete/{{$comment->id}}" onclick="return confirm('Are u Sure?')">delete</a></b>
+                                                                                                <a style="color:red;"  onclick="commentDelete('<?=$comment->id;?>')">delete</a></b>
                                                                                         @else
-                                                                                            <b><a style="color:red;" href="/comment/like/{{$comment->id}}">like</a></b>
+
                                                                                         @endif
                                                                                     </div>
                                                                                     <hr>
@@ -200,6 +127,8 @@
                                                                         </div>
                                                                     @endif
                                                                 @endforeach
+
+
                                                             </div>
                                                             <input type="hidden" name='status_id' value={{ $status->id }}>
                                                             <input type="hidden" name='commentuserid' value="{{ App\User::find($status->id) }}">
@@ -227,16 +156,25 @@
 
 
                                                     <input type="hidden" name="counter" id="counter" value="{{ $key }}">
-                                                    <button class="unlike btn btn-info btn-xs " type="submit" onclick="voteAction('<?= $key;?>','<?= $status->id;?>','unlike')">UnLike</button>
+                                                    <button class="unlike btn btn-info btn-xs " id='comment_btn' type="submit" onclick="guestlikeAction('<?= $key;?>','<?= $status->id;?>','unlike')">UnLike</button>
 
                                                 @else
 
                                                     <input type="hidden" name='status_id' id="like_status_id" value={{ $status->id }}>
                                                     <input type="hidden" name="counter" id="counter" value="{{ $key }}">
 
-                                                    <button class="like btn btn-info btn-xs "   type="submit" onclick="voteAction('<?= $key;?>','<?= $status->id;?>','like')">Like</button>
+                                                    <button class="like btn btn-info btn-xs " id='comment_btn'  type="submit" onclick="guestlikeAction('<?= $key;?>','<?= $status->id;?>','like')">Like</button>
 
                                                 @endif
+
+                                                    <? $count = 0;?>
+                                                    @foreach($statuslike as $like)
+                                                        @if($like->status_id == $status->id )
+                                                            <?  $count += 1;?>
+                                                        @endif
+                                                    @endforeach
+                                                    <? echo $count . " " . "likes"?>
+
 
                                             </li>
 
@@ -291,7 +229,7 @@
                                 </div>
 
                             </div>
-                            <div class="panel-footer clearfix">
+                            <div class="panel-footer clearfix guest_footer">
 
 
                             </div>
@@ -301,5 +239,4 @@
         </div>
     </div>
     </body>
-
 @endsection

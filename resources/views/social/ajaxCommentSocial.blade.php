@@ -10,17 +10,12 @@
                             </div>
                             <div class="col-md-11">
                                 <ul class="list-inline list-unstyled">
-                                    <b><h5><a class='namecolor'
-                                              href="/social/{{$comment->user_id}}">{{ App\User::find($comment->user_id)->name }}</a></h5></b>
-
-
+                                    <b><h5><a href="/social/{{$comment->user_id}}">{{ App\User::find($comment->user_id)->name }}</a></h5></b>
                                     {{ $comment->comment_text }}
                                     <div>
                                         @if($comment->user_id == Auth::user()->id )
-                                            <b><a style="color:red;"
-                                                  href="/comment/edit/{{$comment->id}}">edit</a>|
-                                                <a style="color:red;"
-                                                   href="/comment/delete/{{$comment->id}}">delete</a></b>
+                                            <b><a  style="color:red;" onclick="commentEdit('<?=$comment->id;?>','{{\App\statuscomment::find($comment->id)->comment_text}}')"></a>|
+                                                <a style="color:red;" onclick="commentDelete('<?=$comment->id;?>')">delete</a></b>
                                         @else
                                         @endif
                                     </div>
@@ -31,7 +26,9 @@
                         </div>
                     @endif
                 @endforeach
+
             </div>
+
 
 
 

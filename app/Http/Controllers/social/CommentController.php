@@ -34,9 +34,23 @@ class CommentController extends Controller
     }
 
 
-    public function edit($id){
-        $comment = statuscomment::find($id);
-        return view('social.editcomment',compact('comment'));
+//    public function edit($id){
+//        $comment = statuscomment::find($id);
+//        return view('social.editcomment',compact('comment'));
+//    }
+
+    public function update($data){
+
+        $data=explode(',',$data);
+        $comment_id = $data[0];
+        $comment_text = $data[1];
+
+        statuscomment::where('id',$comment_id)->update(['comment_text'=>$comment_text]);
+        return redirect()->back();
+
+
+//        return view('social.ajaxEditCommentSocial',compact('comment_id'));
+
     }
 
     public function delete($id){

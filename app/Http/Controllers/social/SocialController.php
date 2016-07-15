@@ -157,28 +157,39 @@ class SocialController extends Controller
     public function editPost($id){
 
         $status  = status::find($id);
-        return view('post/edit')->with('status',$status);
 
+        return view('post/edit')->with('status',$status);
+////       return response()->postUpdate($status);
+//
+//
     }
 
-    public function updatePost(EditPostRequest $request){
+    public function updatePost($data){
 
-        $text = input::get('status_text');
-        $status_id =input::get('id');
-        $image = $request->file('image');
 
-        if (!empty($image)) {
-            $imageName = $image->getClientOriginalName();
-            $destination = 'uploads';
-            $image->move($destination, $imageName);
-            status::where('id',$status_id)->update(['status_text'=>$text,'image'=>$imageName]);
+        $data=explode(',',$data);
+        $status_id = $data[0];
+        $status_text = $data[1];
+        status::where('id',$status_id)->update(['status_text'=>$status_text,]);
+        return redirect()->back();
 
-            return redirect()->action('social\SocialController@timeline');
 
-        }else {
-            status::where('id','=',$status_id)->update(['status_text'=>$text]);
-            return redirect()->action('social\SocialController@timeline');
-        }
+//        $text = input::get('status_text');
+//        $status_id =input::get('id');
+//        $image = $request->file('image');
+
+//        if (!empty($image)) {
+//            $imageName = $image->getClientOriginalName();
+//            $destination = 'uploads';
+//            $image->move($destination, $imageName);
+//            status::where('id',$status_id)->update(['status_text'=>$text,'image'=>$imageName]);
+//
+//            return redirect()->action('social\SocialController@timeline');
+//
+//        }else {
+//            status::where('id','=',$status_id)->update(['status_text'=>$text]);
+//            return redirect()->action('social\SocialController@timeline');
+//        }
     }
 
     public function deletePost($id){
