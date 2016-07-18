@@ -53,14 +53,17 @@
                                             <audio controls>
                                                 <source src="/uploads/{{$status->image}}" type="audio/ogg">
                                             </audio>
+                                        <div>
                                             <a href="https://www.google.com/search?q={{$status->image}}&oq={{$status->image}}hrase&gws_rd=ssl">View Related Source</a>
-
+                                        </div>
 
                                         @elseif($imageFileType =='mp4')
                                             <video width="320" height="240" controls>
                                                 <source src="/uploads/{{$status->image}}" type="video/mp4">
                                             </video>
-                                            <a href="https://www.google.com/search?q={{$status->image}}&oq={{$status->image}}hrase&gws_rd=ssl">View Related Source</a>
+                                             <div>
+                                                <a href="https://www.google.com/search?q={{$status->image}}&oq={{$status->image}}hrase&gws_rd=ssl">View Related Source</a>
+                                             </div>
                                         @else
                                             {{ $status->image}}
                                         @endif

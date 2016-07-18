@@ -60,7 +60,7 @@ class UserController extends Controller
             $destination = 'uploads';
             $image->move($destination, $imageName);
             $this->userRepository->insert($name, $imageName, $email, $password);
-            return view('auth/login');
+        return Redirect::to('login');//            return view('auth/login');
         }
 
 
@@ -117,14 +117,7 @@ class UserController extends Controller
             }
     }
 
-//    public function coverphoto(Request $request){
-//        $cover_photo=Input::file('cover_photo');
-//        $imageName = $cover_photo->getClientOriginalName();
-//        $destination = 'uploads';
-//        $cover_photo->move($destination, $imageName);
-//        $this->userRepository->coverphoto($imageName);
-//
-//    }
+
 
 
 }

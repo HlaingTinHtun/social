@@ -220,7 +220,6 @@
                                                             'uid' => $comment->user_id,
                                                             'cmt' => $comment->comment_text
                                                     ];
-                                                    //echo "<pre>";print_r($arr); echo "</pre>";
                                                     $key++;
 
                                                 }

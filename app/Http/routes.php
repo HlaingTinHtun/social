@@ -31,11 +31,11 @@ Route::group(['middleware' => 'web'], function () {
         return view('auth.login');
     });
 //    route::get('login','Auth\AuthController@login');
-    route::post('login', 'Auth\AuthController@postLogin');
-    Route::get('logout', 'Auth\AuthController@logout');
-    route::get('register','User\UserController@register');
+    route::post('/login', 'Auth\AuthController@postLogin');
+    Route::get('/logout', 'Auth\AuthController@logout');
+    route::get('/register','User\UserController@register');
 
-    route::post('register', 'User\UserController@insert');
+    route::post('/register', 'User\UserController@insert');
 
     //Profile
     Route::get('/social/profile','User\UserController@index');
