@@ -1,5 +1,4 @@
-
-<nav class="navbar navbar-default navbar-static-top " >
+<nav class="navbar navbar-default navbar-fixed-top">
 <div class="container">
 <div class="navbar-header">
 
@@ -37,10 +36,9 @@ Social
 
 
 <ul class="dropdown-menu" role="menu">
-<li><a href="/social/profile"><i class="fa fa-btn fa-user"></i>profile</a></li>
-<li><a href="/timeline"><i class="glyphicon glyphicon-home"></i>Timeline</a></li>
-
-<li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+<li><a href="/social/profile"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>profile</a></li>
+<li><a href="/timeline"><span class="glyphicon glyphicon-home"></span>Timeline</a></li>
+    <li><a href="{{ url('/logout') }}"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
 
 </ul>
 

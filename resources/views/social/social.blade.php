@@ -2,60 +2,21 @@
 @section('content')
 
     <body id="social">
-    <div class="container ">
+    <div class="container space_from_nav">
         <div class="row">
             <div class="col-md-10 col-sm-offset-1">
                 {!! Form::open(array('files' =>'true')) !!}
                 <div class="coverphoto">
+                    @if(!empty( Auth::user()->cover_photo))
+                        <img   class="fadding-photo"src='/uploads/{{ Auth::user()->cover_photo }}' width="100%" height="400" >
+                    @elseif (!empty($guestuser->cover_photo))
+                        <img  class="fadding-photo" src='uploads/{{ $guestuser->cover_photo }}' width="100%" height="400">
 
-
-
-                        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-
-                            <ol class="carousel-indicators">
-                                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                            </ol>
-
-                            @if(!empty( Auth::user()->cover_photo))
-
-
-                            <div class="carousel-inner" role="listbox">
-                                <div class="item active">
-                                    <img src='/uploads/{{ Auth::user()->cover_photo }}' width="100%" >
-                                </div>
-                                <div class="item">
-                                    <img  class="fadding-photo" src='/uploads/{{ Auth::user()->cover_photo }}'width="100%">
-
-                                </div>
-
-                            </div>
-                            @elseif (!empty($guestuser->cover_photo))
-                                {{--<img  class="fadding-photo" src='uploads/{{ $guestuser->cover_photo }}' width="100%">--}}
-                                <div class="carousel-inner" role="listbox">
-                                    <div class="item active">
-                                        <img src='/uploads/{{ $guestuser->cover_photo }}' width="100%" >
-                                    </div>
-                                    <div class="item">
-                                        <img  class="fadding-photo" src='/uploads/{{ $guestuser->cover_photo }}'width="100%">
-
-                                    </div>
-                            @else
-                                <img  src='/uploads/no-photo.png' width="100%" height="400px">
-                            @endif
-
-                            <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-                                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                            <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-                                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        </div>
+                    @else
+                        <img  src='/uploads/no-photo.png' width="100%" height="400px">
+                    @endif
 
                 </div>
-
                 <div class="panel panel-info">
                     <div class="panel-heading " id="panel_heading"><b class="namecolor">Add a new status</b></div>
                     <div class="'panel-body">
@@ -88,22 +49,17 @@
                                                 <ul class="dropdown-menu" role="menu">
                                                     <input type="hidden" name="{{\App\status::find($status->id)}}">
                                                     <li><a onclick="postEdit('<?=$status->id;?>','{{\App\status::find($status->id)->status_text}}')">
-                                                            <i class="glyphicon glyphicon-pencil"></i>Edit</a>
+                                                            <span class="glyphicon glyphicon-pencil"></span>Edit</a>
                                                     </li>
-
-                                                    <li>
-
-                                                    </li>
-
                                                     <li><a onclick="postDelete('<?=$status->id;?>')">
-                                                            <i class="glyphicon glyphicon-trash"></i>Delete</a>
+                                                            <span class="glyphicon glyphicon-trash"></span>Delete</a>
                                                     </li>
 
                                                 </ul>
                                             @else
                                                 <ul class="dropdown-menu" role="menu">
                                                     <li><a href="/social/guestuser/{{$status->users_id}}">
-                                                            <i class="fa fa-btn fa-user"></i>Profile</a>
+                                                            <span class="glyphicon glyphicon-user"></span>Profile</a>
                                                     </li>
                                                 </ul>
                                             @endif
@@ -182,17 +138,13 @@
                                                                             <div class="col-md-10" >
                                                                                 <ul class="list-inline list-unstyled">
                                                                                     <b><h5><a href="/social/{{$comment->user_id}}">{{ App\User::find($comment->user_id)->name }}</a></h5></b>
+                                                                                    <div>{{ $comment->comment_text }} </div><i style="color:#003366;">{{ $comment->created_at }}</i>
+                                                                                    <div>
 
                                                                                     <div>
                                                                                         @if($comment->user_id == Auth::user()->id )
 
-                                                                                            {{--<div class="gear">--}}
-                                                                                                {{--<span id="id" class="datainfo" saveid="<?=$comment->id;?>" value="">{{\App\statuscomment::find($comment->id)->comment_text}}</span>--}}
-                                                                                                {{--<a href="#" class="editlink">Edit</a>--}}
-                                                                                                {{--<a class="savebtn">Save</a>--}}
-                                                                                            {{--</div>|--}}
-
-
+                                                                                            <a  style="color:red;" onclick="commentEdit('<?=$comment->id;?>','{{\App\statuscomment::find($comment->id)->comment_text}}')">Edit</a>|
                                                                                             <a style="color:red;"  onclick="commentDelete('<?=$comment->id;?>')">delete</a></b>
                                                                                         @else
                                                                                             <div class='font_color'>{{ $comment->comment_text }}</div>

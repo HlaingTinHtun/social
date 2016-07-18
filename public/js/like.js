@@ -65,3 +65,24 @@ function guestlikeAction(counter, status_id, action) {
 
     });
 }
+function commentLike(counter, comment_id, action) {
+
+    var datastring = counter + ',' + comment_id + ',' + action;
+
+
+    if(action == 'unlike') {
+
+        var path = '/timelineCommentUnlike/'
+
+    } else if ( action == 'like') {
+        path = '/timelineCommentlike/';
+
+
+    }
+
+    $.get(path + datastring, function (response) {
+        console.log(response);
+        $('#likes'+counter).html(response);
+
+    });
+}

@@ -7,36 +7,16 @@
 
             <div class="col-md-10 col-sm-offset-1">
                 <div class="coverphoto">
-                    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                    @if(!empty($guestuser->cover_photo))
 
-                        <ol class="carousel-indicators">
-                            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                        </ol>
-                        @if(!empty($guestuser->cover_photo))
-                            <div class="carousel-inner" role="listbox">
-                                <div class="item active">
-                                    <img src='/uploads/{{ $guestuser->cover_photo }}' width="100%" >
-                                </div>
-                                <div class="item">
-                                    <img  class="fadding-photo" src='/uploads/{{ $guestuser->cover_photo }}'width="100%">
-                                </div>
-                        @else
-                            <img src ='/uploads/no-photo.png' width="100%" height="400px">
-                        @endif
+                        <img  class="fadding-photo" src='/uploads/{{ $guestuser->cover_photo }}' width="100%" height="400">
 
-                                <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-                                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                                    <span class="sr-only">Previous</span>
-                                </a>
-                                <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-                                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                                    <span class="sr-only">Next</span>
-                                </a>
-                            </div>
+                    @else
+                        <img src ='/uploads/no-photo.png' width="100%" height="400px">
+                    @endif
 
-                    </div>
                 </div>
+
 
                     @foreach($posts as $key=>$status)
                         <div class="panel panel-default ">
@@ -110,11 +90,12 @@
                                                                             <div class="col-md-11">
                                                                                 <ul class="list-inline list-unstyled">
                                                                                     <b><h5><a href="/social/{{$comment->user_id}}">{{ App\User::find($comment->user_id)->name }}</a></h5></b>
-                                                                                    {{ $comment->comment_text }}
+                                                                                    <div>{{ $comment->comment_text }} </div><i style="color:#003366;">{{ $comment->created_at }}</i>
+                                                                                    <div>
                                                                                     <div>
                                                                                         @if($comment->user_id == Auth::user()->id )
                                                                                             <b>
-                                                                                                <a style="color:red;" href="/comment/edit/{{$comment->id}}">edit</a>|
+                                                                                                <a  style="color:red;" onclick="commentEdit('<?=$comment->id;?>','{{\App\statuscomment::find($comment->id)->comment_text}}')">Edit</a>|
                                                                                                 <a style="color:red;"  onclick="commentDelete('<?=$comment->id;?>')">delete</a></b>
                                                                                         @else
 

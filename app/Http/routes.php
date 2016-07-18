@@ -64,6 +64,8 @@ Route::group(['middleware' => 'web'], function () {
 
     Route::get('/comment/edit/{data}','social\CommentController@update');
     Route::get('/comment/delete/{id}','social\CommentController@delete');
+    Route::get('timelineCommentlike/{datastring}','social\LikeController@postLike');
+
 
 
 

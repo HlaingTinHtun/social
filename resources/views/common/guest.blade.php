@@ -3,7 +3,7 @@
 
 
     <body  id="guestprofile">
-    <div class="container" >
+    <div class="container space_from_nav" >
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="row">
@@ -15,9 +15,7 @@
                             <div class="col-sm-4">
                                 <img src="/uploads/{{ $guest->image}}" style="width:150px; height:150px; cursor:no-drop">
                             </div>
-                            <div class="col-sm-5">
-                                <input type="file" id="image" name="image"style="padding-top:80px; cursor:no-drop" >
-                            </div>
+
                         </div>
 
                         <input type="hidden" class="form-control"  name='id' value="{{ $guest->id }}">
@@ -30,16 +28,12 @@
                                     <div class="col-sm-7">
                                         <img src="/uploads/{{ $guest->cover_photo }}" style="width:380px;">
                                     </div>
-                                    <div class="col-sm-2">
-                                        <input type="file" id="cover_photo" name="cover_photo" style="padding-top:80px; cursor:no-drop;" readonly="true" >
-                                    </div>
+
                                 @else
                                     <div class="col-sm-7">
                                         <img src="/uploads/no-photo.png" style="width:380px;">
                                     </div>
-                                    <div class="col-sm-2">
-                                        <input type="file" id="cover_photo" name="cover_photo" style="padding-top:80px; cursor:no-drop;" readonly="true">
-                                    </div>
+
 
                                 @endif
                             </div>

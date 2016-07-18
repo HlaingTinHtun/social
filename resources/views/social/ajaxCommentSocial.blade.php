@@ -11,10 +11,10 @@
                             <div class="col-md-11">
                                 <ul class="list-inline list-unstyled">
                                     <b><h5><a href="/social/{{$comment->user_id}}">{{ App\User::find($comment->user_id)->name }}</a></h5></b>
-                                    {{ $comment->comment_text }}
+                                    <div>{{ $comment->comment_text }} </div><i style="color:#003366;">{{ $comment->created_at }}</i>
                                     <div>
                                         @if($comment->user_id == Auth::user()->id )
-                                            <b><a  style="color:red;" onclick="commentEdit('<?=$comment->id;?>','{{\App\statuscomment::find($comment->id)->comment_text}}')"></a>|
+                                            <b><a  style="color:red;" onclick="commentEdit('<?=$comment->id;?>','{{\App\statuscomment::find($comment->id)->comment_text}}')">Edit</a>|
                                                 <a style="color:red;" onclick="commentDelete('<?=$comment->id;?>')">delete</a></b>
                                         @else
                                         @endif

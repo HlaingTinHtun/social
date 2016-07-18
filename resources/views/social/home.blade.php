@@ -2,8 +2,11 @@
 @section('content')
 
     <body id="home">
+    <div>
 
-       <div class="container">
+    </div>
+
+       <div class="container space_from_nav">
             <div class="row">
                 <div class="col-md-10 col-sm-offset-1">
                     {!! Form::open(array( 'files' =>'true')) !!}
@@ -36,13 +39,13 @@
 
                                                         <ul class="dropdown-menu" role="menu">
                                                             <li><a onclick="postEdit('<?=$status->id;?>','{{\App\status::find($status->id)->status_text}}')">
-                                                                    <i class="glyphicon glyphicon-pencil"></i>Edit</a>
+                                                                    <span class="glyphicon glyphicon-pencil"></span>Edit</a>
                                                             </li>
-                                                            <li><a onclick="postDelete('<?=$status->id;?>')" ><i class="glyphicon glyphicon-trash"></i>Delete</a></li>
+                                                            <li><a onclick="postDelete('<?=$status->id;?>')" ><span class="glyphicon glyphicon-trash"></span>Delete</a></li>
                                                         </ul>
                                                     @else
                                                         <ul class="dropdown-menu" role="menu">
-                                                            {{--<li><a href="/social/guestuser/{{$user->id}}"><i class="fa fa-btn fa-user"></i>Profile</a></li>--}}
+                                                            <li><a href="/social/guestuser/{{$user->id}}"> <span class="glyphicon glyphicon-user"></span>Profile</a></li>
                                                         </ul>
                                                     @endif
                                                 </li>
@@ -111,14 +114,16 @@
                                                                                 <div class="col-md-11">
                                                                                     <ul class="list-inline list-unstyled">
                                                                                         <h5><a href="/social/{{$comment->user_id}}">
-                                                                                                    {{ App\User::find($comment->user_id)->name }}</a></h5><div>{{ $comment->comment_text }}</div>
+                                                                                                    {{ App\User::find($comment->user_id)->name }}</a></h5><div>{{ $comment->comment_text }} </div><i style="color:#003366;">{{ $comment->created_at }}</i>
                                                                                         <div>
                                                                                             @if($comment->user_id == Auth::user()->id )
 
                                                                                                 <b>
                                                                                                     <a  style="color:red;" onclick="commentEdit('<?=$comment->id;?>','{{\App\statuscomment::find($comment->id)->comment_text}}')">Edit</a>|
-                                                                                                    <a style="color:red;"  onclick="commentDelete('<?=$comment->id;?>')">delete</a></b>
+                                                                                                    <a style="color:red;"  onclick="commentDelete('<?=$comment->id;?>')">delete</a>
+                                                                                                </b>
                                                                                             @else
+
                                                                                             @endif
                                                                                         </div>
                                                                                         <hr>
@@ -185,8 +190,6 @@
 
 
                                             </ul>
-
-
                                                 <?php
                                                 $arr = [];
                                                 $key = 0;
