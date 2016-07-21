@@ -112,7 +112,7 @@ class SocialController extends Controller
         $text = input::get('status-text');
         $image = $request->file('image');
 
-        if (!empty($text)) {
+        if ($text != "") {
 
 
             $users_id = Auth::user()->id;
@@ -153,7 +153,7 @@ class SocialController extends Controller
         $text = input::get('status-text');
         $image = $request->file('image');
 
-        if (!empty($text)) {
+        if (!empty($text) || ($text != " ")) {
 
             $text = input::get('status-text');
             $users_id = Auth::user()->id;

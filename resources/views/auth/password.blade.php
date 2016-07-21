@@ -9,7 +9,7 @@
         </ul>
     @endif
 
-    <div>
+    <div >
         Email
         <input type="email" name="email" value="{{ old('email') }}">
     </div>

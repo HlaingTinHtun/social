@@ -60,8 +60,25 @@
                                             </div>
 
                                             <div class="col-md-11">
-                                                <p>{{ $status->status_text }}</p>
-                                                <?  $type =array('jpg','tif','png','gif','jpeg');
+
+                                                <? $all_text = strlen($status->status_text); ?>
+
+                                                    @if($all_text > 500)
+                                                        <div>
+                                                            <? $text = substr($status->status_text,0,400);
+                                                            echo $text;?>
+                                                            <a id="more{{$key}}"   onClick="toggleText({{$key}});">Read More........</a>
+                                                        </div>
+                                                        <div id="more-text{{$key}}" class="more-text">
+                                                            <? $texts = substr($status->status_text,400,$all_text);
+                                                            echo $texts;?>
+                                                        </div>
+
+                                                    @else
+                                                        <p>{{ $status->status_text }}</p>
+                                                    @endif
+
+                                                    <?  $type =array('jpg','tif','png','gif','jpeg');
                                                 $imageFileType = pathinfo($status->image,PATHINFO_EXTENSION);?>
 
                                                 @if(in_array($imageFileType,$type))
@@ -114,7 +131,15 @@
                                                                                 <div class="col-md-11">
                                                                                     <ul class="list-inline list-unstyled">
                                                                                         <h5><a href="/social/{{$comment->user_id}}">
-                                                                                                    {{ App\User::find($comment->user_id)->name }}</a></h5><div>{{ $comment->comment_text }} </div><i style="color:#003366;">{{ $comment->created_at }}</i>
+                                                                                                    {{ App\User::find($comment->user_id)->name }}</a></h5>
+
+                                                                                        <div>
+
+                                                                                                <p>{{ $comment->comment_text }}</p>
+
+                                                                                        </div>
+
+                                                                                        <i style="color:#003366;">{{ $comment->created_at }}</i>
                                                                                         <div>
                                                                                             @if($comment->user_id == Auth::user()->id )
 
@@ -139,8 +164,8 @@
 
                                                                 <div class="form-group">
                                                                     <div class="input-group">
-                                                                        <input type="text" class="form-control" name="comment-text<?=$key;?>" onkeypress="homecommentEnter(event,'<?= $key;?>','<?= $status->id;?>')" id="comment_text"
-                                                                               placeholder="Post a comment...">
+                                                                        <textarea class="form-control" name="comment-text<?=$key;?>" onkeypress="homecommentEnter(event,'<?= $key;?>','<?= $status->id;?>')" id="comment_text"
+                                                                               placeholder="Post a comment..."></textarea>
                                                                             <span class="input-group-btn">
                                                                                 <button class="btn btn-default" type="submit" id="hide" onclick="homecommentAction('<?= $key;?>','<?= $status->id;?>')"  data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-send"></i></button>
                                                                             </span>
@@ -174,7 +199,7 @@
                                                                 <?  $count += 1;?>
                                                             @endif
                                                         @endforeach
-                                                        <? echo $count . " " . "likes"?>
+                                                        <? echo $count . " " . "like(s)"?>
 
 
                                                 </li>
@@ -185,7 +210,7 @@
                                                         <?  $count += 1;?>
                                                     @endif
                                                 @endforeach
-                                                <? echo $count." "."Comments"?>
+                                                <? echo $count." "."Comment(s)"?>
 
 
 
@@ -222,7 +247,21 @@
                                                     <div class="col-md-11">
                                                         <ul class="list-inline list-unstyled">
                                                             <li><B><a class='namecolor' href="/social/{{$user_id}}">{{ $name }}</a></B></li>
-                                                            <li>{{ $array['cmt'] }}</li>
+                                                            <li>
+                                                                <? $all_text = strlen($array['cmt']); ?>
+
+                                                                @if($all_text > 500)
+                                                                    <? $text = substr($array['cmt'],0,200);
+                                                                    echo $text;?>
+                                                                    <div id="more-text{{$key}}" class="more-text">
+                                                                        <? $texts = substr($array['cmt'],200,$all_text);
+                                                                        echo $texts;?>
+                                                                    </div>
+                                                                    <a id="more{{$key}}"   onClick="toggleText({{$key}});">Read More........</a>
+                                                                @else
+                                                                    <p>{{ $array['cmt'] }}</p>
+                                                                @endif
+                                                            </li>
                                                         </ul>
                                                     </div>
                                                 </div>

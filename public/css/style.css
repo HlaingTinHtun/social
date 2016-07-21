@@ -147,3 +147,12 @@ h4{
 .space_from_nav{
     padding-top:65px;
 }
+.reset{
+    padding-top:15%;
+
+}
+
+.more-text{
+    display:none;
+}
+#less{display:none;}

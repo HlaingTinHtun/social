@@ -1,6 +1,6 @@
 function commentAction(counter, status_id) {
 
-    var comment_text = $('input[name="comment-text' + counter + '"]').val();
+    var comment_text = $('textarea[name="comment-text' + counter + '"]').val();
 
     if (comment_text == "") {
 
@@ -10,7 +10,7 @@ function commentAction(counter, status_id) {
 
         var datastring = counter + ',' + status_id + ',' + comment_text;
 
-        $('input[name="comment-text' + counter + '"]').val('');
+        $('textarea[name="comment-text' + counter + '"]').val('');
 
 
         var path = '/comment/';
@@ -28,7 +28,7 @@ function commentEnter(event,counter, status_id){
     if(keycode == '13') {
 
 
-        var comment_text = $('input[name="comment-text' + counter + '"]').val();
+        var comment_text = $('textarea[name="comment-text' + counter + '"]').val();
 
         if (comment_text == "") {
             sweetAlert("Error", "Please write the comment!", "error");
@@ -40,7 +40,7 @@ function commentEnter(event,counter, status_id){
 
             var path = '/comment/';
 
-            $('input[name="comment-text' + counter + '"]').val('');
+            $('textarea[name="comment-text' + counter + '"]').val('');
 
 
             $.get(path + datastring, function (response) {
@@ -55,7 +55,7 @@ function commentEnter(event,counter, status_id){
 
 function homecommentAction(counter, status_id) {
 
-    var comment_text = $('input[name="comment-text' + counter + '"]').val();
+    var comment_text = $('textarea[name="comment-text' + counter + '"]').val();
 
     if (comment_text == "") {
 
@@ -66,7 +66,7 @@ function homecommentAction(counter, status_id) {
 
         var datastring = counter + ',' + status_id + ',' + comment_text;
 
-        $('input[name="comment-text' + counter + '"]').val('');
+        $('textarea[name="comment-text' + counter + '"]').val('');
 
 
         var path = '/homecomment/';
@@ -84,7 +84,7 @@ function homecommentEnter(event,counter, status_id){
     if(keycode == '13') {
 
 
-        var comment_text = $('input[name="comment-text' + counter + '"]').val();
+        var comment_text = $('textarea[name="comment-text' + counter + '"]').val();
 
         if (comment_text == "") {
 
@@ -97,7 +97,7 @@ function homecommentEnter(event,counter, status_id){
 
             var path = '/homecomment/';
 
-            $('input[name="comment-text' + counter + '"]').val('');
+            $('textarea[name="comment-text' + counter + '"]').val('');
 
 
             $.get(path + datastring, function (response) {
@@ -112,7 +112,7 @@ function homecommentEnter(event,counter, status_id){
 
 function guestcommentAction(counter, status_id) {
 
-    var comment_text = $('input[name="comment-text' + counter + '"]').val();
+    var comment_text = $('textarea[name="comment-text' + counter + '"]').val();
 
     if (comment_text == "") {
 
@@ -122,7 +122,7 @@ function guestcommentAction(counter, status_id) {
 
         var datastring = counter + ',' + status_id + ',' + comment_text;
 
-        $('input[name="comment-text' + counter + '"]').val('');
+        $('textarea[name="comment-text' + counter + '"]').val('');
 
 
         var path = '/comment/';
@@ -140,7 +140,7 @@ function guestcommentEnter(event,counter, status_id){
     if(keycode == '13') {
 
 
-        var comment_text = $('input[name="comment-text' + counter + '"]').val();
+        var comment_text = $('textarea[name="comment-text' + counter + '"]').val();
 
         if (comment_text == "") {
             sweetAlert("Error", "Please write the comment!", "error");
@@ -152,7 +152,7 @@ function guestcommentEnter(event,counter, status_id){
 
             var path = '/comment/';
 
-            $('input[name="comment-text' + counter + '"]').val('');
+            $('textarea[name="comment-text' + counter + '"]').val('');
 
 
             $.get(path + datastring, function (response) {
@@ -162,6 +162,23 @@ function guestcommentEnter(event,counter, status_id){
             });
         }
     }
+
+
+}
+
+
+function toggleText(key) {
+
+
+    if(!$("#more-key"+key).is(':visible')) {
+        $("#more"+key).hide();
+        //$("#less"+key).show();
+    } else {
+        //$("#less"+key).hide();
+        $("#more"+key).show();
+    }
+
+    $("#more-text"+key).slideToggle();
 
 }
 

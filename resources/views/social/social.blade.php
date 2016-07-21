@@ -39,7 +39,7 @@
                                 <div class="row">
                                     <div class="col-md-6 ">
                                         <B><a class="namecolor" href="social/{{Auth::user()->id}}">{{ Auth::user()->name }}</a></B>
-                                            <i class="namecolor"> {{ $status->created_at }}</i>
+                                        <i class="namecolor"> {{ $status->created_at }}</i>
                                     </div>
                                     <div class="col-md-1 col-md-offset-5">
                                         <li class="dropdown">
@@ -74,37 +74,55 @@
                                         <img src="/uploads/{{ Auth::user()->image }}" class="img-responsive">
                                     </div>
                                     <div class="col-md-11">
-                                    <p>{{ $status->status_text }}</p>
-                                    <?  $type = array('jpg', 'tif', 'png', 'gif', 'jpeg');
-                                    $imageFileType = pathinfo($status->image, PATHINFO_EXTENSION);?>
 
-                                    @if(in_array($imageFileType,$type))
+                                        <? $all_text = strlen($status->status_text); ?>
 
-                                        <img src="/uploads/{{$status->image}}" width="150">
+                                        @if($all_text > 500)
+                                            <div>
+                                                <? $text = substr($status->status_text,0,400);
+                                                echo $text;?>
+                                                    <a id="more{{$key}}"   onClick="toggleText({{$key}});">Read More........</a>
 
-                                    @elseif($imageFileType =='mp3')
-                                        <audio controls>
-                                            <source src="/uploads/{{$status->image}}" type="audio/ogg">
-                                        </audio>
+                                            </div>
+                                                <div id="more-text{{$key}}" class="more-text">
+                                                    <? $texts = substr($status->status_text,400,$all_text);
+                                                    echo $texts;?>
+                                                </div>
+                                        @else
+                                                <p>{{ $status->status_text }}</p>
+                                         @endif
+
+                                            <?  $type = array('jpg', 'tif', 'png', 'gif', 'jpeg');
+                                                $imageFileType = pathinfo($status->image, PATHINFO_EXTENSION);?>
+
+                                        @if(in_array($imageFileType,$type))
+
+                                            <img src="/uploads/{{$status->image}}" width="150">
+
+                                        @elseif($imageFileType =='mp3')
+                                            <audio controls>
+                                                <source src="/uploads/{{$status->image}}" type="audio/ogg">
+                                            </audio>
                                             <div><h5><i><a  href="https://www.google.com/search?q={{$status->image}}&oq={{$status->image}}hrase&gws_rd=ssl">View
-                                        Related Source</a></i></h5></div>
+                                                            Related Source</a></i></h5></div>
 
 
-                                    @elseif($imageFileType =='mp4')
-                                        <video width="320" height="240" controls>
-                                            <source src="/uploads/{{$status->image}}" type="video/mp4">
-                                        </video>
+                                        @elseif($imageFileType =='mp4')
+                                            <video width="320" height="240" controls>
+                                                <source src="/uploads/{{$status->image}}" type="video/mp4">
+                                            </video>
 
-                                        <div><h5><i><a  href="https://www.google.com/search?q={{$status->image}}&oq={{$status->image}}hrase&gws_rd=ssl">
-                                            View Related Source</a></i></h5></div>
-                                    @else
-                                        {{ $status->image}}
-                                    @endif
+                                            <div><h5><i><a  href="https://www.google.com/search?q={{$status->image}}&oq={{$status->image}}hrase&gws_rd=ssl">
+                                                            View Related Source</a></i></h5></div>
+                                        @else
+                                            {{ $status->image}}
+                                        @endif
 
                                     </div>
                                     <div class="col-md-12">
                                         <hr>
-                                        <ul class="list-unstyled list-inline ">
+
+                                        <ul class="list-unstyled list-inline " >
 
                                             <li>
                                                 <button class="btn btn-xs btn-info" id="comment_btn" type="button" data-toggle="modal"
@@ -129,7 +147,7 @@
                                                             <div id="comments<?=$key;?>">
                                                                 @foreach($comments as $comment)
                                                                     @if($comment->status_id == $status->id )
-                                                                      {{--<div class="container" id="panel_body">--}}
+                                                                        {{--<div class="container" id="panel_body">--}}
                                                                         <div class="row" >
                                                                             <div class="col-md-1" >
                                                                                 <img src="/uploads/{{ App\User::find($comment->user_id)->image }}"
@@ -138,19 +156,25 @@
                                                                             <div class="col-md-10" >
                                                                                 <ul class="list-inline list-unstyled">
                                                                                     <b><h5><a href="/social/{{$comment->user_id}}">{{ App\User::find($comment->user_id)->name }}</a></h5></b>
-                                                                                    <div>{{ $comment->comment_text }} </div><i style="color:#003366;">{{ $comment->created_at }}</i>
                                                                                     <div>
 
-                                                                                    <div>
-                                                                                        @if($comment->user_id == Auth::user()->id )
+                                                                                                <p>{{ $comment->comment_text }}</p>
 
-                                                                                            <a  style="color:red;" onclick="commentEdit('<?=$comment->id;?>','{{\App\statuscomment::find($comment->id)->comment_text}}')">Edit</a>|
-                                                                                            <a style="color:red;"  onclick="commentDelete('<?=$comment->id;?>')">delete</a></b>
-                                                                                        @else
-                                                                                            <div class='font_color'>{{ $comment->comment_text }}</div>
-                                                                                        @endif
                                                                                     </div>
-                                                                                    <hr>
+
+                                                                                    <i style="color:#003366;">{{ $comment->created_at }}</i>
+                                                                                    <div>
+
+                                                                                        <div>
+                                                                                            @if($comment->user_id == Auth::user()->id )
+
+                                                                                                <a  style="color:red;" onclick="commentEdit('<?=$comment->id;?>','{{\App\statuscomment::find($comment->id)->comment_text}}')">Edit</a>|
+                                                                                                <a style="color:red;"  onclick="commentDelete('<?=$comment->id;?>')">delete</a></b>
+                                                                                            @else
+                                                                                                <div class='font_color'>{{ $comment->comment_text }}</div>
+                                                                                            @endif
+                                                                                        </div>
+                                                                                        <hr>
                                                                                 </ul>
                                                                             </div>
                                                                         </div>
@@ -158,21 +182,21 @@
                                                                     @endif
                                                                 @endforeach
                                                             </div>
-                                                                <input type="hidden" name='status_id' value={{ $status->id }}>
-                                                                <input type="hidden" name='commentuserid' value="{{ App\User::find($status->id) }}">
+                                                            <input type="hidden" name='status_id' value={{ $status->id }}>
+                                                            <input type="hidden" name='commentuserid' value="{{ App\User::find($status->id) }}">
 
-                                                                <div class="form-group">
-                                                                    <div class="input-group">
-                                                                        <input type="text" class="form-control" name="comment-text<?=$key;?>" onkeypress="commentEnter(event,'<?= $key;?>','<?= $status->id;?>')" id="comment_text"
-                                                                               placeholder="Post a comment...">
+                                                            <div class="form-group">
+                                                                <div class="input-group">
+                                                                    <textarea class="form-control" name="comment-text<?=$key;?>" onkeypress="commentEnter(event,'<?= $key;?>','<?= $status->id;?>')" id="comment_text"
+                                                                           placeholder="Post a comment..."></textarea>
                                                                             <span class="input-group-btn">
                                                                                 <button class="btn btn-default" type="submit" id="hide" onclick="commentAction('<?= $key;?>','<?= $status->id;?>')"  data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-send"></i></button>
                                                                             </span>
-                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
+                                                </div>
 
                                             </li>
 
@@ -192,13 +216,13 @@
 
                                                 @endif
 
-                                                    <? $count = 0;?>
-                                                    @foreach($statuslike as $like)
-                                                        @if($like->status_id == $status->id )
-                                                            <?  $count += 1;?>
-                                                        @endif
-                                                    @endforeach
-                                                    <? echo $count . " " . "likes"?>
+                                                <? $count = 0;?>
+                                                @foreach($statuslike as $like)
+                                                    @if($like->status_id == $status->id )
+                                                        <?  $count += 1;?>
+                                                    @endif
+                                                @endforeach
+                                                <? echo $count . " " . "like(s)"?>
 
                                             </li>
                                             <? $count = 0;?>
@@ -207,25 +231,25 @@
                                                     <?  $count += 1;?>
                                                 @endif
                                             @endforeach
-                                            <? echo $count . " " . "Comments"?>
+                                            <? echo $count . " " . "Comment(s)"?>
 
                                         </ul>
                                         <?php
-                                            $arr = [];
-                                            $key = 0;
+                                        $arr = [];
+                                        $key = 0;
 
-                                            foreach ($comments as $comment) {
-                                                if ($comment->status_id == $status->id) {
-                                                    $arr[$key] = [
-                                                            'uid' => $comment->user_id,
-                                                            'cmt' => $comment->comment_text
-                                                    ];
-                                                    $key++;
+                                        foreach ($comments as $comment) {
+                                            if ($comment->status_id == $status->id) {
+                                                $arr[$key] = [
+                                                        'uid' => $comment->user_id,
+                                                        'cmt' => $comment->comment_text
+                                                ];
+                                                $key++;
 
-                                                }
                                             }
-                                            $array = end($arr);
-                                            $user_id = $array['uid'];
+                                        }
+                                        $array = end($arr);
+                                        $user_id = $array['uid'];
                                         ?>
                                         <div class="row">
                                             <div class="col-md-1">
@@ -241,11 +265,25 @@
                                                 @else
                                                 @endif
                                             </div>
-                                            <div class="col-md-11">
-                                                <ul class="list-inline list-unstyled">
+                                            <div class="col-md-11" >
+                                                <ul class="list-inline list-unstyled" >
                                                     <li><b><a class="namecolor"
                                                               href="/social/{{$user_id}}">{{ $name }}</a></b></li>
-                                                    <li>{{ $array['cmt'] }}</li>
+                                                    <li>
+                                                        <? $all_text = strlen($array['cmt']); ?>
+
+                                                        @if($all_text > 500)
+                                                            <? $text = substr($array['cmt'],0,200);
+                                                            echo $text;?>
+                                                            <div id="more-text{{$key}}" class="more-text">
+                                                                <? $texts = substr($array['cmt'],200,$all_text);
+                                                                echo $texts;?>
+                                                            </div>
+                                                            <a id="more{{$key}}"   onClick="toggleText({{$key}});">Read More........</a>
+                                                        @else
+                                                            <p>{{ $array['cmt'] }}</p>
+                                                        @endif
+                                                    </li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -256,8 +294,8 @@
                         </div>
                     @endforeach
                 @endif
-                </div>
             </div>
         </div>
+    </div>
     </body>
 @endsection

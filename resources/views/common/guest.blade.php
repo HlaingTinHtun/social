@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <div class="row">
-                    {!! Form::open(array('method' => 'post','url'=> '/home','files' =>'true','class'=>'form-horizontal')) !!}
+                    {!! Form::open(array('method' => 'post','url'=> '/backhome','files' =>'true','class'=>'form-horizontal')) !!}
 
                     <div class="form-group">
                         <label  class="col-sm-2  control-label font_color ">Profile Picture</label>
@@ -55,11 +55,11 @@
                         </div>
 
 
-                        <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-9 guestspace">
-                                <input type="submit" name='reset' value='Cancel' class="btn btn-info">
-                            </div>
-                        </div>
+                        {{--<div class="form-group">--}}
+                            {{--<div class="col-sm-offset-2 col-sm-9 guestspace">--}}
+                                {{--<input type="submit" name='reset' value='Cancel' class="btn btn-info">--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
 
                     </div>
                     {!! form::close() !!}

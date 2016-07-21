@@ -54,7 +54,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('/timeline',['as'=> 'timeline','uses'=> 'social\SocialController@uploadPost']);
     Route::post('/home',['as'=> 'home','uses'=> 'social\SocialController@uploadPosthome']);
     Route::get('/home','social\SocialController@home');
-//    Route::post('/home','social\SocialController@home');
+//    Route::post('/backhome','social\SocialController@home');
 
 
     //Comment

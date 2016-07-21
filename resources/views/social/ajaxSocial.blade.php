@@ -21,4 +21,4 @@
         <?  $count += 1;?>
     @endif
 @endforeach
-<? echo $count . " " . "likes"?>
+<? echo $count . " " . "like(s)"?>
