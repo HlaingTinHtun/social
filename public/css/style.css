@@ -8,7 +8,7 @@
     color:white;
 }
 body#home {
-    /*background-image: url('/uploads/rain.jpg');*/
+
     background-color:#D0EAFF	;
 
     background-size: 100%;
@@ -16,9 +16,7 @@ body#home {
     background-attachment:fixed;
 }
 body#social{
-    /*background-image: url('../../../uploads/rain.jpg');*/
-    /*background-color:#EBF0D2;*/
-    background-color:#D0EAFF	;
+    background-color:#D0EAFF;
 
     background-size: 100%;
     background-repeat:no-repeat;
@@ -42,21 +40,15 @@ body#postedit{
 .coverphoto{
     padding-bottom: 15px;
 }
-/*body#guesttimeline {*/
-    /*background-image: url('../../uploads/rain.jpg');*/
-    /*background-color: #BC4676;*/
 
-/*}*/
 .profilespace{
     padding-left: 3px;
     padding-right: 3px;
 
 }
-/*.font_color{*/
-    /*color:#606060;*/
-/*}*/
+
 body#guestprofile {
-    /*background-image: url('../../../uploads/bg.jpeg');*/
+
     background-color: #D0EAFF;
     background-size: 100%;
     background-repeat:no-repeat;
@@ -71,7 +63,7 @@ body#guestprofile {
     color:#f9f9f9;
 }
 body#guesttimeline {
-    /*background-image: url('../../../uploads/bg.jpeg');*/
+
     background-color:#D0EAFF;
 
     background-size: 100%;
@@ -81,8 +73,7 @@ body#guesttimeline {
 
 
 #panel_body{
-    /*background-color: #447584;*/
-    /*background-color: #598A8F;*/
+
     background-color:#A5D1F3;
 }
 #panel_heading{
@@ -134,7 +125,7 @@ h4{
 }
 
 .div-bg{
-    /*background-color: #C9DAE1;*/
+
     height:10%;
     margin-left: 40%;
 
@@ -148,7 +139,7 @@ h4{
     padding-top:65px;
 }
 .reset{
-    padding-top:15%;
+    padding-top:10%;
 
 }
 
@@ -156,3 +147,29 @@ h4{
     display:none;
 }
 #less{display:none;}
+
+body#register {
+    background-image: url('/uploads/rain.jpg');
+    background-size: 100%;
+    background-repeat:no-repeat;
+}
+.register_space{
+    padding-top: 10%;
+}
+
+
+#frmCheckPassword {padding:10px;}
+.demoInputBox{padding:7px;  border-radius:4px;}
+#password-strength-status {padding: 5px 10px;color: #FFFFFF; border-radius:4px;margin-top:5px;}
+.medium-password{background-color: #E4DB11;border:#BBB418 1px solid;}
+.weak-password{background-color: #FF6600;border:#AA4502 1px solid;}
+.strong-password{background-color: #12CC1A;border:#0FA015 1px solid;}
+
+body#login {
+    background-size: 100%;
+    background-repeat:no-repeat;
+    background-image: url('/uploads/rain.jpg');
+}
+.login_space{
+    padding-top: 12%;
+}

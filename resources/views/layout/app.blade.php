@@ -19,7 +19,7 @@
 <script src="/js/comment.js"></script>
 <script src="/js/like.js"></script>
 <script src="/js/delete.js"></script>
-<script src="/js/delete.js"></script>
+<script src="/js/custom.js"></script>
 <script src="/js/edit.js"></script>
 <script src="/js/jquery.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>

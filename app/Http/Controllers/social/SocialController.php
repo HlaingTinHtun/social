@@ -112,12 +112,10 @@ class SocialController extends Controller
         $text = input::get('status-text');
         $image = $request->file('image');
 
-        if ($text != "") {
-
+        if (!empty($text))  {
 
             $users_id = Auth::user()->id;
             $image = $request->file('image');
-
 
             if (!empty($image)) {
                 $imageName = $image->getClientOriginalName();
@@ -133,12 +131,10 @@ class SocialController extends Controller
         } elseif(!empty($image)) {
 
             $users_id = Auth::user()->id;
-
             $imageName = $image->getClientOriginalName();
             $destination = 'uploads';
             $image->move($destination, $imageName);
             status::create(['image' => $imageName, 'users_id' => $users_id]);
-
 
             return redirect()->back();
         }
@@ -153,7 +149,7 @@ class SocialController extends Controller
         $text = input::get('status-text');
         $image = $request->file('image');
 
-        if (!empty($text) || ($text != " ")) {
+        if (!empty($text)) {
 
             $text = input::get('status-text');
             $users_id = Auth::user()->id;
@@ -186,40 +182,18 @@ class SocialController extends Controller
 
     public function editPost($id)
     {
-
         $status = status::find($id);
-
         return view('post/edit')->with('status', $status);
 
     }
-
     public function updatePost($data)
     {
-
 
         $data = explode(',', $data);
         $status_id = $data[0];
         $status_text = $data[1];
         status::where('id', $status_id)->update(['status_text' => $status_text,]);
         return redirect()->back();
-
-
-//        $text = input::get('status_text');
-//        $status_id =input::get('id');
-//        $image = $request->file('image');
-
-//        if (!empty($image)) {
-//            $imageName = $image->getClientOriginalName();
-//            $destination = 'uploads';
-//            $image->move($destination, $imageName);
-//            status::where('id',$status_id)->update(['status_text'=>$text,'image'=>$imageName]);
-//
-//            return redirect()->action('social\SocialController@timeline');
-//
-//        }else {
-//            status::where('id','=',$status_id)->update(['status_text'=>$text]);
-//            return redirect()->action('social\SocialController@timeline');
-//        }
     }
 
     public function deletePost($id)

@@ -167,20 +167,7 @@ function guestcommentEnter(event,counter, status_id){
 }
 
 
-function toggleText(key) {
 
-
-    if(!$("#more-key"+key).is(':visible')) {
-        $("#more"+key).hide();
-        //$("#less"+key).show();
-    } else {
-        //$("#less"+key).hide();
-        $("#more"+key).show();
-    }
-
-    $("#more-text"+key).slideToggle();
-
-}
 
 
 

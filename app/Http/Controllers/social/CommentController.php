@@ -22,7 +22,6 @@ class CommentController extends Controller
     public function postComment($datastring)
 
     {
-
         $data=explode(',',$datastring);
         $key = $data[0];
         $status_id = $data[1];
@@ -33,12 +32,6 @@ class CommentController extends Controller
 
     }
 
-
-//    public function edit($id){
-//        $comment = statuscomment::find($id);
-//        return view('social.editcomment',compact('comment'));
-//    }
-
     public function update($data){
 
         $data=explode(',',$data);
@@ -47,9 +40,6 @@ class CommentController extends Controller
 
         statuscomment::where('id',$comment_id)->update(['comment_text'=>$comment_text]);
         return redirect()->back();
-
-
-//        return view('social.ajaxEditCommentSocial',compact('comment_id'));
 
     }
 

@@ -54,7 +54,6 @@
                                                     <li><a onclick="postDelete('<?=$status->id;?>')">
                                                             <span class="glyphicon glyphicon-trash"></span>Delete</a>
                                                     </li>
-
                                                 </ul>
                                             @else
                                                 <ul class="dropdown-menu" role="menu">
@@ -131,7 +130,6 @@
                                                         aria-controls="view-comments-{{ $status->id }}">View & Comment
                                                 </button>
 
-
                                                 <div class="modal fade" id="view-comments-{{ $status->id }}"
                                                      tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                                     <div class="modal-dialog" role="document">
@@ -157,24 +155,19 @@
                                                                                 <ul class="list-inline list-unstyled">
                                                                                     <b><h5><a href="/social/{{$comment->user_id}}">{{ App\User::find($comment->user_id)->name }}</a></h5></b>
                                                                                     <div>
-
-                                                                                                <p>{{ $comment->comment_text }}</p>
-
+                                                                                        <p>{{ $comment->comment_text }}</p>
                                                                                     </div>
 
                                                                                     <i style="color:#003366;">{{ $comment->created_at }}</i>
                                                                                     <div>
-
-                                                                                        <div>
-                                                                                            @if($comment->user_id == Auth::user()->id )
-
-                                                                                                <a  style="color:red;" onclick="commentEdit('<?=$comment->id;?>','{{\App\statuscomment::find($comment->id)->comment_text}}')">Edit</a>|
-                                                                                                <a style="color:red;"  onclick="commentDelete('<?=$comment->id;?>')">delete</a></b>
-                                                                                            @else
+                                                                                        @if($comment->user_id == Auth::user()->id )
+                                                                                            <a  style="color:red;" onclick="commentEdit('<?=$comment->id;?>','{{\App\statuscomment::find($comment->id)->comment_text}}')">Edit</a>|
+                                                                                            <a style="color:red;"  onclick="commentDelete('<?=$comment->id;?>')">delete</a></b>
+                                                                                        @else
                                                                                                 <div class='font_color'>{{ $comment->comment_text }}</div>
-                                                                                            @endif
-                                                                                        </div>
-                                                                                        <hr>
+                                                                                        @endif
+                                                                                    </div>
+                                                                                    <hr>
                                                                                 </ul>
                                                                             </div>
                                                                         </div>
@@ -187,11 +180,10 @@
 
                                                             <div class="form-group">
                                                                 <div class="input-group">
-                                                                    <textarea class="form-control" name="comment-text<?=$key;?>" onkeypress="commentEnter(event,'<?= $key;?>','<?= $status->id;?>')" id="comment_text"
-                                                                           placeholder="Post a comment..."></textarea>
-                                                                            <span class="input-group-btn">
-                                                                                <button class="btn btn-default" type="submit" id="hide" onclick="commentAction('<?= $key;?>','<?= $status->id;?>')"  data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-send"></i></button>
-                                                                            </span>
+                                                                    <textarea class="form-control" name="comment-text<?=$key;?>" onkeypress="commentEnter(event,'<?= $key;?>','<?= $status->id;?>')" id="comment_text" placeholder="Post a comment..."></textarea>
+                                                                    <span class="input-group-btn">
+                                                                        <button class="btn btn-default" type="submit" id="hide" onclick="commentAction('<?= $key;?>','<?= $status->id;?>')"  data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-send"></i></button>
+                                                                    </span>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -245,7 +237,6 @@
                                                         'cmt' => $comment->comment_text
                                                 ];
                                                 $key++;
-
                                             }
                                         }
                                         $array = end($arr);

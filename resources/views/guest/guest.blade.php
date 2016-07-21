@@ -4,21 +4,15 @@
     <body id="guesttimeline">
     <div class="container ">
         <div class="row">
-
             <div class="col-md-10 col-sm-offset-1">
                 <div class="coverphoto">
                     @if(!empty($guestuser->cover_photo))
-
                         <img  class="fadding-photo" src='/uploads/{{ $guestuser->cover_photo }}' width="100%" height="400">
-
                     @else
                         <img src ='/uploads/no-photo.png' width="100%" height="400px">
                     @endif
-
                 </div>
-
-
-                    @foreach($posts as $key=>$status)
+                @foreach($posts as $key=>$status)
                         <div class="panel panel-default ">
                             <div class="panel-heading guest_heading">
                                 <div class="row">
@@ -26,10 +20,9 @@
                                     <div class="col-md-1 col-md-offset-5">
                                         <li class="dropdown">
                                             <a href="#" class="glyphicon glyphicon-list" data-toggle="dropdown"></a>
-
-                                                <ul class="dropdown-menu" role="menu">
-                                                    <li><a href="/social/guestuser/{{$status->users_id}}" ><i class="fa fa-btn fa-user"></i>Profile</a></li>
-                                                </ul>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li><a href="/social/guestuser/{{$status->users_id}}" ><i class="fa fa-btn fa-user"></i>Profile</a></li>
+                                            </ul>
                                         </li>
                                     </div>
                                 </div>
@@ -125,27 +118,22 @@
                                                                                         @endif
                                                                                     </div>
                                                                                     <hr>
-
                                                                                 </ul>
                                                                             </div>
                                                                         </div>
                                                                     @endif
                                                                 @endforeach
-
-
                                                             </div>
                                                             <input type="hidden" name='status_id' value={{ $status->id }}>
                                                             <input type="hidden" name='commentuserid' value="{{ App\User::find($status->id) }}">
 
                                                             <div class="form-group">
                                                                 <div class="input-group">
-                                                                    <textarea class="form-control" name="comment-text<?=$key;?>" onkeypress="guestcommentEnter(event,'<?= $key;?>','<?= $status->id;?>')" id="comment_text"
-                                                                           placeholder="Post a comment..."></textarea>
-                                                                            <span class="input-group-btn">
-                                                                                <button class="btn btn-default" type="submit" id="hide" onclick="guestcommentAction('<?= $key;?>','<?= $status->id;?>')"  data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-send"></i></button>
-                                                                            </span>
+                                                                    <textarea class="form-control" name="comment-text<?=$key;?>" onkeypress="guestcommentEnter(event,'<?= $key;?>','<?= $status->id;?>')" id="comment_text" placeholder="Post a comment..."></textarea>
+                                                                    <span class="input-group-btn">
+                                                                        <button class="btn btn-default" type="submit" id="hide" onclick="guestcommentAction('<?= $key;?>','<?= $status->id;?>')"  data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-send"></i></button>
+                                                                    </span>
                                                                 </div>
-
                                                             </div>
                                                         </div>
                                                     </div>
@@ -157,20 +145,15 @@
                                                 @if(App\statuslike::where(['status_id'=>$status->id,'user_id'=>Auth::user()->id])->first())
 
                                                     <input type="hidden" name='status_id' id="status_id" value={{ $status->id }}>
-
-
                                                     <input type="hidden" name="counter" id="counter" value="{{ $key }}">
                                                     <button class="unlike btn btn-info btn-xs " id='comment_btn' type="submit" onclick="guestlikeAction('<?= $key;?>','<?= $status->id;?>','unlike')">UnLike</button>
 
                                                 @else
-
                                                     <input type="hidden" name='status_id' id="like_status_id" value={{ $status->id }}>
                                                     <input type="hidden" name="counter" id="counter" value="{{ $key }}">
-
                                                     <button class="like btn btn-info btn-xs " id='comment_btn'  type="submit" onclick="guestlikeAction('<?= $key;?>','<?= $status->id;?>','like')">Like</button>
 
                                                 @endif
-
                                                     <? $count = 0;?>
                                                     @foreach($statuslike as $like)
                                                         @if($like->status_id == $status->id )
@@ -178,10 +161,7 @@
                                                         @endif
                                                     @endforeach
                                                     <? echo $count . " " . "likes"?>
-
-
                                             </li>
-
                                             <? $count = 0;?>
                                             @foreach($comments as $comment)
                                                 @if($comment->status_id == $status->id )
@@ -189,8 +169,6 @@
                                                 @endif
                                             @endforeach
                                             <? echo $count." "."Comments"?>
-
-
                                         </ul>
                                         <?php
                                         $arr = [];
@@ -202,9 +180,7 @@
                                                         'uid' => $comment->user_id,
                                                         'cmt' => $comment->comment_text
                                                 ];
-
                                                 $key++;
-
                                             }
                                         }
                                         $array = end($arr);
@@ -226,8 +202,7 @@
                                                 <ul class="list-inline list-unstyled">
                                                     <li><a href="/social/{{$user_id}}">{{ $name }}</a></li>
                                                     <li>
-                                                        <? $all_text = strlen($array['cmt']); ?>
-
+                                                            <? $all_text = strlen($array['cmt']); ?>
                                                             @if($all_text > 500)
                                                                 <? $text = substr($array['cmt'],0,200);
                                                                 echo $text;?>
@@ -245,14 +220,10 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-                            <div class="panel-footer clearfix guest_footer">
-
-
-                            </div>
+                            <div class="panel-footer clearfix guest_footer"></div>
                         </div>
-                    @endforeach
+                @endforeach
             </div>
         </div>
     </div>

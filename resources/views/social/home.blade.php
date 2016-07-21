@@ -2,11 +2,7 @@
 @section('content')
 
     <body id="home">
-    <div>
-
-    </div>
-
-       <div class="container space_from_nav">
+        <div class="container space_from_nav">
             <div class="row">
                 <div class="col-md-10 col-sm-offset-1">
                     {!! Form::open(array( 'files' =>'true')) !!}
@@ -170,7 +166,6 @@
                                                                                 <button class="btn btn-default" type="submit" id="hide" onclick="homecommentAction('<?= $key;?>','<?= $status->id;?>')"  data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-send"></i></button>
                                                                             </span>
                                                                     </div>
-
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -200,8 +195,6 @@
                                                             @endif
                                                         @endforeach
                                                         <? echo $count . " " . "like(s)"?>
-
-
                                                 </li>
 
                                                 <? $count = 0;?>
@@ -211,8 +204,6 @@
                                                     @endif
                                                 @endforeach
                                                 <? echo $count." "."Comment(s)"?>
-
-
 
                                             </ul>
                                                 <?php

@@ -3,14 +3,14 @@ function postEdit(status_id,status_text){
     swal({
         title: "Edit Post!",
         text: "<textarea id='text' style='width:300px;height:300px;'>"+status_text+"</textarea>",
-        background_color:'#00FF00',
-
+        //background_color:'#00FF00',
         html: true,
         showCancelButton: true,
         closeOnConfirm: false,
         showLoaderOnConfirm: true,
         animation: "slide-from-top",
-        inputPlaceholder: "Write something"
+        inputValue:status_text
+
     }, function(inputValue) {
         if (inputValue === false) return false;
 

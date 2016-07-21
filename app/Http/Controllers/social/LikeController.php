@@ -18,7 +18,6 @@ class LikeController extends Controller
 
     public function postLike($datastring)
     {
-
         $data=explode(',',$datastring);
         $key = $data[0];
         $status_id = $data[1];
@@ -34,20 +33,9 @@ class LikeController extends Controller
         $status_id = $data[1];
 
         statuslike::where('status_id',$status_id)->Where('user_id',Auth::user()->id)->delete();
-
         return view('social.ajaxSocial',compact('key','status_id'));
 
     }
-//    public function CommentLike($datastring)
-//    {
-//
-//        $data=explode(',',$datastring);
-//        $key = $data[0];
-//        $comment_id = $data[1];
-//        statuslike::create(['user_id' => Auth::user()->id, 'status_id' => $comment_id]);
-//        return view('social.commentLike',compact('key', 'comment_id'));
-//
-//    }
 
 
 }

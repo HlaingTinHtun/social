@@ -79,6 +79,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('guestUnlike/{datastring}','social\LikeController@postUnLike');
 
     // Password reset routes...
+
     Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
     Route::post('password/reset', 'Auth\PasswordController@postReset');
     Route::get('password/reset', function () {
