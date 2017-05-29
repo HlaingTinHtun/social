@@ -27,7 +27,6 @@ class LikeController extends Controller
         $status_id = $data[1];
         statuslike::create(['user_id' => Auth::user()->id, 'status_id' => $status_id]);
         return view('social.ajaxSocial',compact('key', 'status_id'));
-
     }
 
     /**
@@ -36,8 +35,8 @@ class LikeController extends Controller
      * This function is to unlike the status
      */
 
-    public function postUnlike($datastring){
-
+    public function postUnlike($datastring)
+    {
         $data=explode(',',$datastring);
         $key = $data[0];
         $status_id = $data[1];

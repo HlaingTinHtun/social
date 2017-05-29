@@ -15,6 +15,9 @@ use Illuminate\Support\Facades\Redirect;
 class CommentController extends Controller
 {
 
+    /**
+     * CommentController constructor.
+     */
     public function __construct()
     {
         $this->middleware('auth');
@@ -35,7 +38,6 @@ class CommentController extends Controller
         $user_id = Auth::user()->id;
         statuscomment::create(['comment_text' => $comment_text, 'status_id' => $status_id, 'user_id' => $user_id,]);
         return view('social.ajaxCommentSocial',compact('key','status_id'));
-
     }
 
     /**
@@ -63,7 +65,6 @@ class CommentController extends Controller
     {
         statuscomment::where('id','=',$id)->delete();
         return redirect()->back();
-
     }
 
 }
