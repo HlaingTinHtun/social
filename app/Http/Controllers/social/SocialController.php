@@ -35,28 +35,21 @@ class SocialController extends Controller
     public function index($id)
     {
         if (Auth::user()->id == $id) {
-
             $status = status::all();
-
             foreach ($status as $status) {
-
                 while ($status->users_id == Auth::user()->id) {
-
                     $post = status::get()->where('users_id', $status->users_id)->sortByDesc('id');
                     $statuslike = statuslike::all();
 
                     $comment = statuscomment::all();
                     return view('social.social')->with('posts', $post)->with('comments', $comment)->with('statuslike', $statuslike);
                 }
-
             }
             $post = "";
             return view('social.social')->with('posts', $post);
         } else {
             $status = status::all();
-
             foreach ($status as $status) {
-
                 while ($status->users_id == $id) {
 
                     $post = status::get()->where('users_id', $status->users_id)->sortByDesc('id');
@@ -65,13 +58,9 @@ class SocialController extends Controller
                     $guestuser = User::find($id);
                     $statuslike = statuslike::all();
 
-
                     return view('guest.guest')->with('posts', $post)->with('comments', $comment)->with('postforlast', $postforlast)->with('guestuser', $guestuser)->with('statuslike', $statuslike);
                 }
-
             }
-
-
         }
 
     }
@@ -84,19 +73,14 @@ class SocialController extends Controller
     public function timeline()
     {
         $status = status::all();
-
         foreach ($status as $status) {
-
             while ($status->users_id == Auth::user()->id) {
-
                 $post = status::get()->where('users_id', $status->users_id)->sortByDesc('id');
-
                 $comment = statuscomment::all();
                 $statuslike = statuslike::all();
 
                 return view('social.social')->with('posts', $post)->with('comments', $comment)->with('statuslike', $statuslike);
             }
-
         }
         $post = "";
         return view('social.social')->with('posts', $post);
@@ -108,7 +92,6 @@ class SocialController extends Controller
 
     public function home()
     {
-
         $post = status::get()->sortByDesc('id');
         $postforlast = status::all();
         $user = users::all();
@@ -117,7 +100,6 @@ class SocialController extends Controller
         $statuslike = statuslike::all();
 
         return view('social.home')->with('posts', $post)->with('comments', $comment)->with('users', $user)->with('postforlast', $postforlast)->with('statuslike', $statuslike);
-
     }
 
     /**
@@ -127,7 +109,6 @@ class SocialController extends Controller
 
     public function uploadPost(uploadPostRequest $request)
     {
-
         $text = input::get('status-text');
         $image = $request->file('image');
 
@@ -168,7 +149,6 @@ class SocialController extends Controller
      */
 
     public function uploadPosthome(uploadPostRequest $request)
-
     {
         $text = input::get('status-text');
         $image = $request->file('image');
@@ -198,7 +178,6 @@ class SocialController extends Controller
                 status::create(['image' => $imageName, 'users_id' => $users_id]);
                 return redirect()->back();
             }
-
         return redirect()->back();
     }
 
@@ -212,7 +191,6 @@ class SocialController extends Controller
     {
         $status = status::find($id);
         return view('post/edit')->with('status', $status);
-
     }
 
     /**
@@ -222,7 +200,6 @@ class SocialController extends Controller
      */
     public function updatePost($data)
     {
-
         $data = explode(',', $data);
         $status_id = $data[0];
         $status_text = $data[1];
