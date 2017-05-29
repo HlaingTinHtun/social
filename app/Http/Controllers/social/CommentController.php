@@ -44,14 +44,13 @@ class CommentController extends Controller
      * This function is to update the comment
      */
 
-    public function update($data){
-
+    public function update($data)
+    {
         $data=explode(',',$data);
         $comment_id = $data[0];
         $comment_text = $data[1];
         statuscomment::where('id',$comment_id)->update(['comment_text'=>$comment_text]);
         return redirect()->back();
-
     }
 
     /**
@@ -60,7 +59,8 @@ class CommentController extends Controller
      * This function is to delete the comment.
      */
 
-    public function delete($id){
+    public function delete($id)
+    {
         statuscomment::where('id','=',$id)->delete();
         return redirect()->back();
 

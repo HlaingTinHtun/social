@@ -24,7 +24,6 @@ function postEdit(status_id,status_text){
 
 }
 
-
 function commentEdit(comment_id,comment_text) {
     bootbox.prompt({
         title: "Edit Comment!!",

@@ -9,7 +9,7 @@
 }
 body#home {
 
-    background-color:#D0EAFF;
+    background-color:#D0EAFF	;
 
     background-size: 100%;
     background-repeat:no-repeat;
@@ -52,8 +52,6 @@ body#guestprofile {
     background-color: #D0EAFF;
     background-size: 100%;
     background-repeat:no-repeat;
-
-
 }
 .guestspace{
     padding-left: 3px;
@@ -65,12 +63,9 @@ body#guestprofile {
 body#guesttimeline {
 
     background-color:#D0EAFF;
-
     background-size: 100%;
     background-attachment:fixed;
 }
-
-
 
 #panel_body{
 
@@ -105,13 +100,7 @@ body#guesttimeline {
     background-color:#A5D1F3 ;
 
 }
-body#index{
 
-    background-size: 100%;
-    background-repeat:no-repeat;
-
-    background-image: url('/uploads/rain.jpg');
-}
 .up{
     margin-top: 35%;
 }
@@ -148,11 +137,6 @@ h4{
 }
 #less{display:none;}
 
-body#register {
-    background-image: url('/uploads/rain.jpg');
-    background-size: 100%;
-    background-repeat:no-repeat;
-}
 .register_space{
     padding-top: 10%;
 }
@@ -165,11 +149,7 @@ body#register {
 .weak-password{background-color: #FF6600;border:#AA4502 1px solid;}
 .strong-password{background-color: #12CC1A;border:#0FA015 1px solid;}
 
-body#login {
-    background-size: 100%;
-    background-repeat:no-repeat;
-    background-image: url('/uploads/rain.jpg');
-}
+
 .login_space{
     padding-top: 12%;
 }

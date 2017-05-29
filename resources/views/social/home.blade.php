@@ -7,12 +7,12 @@
                 <div class="col-md-10 col-sm-offset-1">
                     {!! Form::open(array( 'files' =>'true')) !!}
                     <div class="panel panel-info">
-                        <div class="panel-heading " id="panel_heading"><b class="namecolor">Add a new status</b></div>
-                        <div class="'panel-body">
-                            <div class="form-group">
-                                <label class="col-sm-offset-1">Write a new status</label>
-                                <textarea  class="form-control"   name="status-text" id="status-text"></textarea>
-                            </div>
+                     <div class="panel-heading " id="panel_heading"><b class="namecolor">Add a new status</b></div>
+                     <div class="'panel-body">
+                         <div class="form-group">
+                            <label class="col-sm-offset-1">Write a new status</label>
+                            <textarea  class="form-control"   name="status-text" id="status-text"></textarea>
+                         </div>
                         </div>
                         <div class="panel-footer clearfix" id="panel_footer" >
                             <input type="file" name="image" class="pull-left namecolor">
@@ -55,35 +55,34 @@
                                             </div>
 
                                             <div class="col-md-11">
-
                                                 <?php $all_text = strlen($status->status_text); ?>
-                                                    @if($all_text > 500)
-                                                        <div><? $text = substr($status->status_text,0,400);echo $text;?>
-                                                            <a id="more{{$key}}"   onClick="toggleText({{$key}});">Read More........</a>
-                                                        </div>
-                                                        <div id="more-text{{$key}}" class="more-text">
-                                                            <? $texts = substr($status->status_text,400,$all_text);echo $texts;?>
-                                                        </div>
-                                                    @else
-                                                        <p>{{ $status->status_text }}</p>
-                                                    @endif
+                                                @if($all_text > 500)
+                                                    <div><? $text = substr($status->status_text,0,400);echo $text;?>
+                                                        <a id="more{{$key}}"   onClick="toggleText({{$key}});">Read More........</a>
+                                                    </div>
+                                                    <div id="more-text{{$key}}" class="more-text">
+                                                        <? $texts = substr($status->status_text,400,$all_text);echo $texts;?>
+                                                    </div>
+                                                @else
+                                                    <p>{{ $status->status_text }}</p>
+                                                @endif
 
-                                                    <?php  $type =array('jpg','tif','png','gif','jpeg');
-                                                    $imageFileType = pathinfo($status->image,PATHINFO_EXTENSION);?>
+                                                <?php  $type =array('jpg','tif','png','gif','jpeg');
+                                                $imageFileType = pathinfo($status->image,PATHINFO_EXTENSION);?>
 
-                                                    @if(in_array($imageFileType,$type))
-                                                        <img src="/uploads/{{$status->image}}" width="150">
-                                                    @elseif($imageFileType =='mp3')
-                                                        <audio controls><source src="/uploads/{{$status->image}}" type="audio/ogg"></audio>
-                                                    <div><a  href="https://www.google.com/search?q={{$status->image}}&oq={{$status->image}}hrase&gws_rd=ssl">View Related Source</a></div>
-                                                    @elseif($imageFileType =='mp4')
-                                                        <video width="320" height="240" controls>
-                                                            <source src="/uploads/{{$status->image}}" type="video/mp4">
-                                                        </video>
-                                                    <div><a  href="https://www.google.com/search?q={{$status->image}}&oq={{$status->image}}hrase&gws_rd=ssl">View Related Source</a></div>
-                                                    @else
-                                                        {{ $status->image}}
-                                                    @endif
+                                                @if(in_array($imageFileType,$type))
+                                                    <img src="/uploads/{{$status->image}}" width="150">
+                                                @elseif($imageFileType =='mp3')
+                                                    <audio controls><source src="/uploads/{{$status->image}}" type="audio/ogg"></audio>
+                                                <div><a  href="https://www.google.com/search?q={{$status->image}}&oq={{$status->image}}hrase&gws_rd=ssl">View Related Source</a></div>
+                                                @elseif($imageFileType =='mp4')
+                                                    <video width="320" height="240" controls>
+                                                        <source src="/uploads/{{$status->image}}" type="video/mp4">
+                                                    </video>
+                                                <div><a  href="https://www.google.com/search?q={{$status->image}}&oq={{$status->image}}hrase&gws_rd=ssl">View Related Source</a></div>
+                                                @else
+                                                    {{ $status->image}}
+                                                @endif
                                             </div>
                                             <div class="col-md-12"><hr>
                                             <ul class="list-unstyled list-inline">
@@ -174,7 +173,6 @@
                                                                 'uid' => $comment->user_id,
                                                                 'cmt' => $comment->comment_text
                                                         ];
-                                                        //echo "<pre>";print_r($arr); echo "</pre>";
                                                         $key++;
                                                     }
                                                 }
