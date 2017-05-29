@@ -15,10 +15,10 @@
 
 @endif
 
-<? $count = 0;?>
+<?php $count = 0;?>
 @foreach(\App\statuslike::all() as $like)
     @if($like->status_id == $status_id )
-        <?  $count += 1;?>
+        <?php  $count += 1;?>
     @endif
 @endforeach
-<? echo $count . " " . "like(s)"?>
+<?php echo $count . " " . "like(s)"?>

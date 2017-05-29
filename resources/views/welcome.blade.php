@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 </head>
 <body id='index'>
-<embed src="uploads/Counting Stars.mp3" autostart="true" loop="true" width="2" height="0"></embed>
+{{--<embed src="uploads/Counting Stars.mp3" autostart="true" loop="true" width="2" height="0"></embed>--}}
 
     <div class="container">
         <div class="row">

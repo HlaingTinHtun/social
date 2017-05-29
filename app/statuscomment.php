@@ -17,6 +17,4 @@ class statuscomment extends Model
     public function users(){
         return $this->belongsTo('app/users');
     }
-
-
 }

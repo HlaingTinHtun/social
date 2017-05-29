@@ -23,9 +23,6 @@ Route::get('/', function () {
 
 Route::group(['middleware' => 'web'], function () {
 
-//    Route::auth();
-
-//  Login/Logout/register
 
     route::get('login', function () {
         return view('auth.login');
@@ -66,10 +63,6 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/comment/delete/{id}','social\CommentController@delete');
     Route::get('timelineCommentlike/{datastring}','social\LikeController@postLike');
 
-
-
-
-
     //Like
     Route::get('timelinelike/{datastring}','social\LikeController@postLike');
     Route::get('timelineUnlike/{datastring}','social\LikeController@postUnLike');
@@ -88,13 +81,6 @@ Route::group(['middleware' => 'web'], function () {
     });
     Route::get('password/email', 'Auth\PasswordController@getEmail');
     Route::post('password/email', 'Auth\PasswordController@postEmail');
-
-
-
-
-
-
-
 
 });
 

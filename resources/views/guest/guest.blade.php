@@ -34,7 +34,8 @@
                                         <img src="/uploads/{{ Auth::user()->image }}" class="img-responsive">
                                     </div>
                                     <div class="col-md-11">
-                                        <? $all_text = strlen($status->status_text); ?>
+
+                                        <?php $all_text = strlen($status->status_text);?>
 
                                         @if($all_text > 500)
                                             <div>
@@ -51,7 +52,7 @@
                                             <p>{{ $status->status_text }}</p>
                                         @endif
 
-                                            <?  $type =array('jpg','tif','png','gif','jpeg');
+                                            <?php  $type =array('jpg','tif','png','gif','jpeg');
                                         $imageFileType = pathinfo($status->image,PATHINFO_EXTENSION);?>
 
                                         @if(in_array($imageFileType,$type))
@@ -202,7 +203,8 @@
                                                 <ul class="list-inline list-unstyled">
                                                     <li><a href="/social/{{$user_id}}">{{ $name }}</a></li>
                                                     <li>
-                                                            <? $all_text = strlen($array['cmt']); ?>
+
+                                                            <?php $all_text = strlen($array['cmt']); ?>
                                                             @if($all_text > 500)
                                                                 <? $text = substr($array['cmt'],0,200);
                                                                 echo $text;?>

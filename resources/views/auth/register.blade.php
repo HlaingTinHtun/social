@@ -55,8 +55,6 @@
                                 @if ($errors->has('password'))<p style="color:red;">{{$errors->first('password')}}</p>@endif
 
                             </div>
-
-
                             <p style="color:red;">*Any Character</p>
                         </div>
 

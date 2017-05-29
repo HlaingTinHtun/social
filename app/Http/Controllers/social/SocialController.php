@@ -26,6 +26,12 @@ class SocialController extends Controller
         $this->middleware('auth');
     }
 
+    /**
+     * @param $id
+     * @return $this
+     *
+     */
+
     public function index($id)
     {
         if (Auth::user()->id == $id) {
@@ -70,6 +76,11 @@ class SocialController extends Controller
 
     }
 
+    /**
+     * @return $this
+     *
+     */
+
     public function timeline()
     {
         $status = status::all();
@@ -91,6 +102,10 @@ class SocialController extends Controller
         return view('social.social')->with('posts', $post);
     }
 
+    /**
+     * @return mixed
+     */
+
     public function home()
     {
 
@@ -101,10 +116,14 @@ class SocialController extends Controller
         $comment = statuscomment::get();
         $statuslike = statuslike::all();
 
-
         return view('social.home')->with('posts', $post)->with('comments', $comment)->with('users', $user)->with('postforlast', $postforlast)->with('statuslike', $statuslike);
 
     }
+
+    /**
+     * @param uploadPostRequest $request
+     * @return mixed
+     */
 
     public function uploadPost(uploadPostRequest $request)
     {
@@ -143,6 +162,11 @@ class SocialController extends Controller
 
     }
 
+    /**
+     * @param uploadPostRequest $request
+     * @return mixed
+     */
+
     public function uploadPosthome(uploadPostRequest $request)
 
     {
@@ -165,7 +189,6 @@ class SocialController extends Controller
                 status::create(['status_text' => $text, 'users_id' => $users_id]);
             }
         }
-
             elseif(!empty($image)){
 
                 $users_id = Auth::user()->id;
@@ -177,8 +200,13 @@ class SocialController extends Controller
             }
 
         return redirect()->back();
-
     }
+
+    /**
+     * @param $id
+     * @return $this
+     * This function is to edit the status
+     */
 
     public function editPost($id)
     {
@@ -186,6 +214,12 @@ class SocialController extends Controller
         return view('post/edit')->with('status', $status);
 
     }
+
+    /**
+     * @param $data
+     * @return mixed
+     * This funciton is to update the status
+     */
     public function updatePost($data)
     {
 
@@ -196,12 +230,15 @@ class SocialController extends Controller
         return redirect()->back();
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     * This function is to delete the status
+     */
     public function deletePost($id)
     {
-
         status::where('id', '=', $id)->delete();
         return redirect()->back();
-
     }
 
 }

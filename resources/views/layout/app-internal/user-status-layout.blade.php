@@ -3,6 +3,5 @@
     <div class="'panel-body">
         <p>{{ $status->$status_text }}</p>
 
-
     </div>
 </div>

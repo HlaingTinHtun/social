@@ -11,7 +11,6 @@
                         <img   class="fadding-photo"src='/uploads/{{ Auth::user()->cover_photo }}' width="100%" height="400" >
                     @elseif (!empty($guestuser->cover_photo))
                         <img  class="fadding-photo" src='uploads/{{ $guestuser->cover_photo }}' width="100%" height="400">
-
                     @else
                         <img  src='/uploads/no-photo.png' width="100%" height="400px">
                     @endif
@@ -45,21 +44,16 @@
                                         <li class="dropdown">
                                             <a href="#" class="glyphicon glyphicon-list namecolor" data-toggle="dropdown"></a>
                                             @if(Auth::user()->id == $status->users_id)
-
                                                 <ul class="dropdown-menu" role="menu">
                                                     <input type="hidden" name="{{\App\status::find($status->id)}}">
                                                     <li><a onclick="postEdit('<?=$status->id;?>','{{\App\status::find($status->id)->status_text}}')">
                                                             <span class="glyphicon glyphicon-pencil"></span>Edit</a>
                                                     </li>
-                                                    <li><a onclick="postDelete('<?=$status->id;?>')">
-                                                            <span class="glyphicon glyphicon-trash"></span>Delete</a>
-                                                    </li>
+                                                    <li><a onclick="postDelete('<?=$status->id;?>')"><span class="glyphicon glyphicon-trash"></span>Delete</a></li>
                                                 </ul>
                                             @else
                                                 <ul class="dropdown-menu" role="menu">
-                                                    <li><a href="/social/guestuser/{{$status->users_id}}">
-                                                            <span class="glyphicon glyphicon-user"></span>Profile</a>
-                                                    </li>
+                                                    <li><a href="/social/guestuser/{{$status->users_id}}"><span class="glyphicon glyphicon-user"></span>Profile</a></li>
                                                 </ul>
                                             @endif
                                         </li>
@@ -74,37 +68,31 @@
                                     </div>
                                     <div class="col-md-11">
 
-                                        <? $all_text = strlen($status->status_text); ?>
+                                        @if(strlen($status->status_text) > 500)
+                                            <?php $text = substr($status->status_text,0,400);
+                                                echo $text ;?>
+                                            <a id="more{{$key}}"   onClick="toggleText({{$key}});">Read More........</a>
 
-                                        @if($all_text > 500)
-                                            <div>
-                                                <? $text = substr($status->status_text,0,400);
-                                                echo $text;?>
-                                                    <a id="more{{$key}}"   onClick="toggleText({{$key}});">Read More........</a>
-
+                                            <div id="more-text{{$key}}" class="more-text">
+                                                <?php $texts = substr($status->status_text,400,strlen($status->status_text));
+                                                echo $texts;?>
                                             </div>
-                                                <div id="more-text{{$key}}" class="more-text">
-                                                    <? $texts = substr($status->status_text,400,$all_text);
-                                                    echo $texts;?>
-                                                </div>
-                                        @else
+                                            @else
                                                 <p>{{ $status->status_text }}</p>
-                                         @endif
+                                        @endif
 
-                                            <?  $type = array('jpg', 'tif', 'png', 'gif', 'jpeg');
-                                                $imageFileType = pathinfo($status->image, PATHINFO_EXTENSION);?>
+                                        <?php
+                                        $type = array('jpg', 'tif', 'png', 'gif', 'jpeg');
+                                        $imageFileType = pathinfo($status->image, PATHINFO_EXTENSION);?>
 
                                         @if(in_array($imageFileType,$type))
-
                                             <img src="/uploads/{{$status->image}}" width="150">
-
                                         @elseif($imageFileType =='mp3')
                                             <audio controls>
                                                 <source src="/uploads/{{$status->image}}" type="audio/ogg">
                                             </audio>
                                             <div><h5><i><a  href="https://www.google.com/search?q={{$status->image}}&oq={{$status->image}}hrase&gws_rd=ssl">View
                                                             Related Source</a></i></h5></div>
-
 
                                         @elseif($imageFileType =='mp4')
                                             <video width="320" height="240" controls>
@@ -119,26 +107,19 @@
 
                                     </div>
                                     <div class="col-md-12">
-                                        <hr>
 
-                                        <ul class="list-unstyled list-inline " >
-
-                                            <li>
-                                                <button class="btn btn-xs btn-info" id="comment_btn" type="button" data-toggle="modal"
+                                        <hr><ul class="list-unstyled list-inline " >
+                                            <li><button class="btn btn-xs btn-info" id="comment_btn" type="button" data-toggle="modal"
                                                         data-target="#view-comments-{{ $status->id }}"
                                                         aria-expanded="false"
                                                         aria-controls="view-comments-{{ $status->id }}">View & Comment
                                                 </button>
-
                                                 <div class="modal fade" id="view-comments-{{ $status->id }}"
                                                      tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                                     <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
-
                                                             <div class="modal-header" >
-                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                                                 <h4 class="modal-title" id="myModalLabel" >Comments</h4>
                                                             </div>
 
@@ -148,30 +129,25 @@
                                                                         {{--<div class="container" id="panel_body">--}}
                                                                         <div class="row" >
                                                                             <div class="col-md-1" >
-                                                                                <img src="/uploads/{{ App\User::find($comment->user_id)->image }}"
-                                                                                     class="img-responsive">
+                                                                                <img src="/uploads/{{ App\User::find($comment->user_id)->image }}" class="img-responsive">
                                                                             </div>
                                                                             <div class="col-md-10" >
                                                                                 <ul class="list-inline list-unstyled">
                                                                                     <b><h5><a href="/social/{{$comment->user_id}}">{{ App\User::find($comment->user_id)->name }}</a></h5></b>
-                                                                                    <div>
-                                                                                        <p>{{ $comment->comment_text }}</p>
-                                                                                    </div>
-
+                                                                                    <div><p>{{ $comment->comment_text }}</p></div>
                                                                                     <i style="color:#003366;">{{ $comment->created_at }}</i>
                                                                                     <div>
                                                                                         @if($comment->user_id == Auth::user()->id )
                                                                                             <a  style="color:red;" onclick="commentEdit('<?=$comment->id;?>','{{\App\statuscomment::find($comment->id)->comment_text}}')">Edit</a>|
                                                                                             <a style="color:red;"  onclick="commentDelete('<?=$comment->id;?>')">delete</a></b>
                                                                                         @else
-                                                                                                <div class='font_color'>{{ $comment->comment_text }}</div>
+                                                                                            <div class='font_color'>{{ $comment->comment_text }}</div>
                                                                                         @endif
                                                                                     </div>
                                                                                     <hr>
                                                                                 </ul>
                                                                             </div>
                                                                         </div>
-
                                                                     @endif
                                                                 @endforeach
                                                             </div>
@@ -201,29 +177,28 @@
                                                     <button class="unlike btn btn-info btn-xs"  id="comment_btn" type="submit" onclick="likeAction('<?= $key;?>','<?= $status->id;?>','unlike')">UnLike</button>
 
                                                 @else
-
                                                     <input type="hidden" name='status_id' id="like_status_id" value={{ $status->id }}>
                                                     <input type="hidden" name="counter" id="counter" value="{{ $key }}">
                                                     <button class="like btn btn-info btn-xs"  id="comment_btn" type="submit" onclick="likeAction('<?= $key;?>','<?= $status->id;?>','like')">Like</button>
 
                                                 @endif
 
-                                                <? $count = 0;?>
+                                                <?php $count = 0;?>
                                                 @foreach($statuslike as $like)
                                                     @if($like->status_id == $status->id )
                                                         <?  $count += 1;?>
                                                     @endif
                                                 @endforeach
-                                                <? echo $count . " " . "like(s)"?>
+                                                <?php echo $count . " " . "like(s)"?>
 
                                             </li>
-                                            <? $count = 0;?>
+                                            <?php $count = 0;?>
                                             @foreach($comments as $comment)
                                                 @if($comment->status_id == $status->id )
                                                     <?  $count += 1;?>
                                                 @endif
                                             @endforeach
-                                            <? echo $count . " " . "Comment(s)"?>
+                                            <?php echo $count . " " . "Comment(s)"?>
 
                                         </ul>
                                         <?php
@@ -261,19 +236,21 @@
                                                     <li><b><a class="namecolor"
                                                               href="/social/{{$user_id}}">{{ $name }}</a></b></li>
                                                     <li>
-                                                        <? $all_text = strlen($array['cmt']); ?>
+                                                        @if(!empty($all_text))
+                                                            <? $all_text = strlen($array['cmt']); ?>
 
-                                                        @if($all_text > 500)
-                                                            <? $text = substr($array['cmt'],0,200);
-                                                            echo $text;?>
-                                                            <div id="more-text{{$key}}" class="more-text">
-                                                                <? $texts = substr($array['cmt'],200,$all_text);
-                                                                echo $texts;?>
-                                                            </div>
-                                                            <a id="more{{$key}}"   onClick="toggleText({{$key}});">Read More........</a>
-                                                        @else
-                                                            <p>{{ $array['cmt'] }}</p>
-                                                        @endif
+                                                            @if($all_text > 500)
+                                                                <? $text = substr($array['cmt'],0,200);
+                                                                echo $text;?>
+                                                                <div id="more-text{{$key}}" class="more-text">
+                                                                    <? $texts = substr($array['cmt'],200,$all_text);
+                                                                    echo $texts;?>
+                                                                </div>
+                                                                <a id="more{{$key}}"   onClick="toggleText({{$key}});">Read More........</a>
+                                                            @else
+                                                                <p>{{ $array['cmt'] }}</p>
+                                                            @endif
+                                                         @endif
                                                     </li>
                                                 </ul>
                                             </div>
